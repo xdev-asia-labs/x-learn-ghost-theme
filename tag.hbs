@@ -61,9 +61,9 @@
    <script>
       window.blogPagination = {
          currentPage: {{ pagination.page }},
-      totalPages: {{pagination.pages}},
-      totalPosts: {{pagination.total}},
-      postsPerPage: {{pagination.limit}},
-      hasNext: {{#if pagination.next 'true' 'false'}},
-};
+      totalPages: { { pagination.pages } },
+      totalPosts: { { pagination.total } },
+      postsPerPage: { { pagination.limit } },
+      hasNext: { { #if pagination.next } } true{ {else } } false{ {/if } }
+      };
    </script>
