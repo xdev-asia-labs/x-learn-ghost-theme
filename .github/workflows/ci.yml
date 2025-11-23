@@ -1,0 +1,266 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  # Job 1: Linting & Code Quality
+  lint:
+    name: Code Quality Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check package.json format
+        run: |
+          if ! jq empty package.json 2>/dev/null; then
+            echo "Invalid package.json format"
+            exit 1
+          fi
+
+      - name: Validate Handlebars templates
+        run: |
+          echo "Checking for syntax errors in .hbs files..."
+          find . -name "*.hbs" -type f | while read file; do
+            if grep -q "{{[^}]*{{" "$file"; then
+              echo "Potential syntax error in $file"
+              exit 1
+            fi
+          done
+
+  # Job 2: Build Test
+  build:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Tailwind CSS
+        run: npm run build
+
+      - name: Check build artifacts
+        run: |
+          if [ ! -f "assets/css/app.min.css" ]; then
+            echo "Build failed: app.min.css not generated"
+            exit 1
+          fi
+          echo "Build successful: app.min.css size: $(du -h assets/css/app.min.css | cut -f1)"
+
+      - name: Validate Ghost theme
+        run: npx gscan . --fatal --verbose
+
+  # Job 3: Security Audit
+  security:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run npm audit
+        run: npm audit --audit-level=moderate
+        continue-on-error: true
+
+      - name: Check for vulnerabilities (strict)
+        run: |
+          AUDIT_RESULT=$(npm audit --json)
+          HIGH=$(echo $AUDIT_RESULT | jq '.metadata.vulnerabilities.high // 0')
+          CRITICAL=$(echo $AUDIT_RESULT | jq '.metadata.vulnerabilities.critical // 0')
+          
+          if [ "$CRITICAL" -gt 0 ] || [ "$HIGH" -gt 0 ]; then
+            echo "Found $CRITICAL critical and $HIGH high severity vulnerabilities"
+            echo "Please run 'npm audit fix' to resolve issues"
+            exit 1
+          fi
+          echo "No critical or high severity vulnerabilities found"
+
+      - name: Check for malicious packages
+        run: |
+          echo "Checking package-lock.json for suspicious patterns..."
+          if grep -i "evil\|malicious\|virus" package-lock.json; then
+            echo "Suspicious package detected!"
+            exit 1
+          fi
+
+  # Job 4: Dependency Check
+  dependencies:
+    name: Dependency Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Check for outdated packages
+        run: |
+          npm outdated || true
+          echo "Run 'npm update' to update packages"
+
+      - name: Check package.json consistency
+        run: |
+          if [ -f "package-lock.json" ]; then
+            npm ci --dry-run
+          else
+            echo "Warning: package-lock.json not found"
+            exit 1
+          fi
+
+  # Job 5: License Compliance
+  license:
+    name: License Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Verify LICENSE file
+        run: |
+          if [ ! -f "LICENSE" ]; then
+            echo "LICENSE file is missing!"
+            exit 1
+          fi
+          echo "LICENSE file verified"
+
+      - name: Check third-party licenses
+        run: |
+          echo "Checking third-party dependencies..."
+          if grep -q "MIT\|ISC\|Apache-2.0\|BSD" package.json; then
+            echo "Licenses appear compatible"
+          fi
+
+  # Job 6: Ghost Theme Validation
+  ghost-validation:
+    name: Ghost Theme Validation
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build theme
+        run: npm run build
+
+      - name: Install GScan
+        run: npm install -g gscan
+
+      - name: Validate Ghost theme structure
+        run: |
+          echo "Validating Ghost theme..."
+          gscan . --fatal --verbose
+          
+      - name: Check required files
+        run: |
+          REQUIRED_FILES=("package.json" "index.hbs" "post.hbs" "default.hbs")
+          for file in "${REQUIRED_FILES[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "Required file missing: $file"
+              exit 1
+            fi
+          done
+          echo "All required files present"
+
+  # Job 7: Deployment Check (Optional)
+  deployment-check:
+    name: Deployment Readiness
+    runs-on: ubuntu-latest
+    needs: [build, security, ghost-validation]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build production bundle
+        run: npm run build
+
+      - name: Create theme package
+        run: |
+          zip -r theme.zip . \
+            -x "node_modules/*" \
+            -x ".git/*" \
+            -x ".github/*" \
+            -x "*.log" \
+            -x ".DS_Store"
+          
+          echo "Theme package size: $(du -h theme.zip | cut -f1)"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ghost-theme-package
+          path: theme.zip
+          retention-days: 30
+
+  # Summary Job
+  status-check:
+    name: CI Status Summary
+    runs-on: ubuntu-latest
+    needs: [lint, build, security, dependencies, license, ghost-validation]
+    if: always()
+    steps:
+      - name: Check all jobs status
+        run: |
+          if [ "${{ needs.lint.result }}" == "success" ] && \
+             [ "${{ needs.build.result }}" == "success" ] && \
+             [ "${{ needs.security.result }}" == "success" ] && \
+             [ "${{ needs.ghost-validation.result }}" == "success" ]; then
+            echo "✅ All checks passed!"
+            exit 0
+          else
+            echo "❌ Some checks failed. Please review the logs."
+            exit 1
+          fi

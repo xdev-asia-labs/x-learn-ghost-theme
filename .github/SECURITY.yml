@@ -1,0 +1,17 @@
+## Security
+# https://docs.github.com/en/code-security/security-advisories/repository-security-advisories/about-repository-security-advisories
+
+# Automatically create security advisories for vulnerabilities
+security-advisories: write
+
+# Enable Dependabot alerts
+dependabot-alerts: enabled
+
+# Enable Dependabot security updates
+dependabot-security-updates: enabled
+
+# Enable secret scanning
+secret-scanning: enabled
+
+# Enable code scanning
+code-scanning: enabled
