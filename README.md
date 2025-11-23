@@ -1,6 +1,6 @@
 <div align="center">
 
-![X-Learn Ghost Theme Banner](./assets/images/banner.png)
+![X-Learn Ghost Theme Banner](./assets/images/banner.jpeg)
 
 # 🎓 X-Learn Ghost Theme
 

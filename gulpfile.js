@@ -1,6 +1,8 @@
-const { src, dest, series } = require('gulp');
-const zip = require('gulp-zip');
-const { execSync } = require('child_process');
+import gulp from 'gulp';
+import gulpZip from 'gulp-zip';
+import { execSync } from 'child_process';
+
+const { src, dest, series } = gulp;
 
 // Build Tailwind CSS
 function buildCSS(done) {
@@ -41,11 +43,10 @@ function zipTheme() {
         '!gulpfile.js',
         '!.DS_Store'
     ])
-        .pipe(zip(filename))
+        .pipe(gulpZip(filename))
         .pipe(dest('./'));
 }
 
-exports.default = buildCSS;
-exports.build = buildCSS;
-exports.watch = watch;
-exports.zip = series(buildCSS, zipTheme);
+export default buildCSS;
+export { buildCSS as build, watch };
+export const zip = series(buildCSS, zipTheme);

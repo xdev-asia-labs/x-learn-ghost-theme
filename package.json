@@ -3,6 +3,7 @@
     "description": "A modern Ghost theme for online courses and learning platforms",
     "version": "1.0.0",
     "private": true,
+    "type": "module",
     "engines": {
         "ghost": ">=6.0.0"
     },
