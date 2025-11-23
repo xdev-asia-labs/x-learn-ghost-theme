@@ -41,8 +41,16 @@ jobs:
         run: |
           echo "Checking for syntax errors in .hbs files..."
           find . -name "*.hbs" -type f | while read file; do
-            if grep -q "{{[^}]*{{" "$file"; then
-              echo "Potential syntax error in $file"
+            # Check for unclosed tags and mismatched helpers
+            if grep -Pzo '{{[^}]*\n[^{]*{{' "$file" 2>/dev/null; then
+              echo "Potential multiline syntax error in $file"
+              exit 1
+            fi
+            # Check for unmatched opening/closing tags (basic check)
+            open_count=$(grep -o '{{#' "$file" | wc -l)
+            close_count=$(grep -o '{{/' "$file" | wc -l)
+            if [ "$open_count" -ne "$close_count" ]; then
+              echo "Mismatched block helpers in $file ({{# count: $open_count, {{/ count: $close_count)"
               exit 1
             fi
           done
