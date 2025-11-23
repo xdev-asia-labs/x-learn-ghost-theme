@@ -2,9 +2,10 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main, develop ]
+    branches: [main, develop]
+  workflow_call:
 
 jobs:
   # Job 1: Linting & Code Quality
@@ -18,8 +19,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: "18"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
@@ -53,8 +54,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: "18"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
@@ -84,8 +85,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: "18"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
@@ -99,7 +100,7 @@ jobs:
           AUDIT_RESULT=$(npm audit --json)
           HIGH=$(echo $AUDIT_RESULT | jq '.metadata.vulnerabilities.high // 0')
           CRITICAL=$(echo $AUDIT_RESULT | jq '.metadata.vulnerabilities.critical // 0')
-          
+
           if [ "$CRITICAL" -gt 0 ] || [ "$HIGH" -gt 0 ]; then
             echo "Found $CRITICAL critical and $HIGH high severity vulnerabilities"
             echo "Please run 'npm audit fix' to resolve issues"
@@ -126,7 +127,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '18'
+          node-version: "18"
 
       - name: Check for outdated packages
         run: |
@@ -177,8 +178,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: "18"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
@@ -193,7 +194,7 @@ jobs:
         run: |
           echo "Validating Ghost theme..."
           gscan . --fatal --verbose
-          
+
       - name: Check required files
         run: |
           REQUIRED_FILES=("package.json" "index.hbs" "post.hbs" "default.hbs")
@@ -218,8 +219,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: "18"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
@@ -235,7 +236,7 @@ jobs:
             -x ".github/*" \
             -x "*.log" \
             -x ".DS_Store"
-          
+
           echo "Theme package size: $(du -h theme.zip | cut -f1)"
 
       - name: Upload artifact

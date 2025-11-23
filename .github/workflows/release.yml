@@ -1,0 +1,177 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version (e.g., 1.0.0)"
+        required: true
+        type: string
+
+jobs:
+  # Run all tests first
+  test:
+    name: Run Tests
+    uses: ./.github/workflows/ci.yml
+
+  # Create release after tests pass
+  release:
+    name: Create Release Package
+    runs-on: ubuntu-latest
+    needs: test
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build production assets
+        run: npm run build
+
+      - name: Get version from tag or input
+        id: get_version
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            VERSION=${GITHUB_REF#refs/tags/v}
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Update package.json version
+        run: |
+          npm version ${{ steps.get_version.outputs.version }} --no-git-tag-version
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Validate theme with GScan
+        run: |
+          npm install -g gscan
+          gscan . --fatal --verbose
+
+      - name: Create theme package
+        id: package
+        run: |
+          THEME_NAME=$(node -p "require('./package.json').name")
+          VERSION=${{ steps.get_version.outputs.version }}
+          PACKAGE_NAME="${THEME_NAME}-${VERSION}.zip"
+
+          echo "Creating package: $PACKAGE_NAME"
+
+          zip -r "$PACKAGE_NAME" . \
+            -x "node_modules/*" \
+            -x ".git/*" \
+            -x ".github/*" \
+            -x "*.log" \
+            -x ".DS_Store" \
+            -x ".gitignore" \
+            -x "*.md" \
+            -x "tailwind.config.js" \
+            -x "package-lock.json" \
+            -x "assets/css/tailwind.css"
+
+          # Get package info
+          SIZE=$(du -h "$PACKAGE_NAME" | cut -f1)
+
+          # Output to both env and step outputs
+          echo "package_name=$PACKAGE_NAME" >> $GITHUB_OUTPUT
+          echo "theme_name=$THEME_NAME" >> $GITHUB_OUTPUT
+          echo "package_size=$SIZE" >> $GITHUB_OUTPUT
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          if [ -f "CHANGELOG.md" ]; then
+            CHANGELOG=$(sed -n "/## \[${{ steps.get_version.outputs.version }}\]/,/## \[/p" CHANGELOG.md | sed '$d' | tail -n +2)
+          else
+            CHANGELOG="Release ${{ steps.get_version.outputs.version }}"
+          fi
+          echo "changelog<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGELOG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.get_version.outputs.tag }}
+          name: Release ${{ steps.get_version.outputs.version }}
+          body: |
+            ## 📦 xDev Learn Ghost Theme v${{ steps.get_version.outputs.version }}
+
+            ### 📥 Installation
+            1. Download `${{ steps.package.outputs.package_name }}`
+            2. Go to Ghost Admin → Settings → Design
+            3. Click "Change theme" → "Upload theme"
+            4. Select the downloaded zip file
+            5. Click "Activate"
+
+            ### 📊 Package Info
+            - **Size**: ${{ steps.package.outputs.package_size }}
+            - **Ghost Version**: >= 5.0.0
+            - **License**: MIT
+
+            ### 🔍 What's Included
+            - ✅ Fully built and minified assets
+            - ✅ Multi-language support (EN, VI, JA, ZH)
+            - ✅ Tailwind CSS optimized
+            - ✅ All partials and templates
+            - ✅ Ghost theme validation passed
+
+            ### 📝 Changelog
+            ${{ steps.changelog.outputs.changelog }}
+
+            ### 🔗 Resources
+            - [Documentation](https://github.com/${{ github.repository }}/blob/main/README.md)
+            - [Report Issues](https://github.com/${{ github.repository }}/issues)
+            - [Security Policy](https://github.com/${{ github.repository }}/blob/main/SECURITY.md)
+
+            ---
+            **Verified & Tested** ✅ All automated tests passed before release.
+          files: |
+            ${{ steps.package.outputs.package_name }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+
+      - name: Create release summary
+        run: |
+          echo "## 🎉 Release Created Successfully!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Version**: ${{ steps.get_version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Package**: \`${{ steps.package.outputs.package_name }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "**Size**: ${{ steps.package.outputs.package_size }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📥 Download" >> $GITHUB_STEP_SUMMARY
+          echo "[Release Page](https://github.com/${{ github.repository }}/releases/tag/${{ steps.get_version.outputs.tag }})" >> $GITHUB_STEP_SUMMARY
+
+  # Notify on failure
+  notify-failure:
+    name: Notify on Failure
+    runs-on: ubuntu-latest
+    needs: [test, release]
+    if: failure()
+    steps:
+      - name: Create failure summary
+        run: |
+          echo "## ❌ Release Failed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "The release process failed. Please check the logs above for details." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Common issues:" >> $GITHUB_STEP_SUMMARY
+          echo "- Tests did not pass" >> $GITHUB_STEP_SUMMARY
+          echo "- GScan validation failed" >> $GITHUB_STEP_SUMMARY
+          echo "- Build errors" >> $GITHUB_STEP_SUMMARY
+          echo "- Package creation failed" >> $GITHUB_STEP_SUMMARY

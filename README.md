@@ -5,6 +5,8 @@ A modern, feature-rich Ghost theme designed for online courses, learning platfor
 ![Ghost Version](https://img.shields.io/badge/Ghost-6.0%2B-blue)
 ![License](https://img.shields.io/badge/license-CC--BY--NC--ND--4.0-orange)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8)
+![CI/CD](https://github.com/xdev-asia-labs/x-learn-ghost-theme/workflows/CI%2FCD%20Pipeline/badge.svg)
+![Release](https://img.shields.io/github/v/release/xdev-asia-labs/x-learn-ghost-theme)
 
 ## ✨ Features
 
@@ -110,8 +112,27 @@ npm run zip
 | Command | Description |
 |---------|-------------|
 | `npm install` | Install development dependencies |
+| `npm run build` | Build Tailwind CSS (production) |
+| `npm run watch` | Watch and rebuild CSS (development) |
+| `npm run dev` | Build + watch mode |
 | `npm test` | Run GScan theme validator |
 | `npm run zip` | Create distribution zip file |
+
+### Creating a Release
+
+See [Release Instructions](docs/RELEASE.md) for detailed steps.
+
+```bash
+# Quick release (automated)
+./scripts/release.sh 1.0.1
+
+# This will:
+# 1. Run all tests and validations
+# 2. Update version in package.json
+# 3. Update CHANGELOG.md
+# 4. Create and push git tag
+# 5. Trigger GitHub Actions to create release
+```
 
 ## 📁 File Structure
 
