@@ -43,15 +43,19 @@
         "card_assets": true
     },
     "scripts": {
-        "dev": "gulp",
-        "build": "gulp",
+        "dev": "gulp watch",
+        "build": "gulp build",
+        "watch": "gulp watch",
         "zip": "gulp zip",
         "test": "gscan .",
         "test:ci": "./test-ci-local.sh",
         "precommit": "./test-ci-local.sh"
     },
     "devDependencies": {
+        "@tailwindcss/forms": "^0.5.10",
+        "@tailwindcss/typography": "^0.5.19",
         "gulp": "^5.0.1",
-        "gulp-zip": "^6.1.0"
+        "gulp-zip": "^6.1.0",
+        "tailwindcss": "^3.4.18"
     }
 }

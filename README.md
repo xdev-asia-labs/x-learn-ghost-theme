@@ -1,3 +1,7 @@
+<div align="center">
+
+![X-Learn Ghost Theme Banner](https://raw.githubusercontent.com/xdev-asia-labs/x-learn-ghost-theme/main/assets/images/banner.png)
+
 # 🎓 X-Learn Ghost Theme
 
 A modern, feature-rich Ghost theme designed for online courses, learning platforms, and educational content. Built with Tailwind CSS, featuring a beautiful glass-morphism design, dark mode support, and multi-language capabilities.
@@ -7,6 +11,8 @@ A modern, feature-rich Ghost theme designed for online courses, learning platfor
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8)
 ![CI/CD](https://github.com/xdev-asia-labs/x-learn-ghost-theme/workflows/CI%2FCD%20Pipeline/badge.svg)
 ![Release](https://img.shields.io/github/v/release/xdev-asia-labs/x-learn-ghost-theme)
+
+</div>
 
 ## ✨ Features
 
