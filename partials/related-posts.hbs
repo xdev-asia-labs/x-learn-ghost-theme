@@ -1,0 +1,12 @@
+{{#get "posts" limit="3" filter="tags:[{{post.tags}}]+id:-{{post.id}}+tag:hash-blog" order="title asc"
+include="tags,authors" as |related|}}
+{{#if related}}
+<div class="related-posts">
+   <div class="grid sm:grid-cols-2 lg:grid-cols-3  gap-8">
+      {{#foreach related}}
+      {{> cards/card-post}}
+      {{/foreach}}
+   </div>
+</div>
+{{/if}}
+{{/get}}

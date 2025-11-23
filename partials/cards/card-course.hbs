@@ -1,0 +1,101 @@
+<div class="{{post_class}} card-course-item postitem relative" data-aos="fade-up" data-aos-delay="0">
+  <div class="course-card h-full glass-apple-card glass-noise group transition-all duration-500 overflow-hidden">
+
+    <!-- Featured Badge -->
+    {{#if featured}}
+    <div class="featured-badge absolute top-4 right-4 z-50">
+      <span
+        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white text-blue-800 shadow-lg">
+        {{t "featured"}}
+      </span>
+    </div>
+    {{/if}}
+    <!-- Course Image - Optimized: 600x400 (3:2 ratio) for cards -->
+    <div class="course-image relative overflow-hidden aspect-[16/9]">
+      <a href="{{url}}">
+        {{#if feature_image}}
+        <img class="w-full h-full object-cover transition-transform duration-700 ease-out"
+          srcset="{{img_url feature_image size=" s"}} 400w, {{img_url feature_image size="m" }} 600w, {{img_url
+          feature_image size="l" }} 900w, {{img_url feature_image size="xl" }} 1200w"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" src="{{img_url feature_image size=" m"}}"
+          alt="{{title}}" loading="lazy" />
+        {{else}}
+        <img class="w-full h-full object-cover transition-transform duration-700 ease-out"
+          src="{{asset 'images/blank.png'}}" alt="{{title}}" loading="lazy" />
+        {{/if}}
+      </a>
+
+      <!-- Course Share Overlay -->
+      <!-- Lesson Count Badge -->
+      {{#get
+      "posts"
+      filter="tag:hash-course-id-1+tag:hash-lesson"
+      include="tags,authors"
+      limit="100"
+      }}
+      {{#if posts.length}}
+      <div class="mb-0 absolute bottom-4 left-4 z-50">
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-800 text-white">
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+            </path>
+          </svg>
+          {{plural
+          posts.length
+          empty="No Lessons"
+          singular="% Lesson"
+          plural="% Lessons"
+          }}
+        </span>
+      </div>
+      {{/if}}
+      {{/get}}
+
+    </div>
+
+    <!-- Course Content -->
+    <div class="p-6">
+
+      <!-- Course Title -->
+      <h4
+        class="course-title text-2xl font-bold text-gray-800 group-hover:text-blue-800 transition-colors duration-300 mb-3 line-clamp-2">
+        <a href="{{url}}">{{title}}</a>
+      </h4>
+
+      <!-- Course Meta -->
+      <div class="course-meta flex items-center justify-between mb-4">
+
+        <span class="course-excerpt flex items-center text-base text-gray-400">
+          {{excerpt characters="120"}}
+        </span>
+
+      </div>
+
+      <!-- Author Info -->
+
+      <div class="course-author-info flex items-center pt-4 border-t border-gray-100">
+        {{#primary_author}}
+        {{#if profile_image}}
+        <img class="w-10 h-10 rounded-full object-cover transition-all duration-300 mr-3"
+          src="{{img_url profile_image size=" s"}}" srcset="{{img_url profile_image size=" s"}} 1x, {{img_url
+          profile_image size="m" }} 2x" alt="{{name}}" loading="lazy" />
+
+        {{/if}}
+
+        <div class="flex-1">
+          <h6 class="text-sm font-semibold text-gray-800 hover:text-blue-800 transition-colors duration-300">
+            <a href="{{url}}">{{name}}</a>
+          </h6>
+          {{#if location}}
+          <p class="text-xs text-gray-400">{{location}}</p>
+          {{/if}}
+        </div>
+
+        {{/primary_author}}
+
+      </div>
+    </div>
+
+  </div>
+</div>

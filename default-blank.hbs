@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="{{@site.locale}}">
+
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="x-ua-compatible" content="ie=edge">
+   <title>{{meta_title}}</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="shortcut icon" href="assets/images/favicon.ico" type="images/x-icon" />
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700" rel="stylesheet">
+   {{!-- gulp:css --}}
+   <link rel="stylesheet" href="{{asset 'css/app.min.css'}}">
+   {{!-- endgulp --}}
+   {{#block "styles"}}{{/block}}
+   {{> ghost-dynamic-style}}
+   {{ghost_head}}
+
+   {{!-- Explicit Open Graph Image --}}
+   {{#if feature_image}}
+   <meta property="og:image" content="{{img_url feature_image absolute=" true"}}">
+   {{else}}
+   {{#if @site.cover_image}}
+   <meta property="og:image" content="{{img_url @site.cover_image absolute=" true"}}">
+   {{/if}}
+   {{/if}}
+</head>
+
+<body class="{{body_class}} overflow-x-hidden">
+
+   {{{body}}}
+
+   {{!-- gulp:js --}}
+   <script src="{{asset 'js/jquery.min.js'}}"></script>
+   <script src="{{asset 'js/build.min.js'}}"></script>
+   {{!-- endgulp --}}
+   {{ghost_foot}}
+</body>
+
+</html>

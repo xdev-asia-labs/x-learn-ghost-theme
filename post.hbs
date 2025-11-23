@@ -1,0 +1,137 @@
+{{!< default}} {{#post}} {{!-- Breadcrumb Navigation --}} {{> breadcrumb}}
+
+   {{> hero-section post_style="image_on_right"}}
+
+   <section class="single-area pb-8 md:pb-10 lg:pb-16">
+      <div class="container mx-auto">
+         <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 lg:gap-12">
+            <div class="md:col-span-12 lg:col-span-8">
+               <div class="gh-content prose prose-lg pb-8 dark:prose-invert">
+                  {{content}}
+
+                  <!-- Inline Table of Contents - will be moved after first paragraph by JavaScript -->
+                  <div id="inline-toc-container"
+                     class="inline-toc-widget bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-white/10 rounded-lg p-6 my-8 hidden">
+                     <p class="font-serif text-xl text-gray-800 dark:text-gray-100 font-bold mb-4 mt-0">
+                        {{t "table-of-content"}}
+                     </p>
+                     <div class="gh-toc"></div>
+                  </div>
+               </div>
+
+               <!-- add tags -->
+               <div class="post-details-tags flex flex-wrap gap-4">
+                  {{#foreach tags limit="5"}}
+                  <a href="{{url}}"
+                     class="tag h-10 hover:shadow-md transform hover:-translate-y-0.5 group inline-flex items-center px-4 py-2 bg-gray-50 dark:bg-slate-800 hover:bg-white dark:hover:bg-slate-700 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 text-base font-medium rounded-md border border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20 transition-all duration-200">{{name}}</a>
+                  {{/foreach}}
+               </div>
+               <div class="social-share-post mt-8">
+                  {{> social-share}}
+               </div>
+
+
+            </div>
+            <div class="post-sidebar md:col-span-12 lg:col-span-4 smooth-fade-in">
+
+
+               <!-- Recent Posts Widget -->
+               <div class="sidebar sticky top-8 rounded-lg p-8 shadow hover:shadow-lg duration-300">
+                  {{> recent-posts}}
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   {{/post}}
+   <div class="container mx-auto">
+      {{> related-content}}
+   </div>
+   <link rel="stylesheet" href="{{asset 'css/tocbot.css'}}" />
+   <link rel="stylesheet" href="{{asset 'css/prism.css'}}" />
+   <script src="{{asset 'js/tocbot.min.js'}}"></script>
+   <script src="{{asset 'js/prism.js'}}" defer></script>
+   <script>
+      // Wait for DOM to be ready and tocbot to load
+      document.addEventListener('DOMContentLoaded', function () {
+         // Check if there are any headings in the content
+         const contentHeadings = document.querySelectorAll('.gh-content h2, .gh-content h3, .gh-content h4, .gh-content h5');
+
+         if (contentHeadings.length === 0) {
+            // No headings found, hide the entire sidebar
+            const sidebar = document.getElementById('toc-sidebar');
+            if (sidebar) {
+               sidebar.style.display = 'none';
+            }
+            return;
+         }
+
+         // Check if tocbot is available
+         if (typeof tocbot !== 'undefined') {
+            tocbot.init({
+               tocSelector: '.gh-toc',
+               contentSelector: '.gh-content',
+               headingSelector: 'h2, h3, h4, h5',
+               // For headings inside relative or absolute positioned containers within content.
+               ignoreSelector: '.js-no-anchor',
+               headingsOffset: 100,
+               scrollSmoothOffset: -100,
+               maxHeaderLength: -1, // unlimited - don't truncate IDs for long Vietnamese headings
+               onClick: false, // disable default tocbot click handler to use custom implementation
+            });
+            tocbot.refresh();
+
+            // Custom smooth scroll implementation with retry logic
+            const attachSmoothScroll = () => {
+               const tocLinks = document.querySelectorAll('.gh-toc a');
+
+               if (tocLinks.length === 0) {
+                  // Retry after 200ms if tocbot hasn't generated links yet
+                  setTimeout(attachSmoothScroll, 200);
+                  return;
+               }
+
+               tocLinks.forEach(link => {
+                  // Use capture phase (true) to ensure our handler runs before default anchor behavior
+                  link.addEventListener('click', function (e) {
+                     e.preventDefault();
+                     e.stopPropagation(); // Prevent event bubbling
+
+                     const href = this.getAttribute('href');
+                     const targetId = href.startsWith('#') ? href.substring(1) : href;
+                     const targetElement = document.getElementById(targetId);
+
+                     if (targetElement) {
+                        // Smooth scroll to target
+                        targetElement.scrollIntoView({
+                           behavior: 'smooth',
+                           block: 'start'
+                        });
+
+                        // Update URL without triggering default jump
+                        if (history.pushState) {
+                           history.pushState(null, null, href);
+                        }
+                     }
+
+                     return false; // Extra prevention for older browsers
+                  }, true); // true = capture phase - runs before default behavior
+               });
+            };
+
+            // Start attaching smooth scroll handlers
+            attachSmoothScroll();
+
+            // Check if tocbot actually generated any TOC items
+            setTimeout(() => {
+               const tocItems = document.querySelectorAll('li.toc-list-item');
+               if (tocItems.length <= 0) {
+                  const sidebar = document.getElementById('toc-sidebar');
+                  if (sidebar) {
+                     sidebar.style.display = 'none';
+                  }
+               }
+            }, 100);
+         }
+      });
+   </script>

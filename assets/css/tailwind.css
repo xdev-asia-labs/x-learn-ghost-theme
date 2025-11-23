@@ -1,0 +1,667 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* Custom CSS imports */
+
+/* Dark Mode Prose Improvements */
+@layer base {
+  .dark .prose {
+    --tw-prose-body: rgb(226 232 240);
+    --tw-prose-headings: rgb(248 250 252);
+    --tw-prose-lead: rgb(203 213 225);
+    --tw-prose-links: rgb(96 165 250);
+    --tw-prose-bold: rgb(248 250 252);
+    --tw-prose-counters: rgb(148 163 184);
+    --tw-prose-bullets: rgb(148 163 184);
+    --tw-prose-hr: rgb(51 65 85);
+    --tw-prose-quotes: rgb(226 232 240);
+    --tw-prose-quote-borders: rgb(51 65 85);
+    --tw-prose-captions: rgb(148 163 184);
+    --tw-prose-code: rgb(248 250 252);
+    --tw-prose-pre-code: rgb(226 232 240);
+    --tw-prose-pre-bg: rgb(15 23 42);
+    --tw-prose-th-borders: rgb(51 65 85);
+    --tw-prose-td-borders: rgb(51 65 85);
+  }
+
+  .dark .gh-content {
+    color: rgb(226 232 240);
+  }
+
+  .dark .gh-content h1,
+  .dark .gh-content h2,
+  .dark .gh-content h3,
+  .dark .gh-content h4,
+  .dark .gh-content h5,
+  .dark .gh-content h6 {
+    color: rgb(248 250 252);
+  }
+
+  .dark .gh-content p,
+  .dark .gh-content li,
+  .dark .gh-content td {
+    color: rgb(226 232 240);
+  }
+
+  .dark .gh-content a {
+    color: rgb(96 165 250);
+  }
+
+  .dark .gh-content strong {
+    color: rgb(248 250 252);
+  }
+
+  .dark .gh-content code {
+    background-color: rgb(30 41 59);
+    color: rgb(248 250 252);
+  }
+
+  .dark .gh-content pre {
+    background-color: rgb(15 23 42);
+    border: 1px solid rgb(51 65 85);
+  }
+
+  .dark .gh-content blockquote {
+    border-left-color: rgb(51 65 85);
+    color: rgb(226 232 240);
+  }
+
+  .dark .gh-content table {
+    border-color: rgb(51 65 85);
+  }
+
+  .dark .gh-content thead {
+    background-color: rgb(30 41 59);
+    color: rgb(248 250 252);
+    border-bottom-color: rgb(51 65 85);
+  }
+
+  .dark .gh-content tbody tr {
+    border-bottom-color: rgb(51 65 85);
+  }
+}
+
+.right-side-menu-item,
+.smooth-fade-in {
+  opacity: 0;
+  animation: fadeIn 0.8s ease-in forwards;
+}
+ul#desktop-nav {
+  max-height: 48px;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@import "./tocbot.css";
+/* Base font styles - Using Ghost's font variables */
+
+/* Content fade mask effect for course layouts */
+.content-fade-mask {
+  -webkit-mask-image: linear-gradient(to bottom, var(--color-text-primary) 30%, transparent 100%);
+  mask-image: linear-gradient(to bottom, var(--color-text-primary) 30%, transparent 100%);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+/* Alternative fade mask with custom colors if CSS variables aren't available */
+.content-fade-mask {
+  -webkit-mask-image: linear-gradient(to bottom, #1f2937 30%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #1f2937 30%, transparent 100%);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+@layer base {
+  html {
+    font-family:
+      BlinkMacSystemFont,
+      -apple-system,
+      "Segoe UI",
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      "Fira Sans",
+      "Droid Sans",
+      "Helvetica Neue",
+      Helvetica,
+      Arial,
+      sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family:
+      BlinkMacSystemFont,
+      -apple-system,
+      "Segoe UI",
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      "Fira Sans",
+      "Droid Sans",
+      "Helvetica Neue",
+      Helvetica,
+      Arial,
+      sans-serif;
+  }
+
+  /* Override Tailwind's font-sans to use system font stack */
+  .font-sans {
+    font-family:
+      BlinkMacSystemFont,
+      -apple-system,
+      "Segoe UI",
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      "Fira Sans",
+      "Droid Sans",
+      "Helvetica Neue",
+      Helvetica,
+      Arial,
+      sans-serif !important;
+  }
+
+  /* Override Tailwind's font-serif to use system font stack */
+  .font-serif {
+    font-family:
+      BlinkMacSystemFont,
+      -apple-system,
+      "Segoe UI",
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      "Fira Sans",
+      "Droid Sans",
+      "Helvetica Neue",
+      Helvetica,
+      Arial,
+      sans-serif !important;
+  }
+
+  /* Ensure body text uses system font stack */
+  body {
+    font-family:
+      BlinkMacSystemFont,
+      -apple-system,
+      "Segoe UI",
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      "Fira Sans",
+      "Droid Sans",
+      "Helvetica Neue",
+      Helvetica,
+      Arial,
+      sans-serif;
+  }
+
+  /* Ensure headings use system font stack */
+  .font-heading {
+    font-family:
+      BlinkMacSystemFont,
+      -apple-system,
+      "Segoe UI",
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      "Fira Sans",
+      "Droid Sans",
+      "Helvetica Neue",
+      Helvetica,
+      Arial,
+      sans-serif;
+  }
+
+  /* Ensure body text uses system font stack */
+  .font-body {
+    font-family:
+      BlinkMacSystemFont,
+      -apple-system,
+      "Segoe UI",
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      "Fira Sans",
+      "Droid Sans",
+      "Helvetica Neue",
+      Helvetica,
+      Arial,
+      sans-serif;
+  }
+}
+
+/* Override Tailwind prose max-width */
+@layer utilities {
+  .prose {
+    max-width: 100% !important;
+  }
+
+  /* Responsive prose widths that respect Tailwind containers */
+  @screen sm {
+    .prose {
+      max-width: 100% !important;
+    }
+  }
+
+  @screen md {
+    .prose {
+      max-width: 100% !important;
+    }
+  }
+
+  @screen lg {
+    .prose {
+      max-width: 1024px !important;
+    }
+  }
+
+  @screen xl {
+    .prose {
+      max-width: 1280px !important;
+    }
+  }
+
+  @screen 2xl {
+    .prose {
+      max-width: 1536px !important;
+    }
+  }
+}
+
+/* Dropdown Navigation Fixes */
+@layer components {
+  /* Ensure no gap between parent and dropdown */
+
+  /* Force dropdown visibility on hover */
+  .dropdown-menu {
+    transition: all 0.3s ease;
+  }
+
+  /* Keep dropdown open when hovering over it */
+  .group:hover .dropdown-menu,
+  .dropdown-menu:hover {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: scale(1) !important;
+    pointer-events: auto !important;
+  }
+
+  /* Ensure dropdown items are clickable */
+  .dropdown-item {
+    pointer-events: auto;
+  }
+}
+
+/* Load More Button Styles */
+.js-load-posts {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.js-load-posts:hover:not(:disabled) {
+  background: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+}
+
+.js-load-posts:disabled {
+  background: #9ca3af !important;
+  color: #6b7280 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: none !important;
+  opacity: 0.6;
+}
+
+.load-more-container {
+  text-align: center;
+  margin: 40px 0;
+}
+/* Full width responsive embed cards for sidebar layouts */
+.prose .kg-embed-card,
+.gh-content .kg-embed-card {
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  max-width: 100% !important;
+  position: relative;
+  height: auto !important;
+}
+
+/* Responsive adjustments for different screen sizes */
+@media (max-width: 768px) {
+  .prose .kg-embed-card,
+  .gh-content .kg-embed-card {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .prose .kg-embed-card,
+  .gh-content .kg-embed-card {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Ensure embed content inside is also responsive */
+.prose .kg-embed-card iframe,
+.prose .kg-embed-card video,
+.prose .kg-embed-card embed,
+.prose .kg-embed-card object,
+.gh-content .kg-embed-card iframe,
+.gh-content .kg-embed-card video,
+.gh-content .kg-embed-card embed,
+.gh-content .kg-embed-card object {
+  width: 100% !important;
+  height: auto !important;
+  min-height: 400px !important;
+  max-width: 100% !important;
+  aspect-ratio: 16/9 !important;
+}
+
+/* Maintain aspect ratio for video embeds */
+.prose .kg-embed-card .kg-embed-card-container,
+.gh-content .kg-embed-card .kg-embed-card-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+}
+
+.prose .kg-embed-card .kg-embed-card-container iframe,
+.prose .kg-embed-card .kg-embed-card-container video,
+.gh-content .kg-embed-card .kg-embed-card-container iframe,
+.gh-content .kg-embed-card .kg-embed-card-container video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  min-height: auto;
+}
+
+/* Force responsive height for all iframes */
+.prose .kg-embed-card iframe[width][height],
+.gh-content .kg-embed-card iframe[width][height] {
+  width: 100% !important;
+  height: auto !important;
+  min-height: 400px !important;
+  aspect-ratio: 16/9 !important;
+}
+
+/* Mobile backdrop with blur effect */
+#mobile-menu-backdrop {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Ensure backdrop filter works on all browsers */
+@supports not (backdrop-filter: blur(8px)) {
+  #mobile-menu-backdrop {
+    background: rgba(0, 0, 0, 0.6) !important;
+  }
+}
+
+/* Smooth backdrop transitions */
+#mobile-menu-backdrop {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Enhanced backdrop states */
+#mobile-menu-backdrop.bg-opacity-50 {
+  background: rgba(0, 0, 0, 0.4) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+#mobile-menu-backdrop.bg-opacity-0 {
+  background: rgba(0, 0, 0, 0) !important;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+}
+
+/* Hand-drawn irregular oval outline */
+.highlight-circle {
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+}
+
+.highlight-circle::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: -8px;
+  right: -8px;
+  top: -4px;
+  background: transparent; /* Transparent background */
+  border: 3px solid var(--ghost-accent-color); /* Red outline */
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  z-index: -1;
+  transform: rotate(-1deg);
+  animation: handDrawnHighlight 0.6s ease-out forwards;
+  animation-delay: 0.2s;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.prose a {
+  border-color: var(--ghost-accent-color);
+  position: relative;
+  display: inline-block;
+  border-width: 2px;
+  border-top: 0;
+  border-left: 0;
+  border-radius: 0;
+  border-right: 0;
+}
+/* Alternative: More irregular hand-drawn outline */
+.highlight-circle.irregular::after {
+  border-radius: 45% 55% 52% 48% / 58% 42% 58% 42%;
+  transform: rotate(-2deg) scale(1.05);
+}
+
+/* Keyframe animation for hand-drawn effect */
+@keyframes handDrawnHighlight {
+  0% {
+    opacity: 0;
+    transform: rotate(-1deg) scale(0.7);
+  }
+  50% {
+    opacity: 0.9;
+    transform: rotate(-0.5deg) scale(1.15);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(-1deg) scale(1);
+  }
+}
+
+/* Hover effect */
+.highlight-circle:hover::after {
+  animation: highlightWiggle 0.3s ease-in-out;
+}
+
+@keyframes highlightWiggle {
+  0%,
+  100% {
+    transform: rotate(-1deg) scale(1);
+  }
+  25% {
+    transform: rotate(-2deg) scale(1.08);
+  }
+  75% {
+    transform: rotate(0deg) scale(1.08);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .highlight-circle::after {
+    bottom: -3px;
+    left: -6px;
+    right: -6px;
+    top: -3px;
+    border-width: 2px; /* Thinner border on mobile */
+  }
+}
+
+.bg-blue-800,
+.bg-blue-700,
+.hover\:bg-blue-800:hover,
+.slick-dots .slick-active button,
+.simptip-success.simptip-position-right:after,
+.simptip-danger.simptip-position-top:after {
+  background-color: var(--ghost-accent-color);
+}
+.bg-blue-100,
+.hover\:bg-blue-100:hover {
+  background-color: var(--learn-brand-color-light);
+}
+.bg-blue-50,
+.hover\:bg-blue-50:hover {
+  background-color: var(--learn-light-gray-color);
+}
+
+.hover\:bg-blue-800:hover,
+.hover\:bg-blue-800:hover {
+  background-color: var(--ghost-accent-color) !important;
+}
+.border-blue-100,
+.border-blue-200 {
+  border-color: var(--learn-border-color);
+}
+.border-blue-800,
+.hover\:border-blue-800:hover {
+  border-color: var(--ghost-accent-color) !important;
+}
+.simptip-success.simptip-position-right:before {
+  border-right-color: var(--ghost-accent-color);
+}
+.simptip-danger.simptip-position-top:before {
+  border-top-color: var(--ghost-accent-color);
+}
+.hover\:text-blue-800:hover,
+.text-blue-800 {
+  color: var(--ghost-accent-color);
+}
+.group:hover .group-hover\:text-blue-800,
+.hover\:text-blue-500:hover,
+.hover\:text-blue-800:hover,
+.group:hover .group-hover\:text-blue-800 {
+  color: var(--ghost-accent-color) !important;
+}
+.text-gray-800 {
+  color: var(--learn-heading-color);
+}
+.border-gray-800,
+.hover\:border-gray-800 {
+  border-color: var(--learn-heading-color);
+}
+.text-gray-400,
+.hover\:text-gray-400:hover,
+.group:hover .group-hover\:text-gray-400 {
+  color: var(--learn-body-text-color);
+}
+.back-bottom-button svg path,
+.slick-arrow svg path {
+  stroke: var(--ghost-accent-color);
+}
+
+/* Extracted from liquid-glass.css for Footer */
+
+.dark .glass-apple,
+.glass-apple-dark {
+    background: rgba(30, 30, 35, 0.7);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.glass-apple-card {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 18px;
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.04),
+        0 12px 24px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.dark .glass-apple-card {
+    background: rgba(30, 30, 35, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.glass-apple-card:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.06),
+        0 16px 32px rgba(0, 0, 0, 0.12);
+}
+
+.dark .glass-apple-card:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.glass-noise::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+.glass-apple {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.1);
+}

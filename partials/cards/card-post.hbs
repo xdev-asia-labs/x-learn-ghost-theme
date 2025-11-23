@@ -1,0 +1,92 @@
+<div class="{{post_class}} postitem group break-inside-avoid mb-8">
+   <div
+      class="rounded-2xl transition-all duration-500 overflow-hidden border border-gray-100 dark:border-white/10 glass-apple-card glass-noise hover:shadow-2xl dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] hover:border-blue-200 dark:hover:border-blue-500/30 relative h-full flex flex-col">
+
+      {{#if feature_image}}
+      <!-- Featured Badge -->
+      {{#if featured}}
+      <div class="absolute top-4 left-4 z-50">
+         <span
+            class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold bg-white/90 dark:bg-slate-900/90 backdrop-blur text-blue-600 dark:text-blue-400 shadow-lg border border-white/20">
+            <span class="w-1.5 h-1.5 rounded-full bg-blue-500 mr-2 animate-pulse"></span>
+            {{t "featured"}}
+         </span>
+      </div>
+      {{/if}}
+
+      <!-- Image with Overlay - Optimized: 1024x576 (16:9) -->
+      <div class="relative overflow-hidden aspect-[16/10]">
+         <a href="{{url}}" class="block h-full">
+            {{#if feature_image}}
+            <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+               srcset="{{img_url feature_image size=" s"}} 400w, {{img_url feature_image size="m" }} 800w, {{img_url
+               feature_image size="l" }} 1024w" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+               src="{{img_url feature_image size=" l"}}" alt="{{title}}" loading="lazy">
+            {{else}}
+            <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+               src="{{asset 'images/blank.png'}}" alt="{{title}}" loading="lazy">
+            {{/if}}
+            <div
+               class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300">
+            </div>
+
+            <!-- Tech Overlay Effect -->
+            <div
+               class="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(68,107,158,0.2)_50%,transparent_75%,transparent_100%)] bg-[length:250%_250%,100%_100%] bg-[position:-100%_0,0_0] bg-no-repeat transition-[background-position] duration-0 delay-0 group-hover:bg-[position:200%_0,0_0] group-hover:duration-[1500ms]">
+            </div>
+         </a>
+      </div>
+      {{/if}}
+
+      <!-- Content -->
+      <div class="p-6 lg:p-8 flex flex-col flex-grow">
+         <!-- Post Title -->
+         <h4
+            class="post-title text-2xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 mb-4 line-clamp-2 leading-tight">
+            <a href="{{url}}">{{title}}</a>
+         </h4>
+
+         <!-- Excerpt -->
+         <p class="text-gray-600 dark:text-gray-300 line-clamp-3 mb-6 text-sm leading-relaxed flex-grow">
+            {{excerpt}}
+         </p>
+
+         <!-- Author Section -->
+         <div class="flex items-center justify-between pt-6 border-t border-gray-100 dark:border-white/10 mt-auto">
+            {{#primary_author}}
+            <div class="flex items-center group/author">
+               {{#if profile_image}}
+               <div class="relative">
+                  <div
+                     class="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full opacity-0 group-hover/author:opacity-100 transition duration-300 blur-[2px]">
+                  </div>
+                  <img class="relative w-10 h-10 rounded-full object-cover border-2 border-white dark:border-slate-800"
+                     src="{{img_url profile_image size=" s"}}" srcset="{{img_url profile_image size=" s"}} 1x, {{img_url
+                     profile_image size="m" }} 2x" alt="{{name}}" loading="lazy">
+               </div>
+               {{else}}
+               <div
+                  class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-100 to-indigo-200 dark:from-blue-900 dark:to-indigo-900 flex items-center justify-center border-2 border-white dark:border-slate-800">
+                  <span class="text-xs font-bold text-blue-700 dark:text-blue-300">{{name}}</span>
+               </div>
+               {{/if}}
+               <div class="ml-3">
+                  <h6
+                     class="text-sm font-semibold text-gray-900 dark:text-gray-200 group-hover/author:text-blue-600 dark:group-hover/author:text-blue-400 transition-colors duration-300">
+                     <a href="{{url}}">{{name}}</a>
+                  </h6>
+                  {{#if location}}
+                  <p class="text-xs text-gray-500 dark:text-gray-500">{{location}}</p>
+                  {{/if}}
+               </div>
+            </div>
+            {{/primary_author}}
+
+            <!-- Date -->
+            <div class="text-xs font-mono text-gray-400 dark:text-gray-500">
+               {{date published_at format="MMM DD"}}
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

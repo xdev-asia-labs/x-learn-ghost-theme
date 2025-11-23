@@ -1,0 +1,674 @@
+
+
+/* Content grid
+/* ---------------------------------------------------------- */
+/* 
+ Listing Adjustment 
+*/
+  
+.gh-content a,
+.gh-content abbr,
+.gh-content acronym,
+.gh-content address, 
+.gh-content b,
+.gh-content big,
+.gh-content cite,
+.gh-content code,
+.gh-content del,
+.gh-content em,
+.gh-content i,
+.gh-content ins,
+.gh-content kbd,
+.gh-content mark,
+.gh-content output,
+.gh-content q, 
+.gh-content ruby,
+.gh-content s,
+.gh-content samp,
+.gh-content small,
+.gh-content strike,
+.gh-content strong,
+.gh-content sub,
+.gh-content sup,
+.gh-content time,
+.gh-content tt,
+.gh-content u,
+.gh-content var,
+.gh-content dfn,
+.gh-content dl,
+.gh-content dt,
+.gh-content dd,
+.gh-content ol,
+.gh-content ul,
+.gh-content li,
+.gh-content blockquote,
+.gh-content p,
+.gh-content pre,
+.gh-content table,
+.gh-content caption,
+.gh-content tbody,
+.gh-content tfoot,
+.gh-content thead,
+.gh-content tr,
+.gh-content th,
+.gh-content td,
+.gh-content applet,
+.gh-content canvas,
+.gh-content embed,
+.gh-content figure,
+.gh-content figcaption,
+.gh-content iframe,
+.gh-content img,
+.gh-content object {
+  color: var(--gray-400); 
+  font-family: var(--font-sans); 
+}
+
+/*
+  Initialize spacing and colors
+*/
+.gh-content pre,
+.gh-content table,
+.gh-content th,
+.gh-content td {
+  border: 1px solid #DBE2F2;
+}
+
+/*
+  Inline elements
+*/
+.gh-content a{
+  text-decoration: underline;
+  color: var(--ghost-accent-color); 
+}
+.gh-content strong,
+.gh-content b {
+  font-weight: bolder;
+}
+
+.gh-content u,
+.gh-content em,
+.gh-content i {
+  font-style: italic;
+  text-decoration: none;
+}
+
+.gh-content abbr[title] {
+  border-bottom: 1px dotted gray;
+}
+
+.gh-content cite {
+  font-style: italic;
+}
+
+.gh-content code {
+  padding: 0.1em 0.2em;
+  text-shadow: none;
+} 
+
+.gh-content del {
+  color: red;
+  text-decoration: line-through;
+}
+
+.gh-content ins {
+  color: green;
+  text-decoration: none;
+}
+
+.gh-content kbd {
+  padding: 2px 4px;
+  font-size: .875em;
+  color: #fff;
+  background-color: #212529;
+  border-radius: 0;
+}
+
+.gh-content mark {
+  background-color: rgba(0, 140, 255, 0.1);
+  background-color: #DBE2F2;
+}
+
+.gh-content small {
+  font-size: .75em;
+}
+
+.gh-content s {
+  text-decoration: line-through;
+}
+
+.gh-content sub {
+  font-size: 80%;
+  vertical-align: sub;
+}
+
+.gh-content sup {
+  font-size: .75em;
+  vertical-align: super;
+}
+
+.gh-content var {
+  font-style: italic;
+}
+
+/*
+  Lists
+*/
+.gh-content ol {
+  list-style: decimal;
+}
+
+.gh-content ol ol {
+  list-style: lower-alpha;
+  padding-left: 2em; 
+}
+
+.gh-content ol ol ol {
+  list-style: lower-roman;
+}
+
+.gh-content ol ol ol ol {
+  list-style: decimal;
+}
+
+.gh-content ul {
+  list-style: disc;
+}
+.gh-content ul ul{
+  list-style: circle;
+  padding-left: 2em;
+}
+
+.gh-content dt {
+  font-weight: bold;
+  /* line-height set above */
+}
+
+.gh-content dd {
+  /* line-height set above */
+  margin-top: 0;
+}
+
+/*
+  Media
+*/
+.gh-content embed,
+.gh-content iframe,
+.gh-content figure img,
+.gh-content object {
+  display: inline-block;
+  max-width: 100%;
+}
+
+.gh-content figcaption {
+  font-size: .75em;
+  line-height: 2;
+} 
+
+/* Canvas creates a multi-column, centered grid which the post
+is laid out on top of. Canvas just defines the grid, we don't
+use it for applying any other styles. */
+.gh-canvas { 
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(max(4vmin, 20px), auto) [wide-start] minmax(auto, 240px) [main-start] min(1024px, calc(100% - max(8vmin, 40px))) [main-end] minmax(auto, 240px) [wide-end] minmax(max(4vmin, 20px), auto) [full-end];
+}
+
+.gh-canvas>* {
+  grid-column: main-start / main-end;
+}
+
+.kg-width-wide {
+  grid-column: wide-start / wide-end;
+}
+
+.kg-width-full {
+  grid-column: full-start / full-end;
+}
+
+.kg-width-full img {
+  width: 100%;
+}
+
+/* Default vertical spacing */
+.gh-content > *:first-child{
+  margin-top: 0!important;    
+}
+.gh-content>*+* {
+  margin-top: max(3.2vmin, 24px)!important; 
+  margin-bottom: 0; 
+}
+ 
+/* [id] represents all headings h1-h6, reset all margins */
+.gh-content>[id] {
+  margin: 0;
+}
+
+.has-serif-title .gh-content>[id] {
+  font-family: inherit;
+}
+
+/* Add back a top margin to all headings, unless a heading
+is the very first element in the post content */
+.gh-content>[id]:not(:first-child) {
+  margin: 2em 0 0;
+}
+
+/* Add a small margin between a heading and anything after it */
+.gh-content>[id]+* {
+  margin-top: 1em !important;
+}
+
+/* A larger margin before/after HRs and blockquotes */
+.gh-content>hr,
+.gh-content>blockquote {
+  position: relative;
+  margin-top: max(3.2vmin, 24px);
+}
+
+.gh-content>hr+*,
+.gh-content>blockquote+* {
+  margin-top: max(3.2vmin, 24px) !important;
+}
+
+/* Now the content typography styles */
+.gh-content>ol,
+.gh-content>ul, 
+.gh-content>dl,
+.gh-content>p {
+  font-size: 1.15em;
+  line-height: 1.6em;
+}
+
+.gh-content .kg-callout-card .kg-callout-text,
+.gh-content .kg-toggle-card .kg-toggle-content>ol,
+.gh-content .kg-toggle-card .kg-toggle-content>ul,
+.gh-content .kg-toggle-card .kg-toggle-content>p {
+  font-size: 1.15em;
+  line-height: 1.6em;
+}
+
+.gh-content .kg-product-card .kg-product-card-description>p,
+.gh-content .kg-product-card .kg-product-card-description>ol,
+.gh-content .kg-product-card .kg-product-card-description>ul {
+  font-size: 1.1em;
+  line-height: 1.6em;
+}
+
+.gh-content .kg-callout-card .kg-callout-emoji {
+  font-size: 1.15em;
+  line-height: 1.4em;
+}
+
+.gh-content .kg-toggle-card .kg-toggle-heading-text {
+  font-size: 1.2em;
+}
+
+.has-sans-body .gh-content>blockquote,
+.has-sans-body .gh-content>ol,
+.has-sans-body .gh-content>ul,
+.has-sans-body .gh-content>dl,
+.has-sans-body .gh-content>p,
+.has-sans-body .gh-content .kg-callout-card .kg-callout-text,
+.has-sans-body .gh-content .kg-toggle-card .kg-toggle-content>ol,
+.has-sans-body .gh-content .kg-toggle-card .kg-toggle-content>ul,
+.has-sans-body .gh-content .kg-toggle-card .kg-toggle-content>p {
+  font-family: inherit;
+}
+
+.gh-content>ul,
+.gh-content>ol,
+.gh-content>dl,
+.gh-content .kg-toggle-card .kg-toggle-content>ol,
+.gh-content .kg-toggle-card .kg-toggle-content>ul,
+.gh-content .kg-product-card .kg-product-card-description>ol,
+.gh-content .kg-product-card .kg-product-card-description>ul {
+  padding-left: 1.9em;
+}
+
+/* Now the content adjustment blockqoute styles */
+
+.gh-content>blockquote{
+  position: relative;
+  font-style: italic; 
+  font-size: 18px;
+  padding: 0 40px;
+  color: #06283D;   
+  border-left: 4px solid #1363DF; 
+}
+@media (max-width: 650px) {  
+  .gh-content>blockquote{
+     padding: 0em 1em;   
+  } 
+}  
+.gh-content>blockquote:not([class]) { 
+  border-left: 0;
+}  
+.gh-content>blockquote:not([class])::before {
+  content: "";
+  position: absolute; 
+  left: 0;
+  top: 0;
+  width: 21px;   
+  height: 16px;
+  background-image: url("data:image/svg+xml,%3Csvg width='21' height='16' viewBox='0 0 21 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.1188 6.93997C4.8958 6.93997 4.6818 6.97397 4.4688 7.00497C4.5378 6.77297 4.6088 6.53697 4.7228 6.32497C4.8368 6.01697 5.0148 5.74997 5.1918 5.48097C5.3398 5.18997 5.6008 4.99297 5.7928 4.74397C5.9938 4.50197 6.2678 4.34097 6.4848 4.13997C6.6978 3.92997 6.9768 3.82497 7.1988 3.67697C7.4308 3.54397 7.6328 3.39697 7.8488 3.32697L8.3878 3.10497L8.8618 2.90797L8.3768 0.969971L7.7798 1.11397C7.5888 1.16197 7.3558 1.21797 7.0908 1.28497C6.8198 1.33497 6.5308 1.47197 6.2088 1.59697C5.8908 1.73897 5.5228 1.83497 5.1808 2.06297C4.8368 2.28097 4.4398 2.46297 4.0898 2.75497C3.7508 3.05597 3.3418 3.31697 3.0398 3.69997C2.7098 4.05797 2.3838 4.43397 2.1308 4.86197C1.8378 5.26997 1.6388 5.71797 1.4288 6.16097C1.2388 6.60397 1.0858 7.05697 0.960798 7.49697C0.723798 8.37897 0.617798 9.21697 0.576798 9.93397C0.542798 10.652 0.562798 11.249 0.604798 11.681C0.619798 11.885 0.647798 12.083 0.667798 12.22L0.692797 12.388L0.718798 12.382C0.896659 13.2128 1.3061 13.9763 1.89976 14.5842C2.49342 15.192 3.24704 15.6194 4.07344 15.8168C4.89984 16.0142 5.76524 15.9737 6.56955 15.6998C7.37386 15.4259 8.0842 14.93 8.61841 14.2693C9.15261 13.6085 9.48884 12.8101 9.58821 11.9663C9.68759 11.1224 9.54603 10.2677 9.17993 9.50099C8.81383 8.73426 8.23814 8.08683 7.51945 7.63362C6.80076 7.1804 5.96845 6.93991 5.1188 6.93997ZM16.1188 6.93997C15.8958 6.93997 15.6818 6.97397 15.4688 7.00497C15.5378 6.77297 15.6088 6.53697 15.7228 6.32497C15.8368 6.01697 16.0148 5.74997 16.1918 5.48097C16.3398 5.18997 16.6008 4.99297 16.7928 4.74397C16.9938 4.50197 17.2678 4.34097 17.4848 4.13997C17.6978 3.92997 17.9768 3.82497 18.1988 3.67697C18.4308 3.54397 18.6328 3.39697 18.8488 3.32697L19.3878 3.10497L19.8618 2.90797L19.3768 0.969971L18.7798 1.11397C18.5888 1.16197 18.3558 1.21797 18.0908 1.28497C17.8198 1.33497 17.5308 1.47197 17.2088 1.59697C16.8918 1.73997 16.5228 1.83497 16.1808 2.06397C15.8368 2.28197 15.4398 2.46397 15.0898 2.75597C14.7508 3.05697 14.3418 3.31797 14.0398 3.69997C13.7098 4.05797 13.3838 4.43397 13.1308 4.86197C12.8378 5.26997 12.6388 5.71797 12.4288 6.16097C12.2388 6.60397 12.0858 7.05697 11.9608 7.49697C11.7238 8.37897 11.6178 9.21697 11.5768 9.93397C11.5428 10.652 11.5628 11.249 11.6048 11.681C11.6198 11.885 11.6478 12.083 11.6678 12.22L11.6928 12.388L11.7188 12.382C11.8967 13.2128 12.3061 13.9763 12.8998 14.5842C13.4934 15.192 14.247 15.6194 15.0734 15.8168C15.8998 16.0142 16.7652 15.9737 17.5696 15.6998C18.3739 15.4259 19.0842 14.93 19.6184 14.2693C20.1526 13.6085 20.4888 12.8101 20.5882 11.9663C20.6876 11.1224 20.546 10.2677 20.1799 9.50099C19.8138 8.73426 19.2381 8.08683 18.5194 7.63362C17.8008 7.1804 16.9685 6.93991 16.1188 6.93997Z' fill='%2306283D'/%3E%3C/svg%3E%0A");
+  background-repeat: no-repeat;
+}
+.gh-content :not(pre)>code {
+  vertical-align: middle;
+  padding: 0.15em 0.4em 0.15em;
+  border: #e1eaef 1px solid;
+  font-weight: 400 !important;
+  font-size: 0.9em;
+  line-height: 1em;
+  color: #15171A;
+  background: #f0f6f9;
+  border-radius: 0.25em;
+}
+.gh-content pre {
+  overflow: auto;
+  padding: 16px 20px;
+  color: #212529;
+  font-size: 0.875em;
+  line-height: 1.5em;
+  background: #DBE2F2;
+  border-radius: 5px;
+}
+
+@media (max-width: 650px) {
+  .gh-content>blockquote:not([class]),
+  .gh-content>ol,
+  .gh-content>ul,
+  .gh-content>dl,
+  .gh-content>p,
+  .gh-content .kg-callout-card .kg-callout-text,
+  .gh-content .kg-toggle-card .kg-toggle-content>ol,
+  .gh-content .kg-toggle-card .kg-toggle-content>ul,
+  .gh-content .kg-toggle-card .kg-toggle-content>p {
+    font-size: 1.1em;
+  }
+
+  .gh-content .kg-product-card .kg-product-card-description>p,
+  .gh-content .kg-product-card .kg-product-card-description>ol,
+  .gh-content .kg-product-card .kg-product-card-description>ul {
+    font-size: 1.1em;
+  } 
+}
+
+/* Cards
+/* ---------------------------------------------------------- */
+
+/* Cards are dynamic blocks of content which appear within Ghost
+posts, for example: embedded videos, tweets, galleries, or
+specially styled bookmark links. We add extra styling here to
+make sure they look good, and are given a bit of extra spacing. */
+
+/* Add extra margin before/after any cards,
+except for when immediately preceeded by a heading */
+.gh-content :not(.kg-card):not([id])+.kg-card {
+  margin-top: max(3.2vmin, 24px);
+  margin-bottom: 0;
+}
+
+.gh-content .kg-card+ :not(.kg-card) {
+  margin-top: max(3.2vmin, 24px);
+  margin-bottom: 0;
+}
+
+.kg-bookmark-title {
+  font-size: 20px;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  color: var(--gray-800);
+}
+
+.kg-bookmark-description {
+  font-size: 14px!important;
+}
+
+.kg-bookmark-author,
+.kg-bookmark-metadata>span:last-of-type {
+  font-size: 14px;
+}
+
+/* This keeps small embeds centered */
+.kg-embed-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* This keeps small iamges centered */
+.kg-iframe-card {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  padding-top: 25px;
+  height: 0;
+}
+.kg-iframe-card iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important; 
+  height: 100% !important; 
+}
+/* This keeps small iamges centered */
+.kg-image-card img {
+  margin: auto;
+}
+.has-serif-title .kg-toggle-card .kg-toggle-heading-text {
+  font-family: inherit;
+}
+
+.gh-content .kg-callout-card-accent a {
+  text-decoration: underline;
+}
+
+.kg-blockquote-alt {
+  font-family: inherit;
+  color: inherit;
+}
+
+.has-sans-body .kg-blockquote-alt {
+  font-family: inherit;
+}
+
+.kg-card.kg-header-card.kg-style-dark {
+  background: inherit;
+}
+
+.kg-header-card.kg-style-light h2.kg-header-card-header {
+  color: 1px dotted gray;
+}
+
+.has-serif-title .kg-header-card h2.kg-header-card-header {
+  font-family: inherit;
+}
+
+ 
+/* Captions */
+.gh-content figcaption {
+  padding: 1em 1em 0;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+  font-size: .875em;
+  line-height: 1.4em;
+}
+
+.gh-content  strong {
+  color: #06283D;
+} 
+/* Highly specific styles for traditional Instagram embeds */
+iframe.instagram-media {
+  margin-top: max(3.2vmin, 24px) !important; 
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-bottom: 0 !important;
+}
+
+iframe.instagram-media+script+ :not([id]) {
+  margin-top: max(3.2vmin, 24px);
+}
+
+/* Card captions
+/* ---------------------------------------------------------- */
+
+.kg-width-full.kg-card-hascaption {
+  display: grid;
+  grid-template-columns: inherit;
+}
+
+.kg-width-wide.kg-card-hascaption img {
+  grid-column: wide-start / wide-end;
+}
+
+.kg-width-full.kg-card-hascaption img {
+  grid-column: 1 / -1;
+}
+
+.kg-width-full.kg-card-hascaption figcaption {
+  grid-column: main-start / main-end;
+}
+
+.article-comments {
+  margin: 4vmin 0 0 0;
+}
+
+/* -----old------ */
+
+.footnotes-sep {
+  margin-bottom: 30px;
+}
+
+.footnotes {
+  font-size: 0.875em;
+}
+
+.footnotes p {
+  margin: 0;
+}
+
+.footnote-backref {
+  font-size: 0.75em;
+  font-weight: bold;
+  text-decoration: none !important;
+  box-shadow: none !important;
+}
+
+/* Tables */
+.gh-content table {
+  display: inline-block;
+  overflow-x: auto;
+  max-width: 100%;
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+  font-family: inherit;
+  font-size: 16px!important;
+  white-space: nowrap; 
+  vertical-align: top;  
+  border: none;
+}
+.gh-content table td:first-child {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%);
+  background-size: 20px 100%;
+  background-repeat: no-repeat;
+}
+
+.gh-content table td:last-child {
+  background-image: linear-gradient(to left, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%);
+  background-position: 100% 0;
+  background-size: 20px 100%;
+  background-repeat: no-repeat;
+}
+
+.gh-content table th {
+  color: inherit;
+  font-size: 17px!important;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-align: left;
+}
+
+.gh-content table th,
+.gh-content table td {
+  padding: 6px 12px;
+  border: 1px solid gray;
+}
+
+/* 
+1.1 Heading Adjustment 
+*/
+.gh-content h1,
+.gh-content h2,
+.gh-content h3,
+.gh-content h4,
+.gh-content h5,
+.gh-content h6 {
+  margin-top: 0;
+  line-height: 1.15;
+  font-weight: inherit; 
+  text-rendering: optimizeLegibility;
+  font-weight: 500;
+  color: var(--gray-800);
+  font-family: var(--font-serif);  
+}
+
+.gh-content h1 {
+  margin: 0 0 0.5em 0;
+  font-size: 3em;
+}
+
+@media (max-width: 600px) {
+  .gh-content h1 {
+    font-size: 2.5em;
+  }
+}
+
+.gh-content h2 {
+  margin: 1.5em 0 0.5em 0;
+  font-size: 2.25em;
+}
+
+@media (max-width: 600px) {
+  .gh-content h2 {
+    font-size: 2em;
+  }
+}
+
+.gh-content h3 {
+  margin: 1.5em 0 0.5em 0;
+  font-size: 1.875em;
+}
+
+@media (max-width: 600px) {
+  .gh-content h3 {
+    font-size: 1.5em;
+  }
+}
+  
+.gh-content h4 {
+  margin: 1.5em 0 0.5em 0;
+  font-size: 1.5em;
+}
+
+@media (max-width: 600px) {
+  .gh-content h4 {
+    font-size: 1.5em;
+  }
+}
+
+.gh-content h5 {
+  margin: 1.5em 0 0.5em 0;
+  font-size: 1.25em;
+}
+
+.gh-content h6 {
+  margin: 1.5em 0 0.5em 0;
+  font-size: 1em; 
+}
+
+.gh-post-upgrade-cta small {
+  color: #ffff!important;
+}

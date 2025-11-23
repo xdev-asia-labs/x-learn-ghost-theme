@@ -1,0 +1,41 @@
+<div class="md:flex flex-row-reverse justify-between gap-6 items-center text-center lg:text-left pb-12 relative z-10">
+   <ul class="inline-flex items-center my-2 text-center lg:text-right">
+      {{#if facebook }}
+      <li><a class="group hover:bg-blue-50 bg-white w-10 h-10 rounded-full flex items-center justify-center duration-300 m-2"
+            href="{{social_url type=" facebook"}}">
+            {{> icons/facebook}}
+         </a>
+      </li>
+      {{/if}}
+      {{#if twitter }}
+      <li><a class="group hover:bg-blue-50 bg-white w-10 h-10 rounded-full flex items-center justify-center duration-300 m-2"
+            href="{{social_url type=" twitter"}}">
+            {{> icons/twitter}}
+         </a>
+      </li>
+      {{/if}}
+      {{#if instagram }}
+      <li><a class="group hover:bg-blue-50 bg-white w-10 h-10 rounded-full flex items-center justify-center duration-300 m-2"
+            href="{{social_url type=" instagram"}}">
+            {{> icons/instagram}}
+         </a>
+      </li>
+      {{/if}}
+      {{#if linkedin }}
+      <li><a class="group hover:bg-blue-50 bg-white w-10 h-10 rounded-full flex items-center justify-center duration-300 m-2"
+            href="{{social_url type=" linkedin"}}">
+            {{> icons/linkedin}}
+         </a>
+      </li>
+      {{/if}}
+   </ul>
+   <div class="my-2">
+      <p class="text-base leading-relaxed text-gray-800 font-normal">
+         &copy;
+         <span id="spanYear">
+            <script> document.write(new Date().getFullYear()); </script>
+         </span>
+         {{@site.title}}
+      </p>
+   </div>
+</div>

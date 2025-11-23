@@ -1,0 +1,64 @@
+
+li.menu-item-has-children {
+    position: relative;
+    padding-right: 20px !important;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: space-between;
+   
+}
+
+li.menu-item-has-children a {
+    padding-right: 5px;
+}
+
+.menu-item-has-children img {
+    width: 16px;
+    height: 16px;
+}
+.menu-item-has-children svg {
+    position: absolute;
+    right: 0;
+    top: 56%;
+    transform: translate(-0%, -50%) scale(1);
+} 
+
+ul.ghost-submenu {
+    background: #fff;
+    color: #000;
+    padding: 30px 0 15px 0;
+    border-radius: 5px;
+    width: 200px;
+    max-width: unset;
+    position: absolute;
+    visibility: hidden;
+    z-index: 1;
+    opacity: 0;
+    top: 30px;
+    transition: 0.3s;
+    box-shadow: 0 1px 5px 0 rgb(0 0 0 / 14%);
+    left: 15px;
+    --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),0 8px 10px -6px rgb(0 0 0 / 0.1);
+    --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color),0 8px 10px -6px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow);
+}
+
+li.menu-item-has-children:hover ul.ghost-submenu {
+    visibility: visible !important;
+    opacity: 1 !important;
+    top: 30px !important;
+}
+
+ul.ghost-submenu li {
+    list-style: none;
+}
+
+ul.navbar-nav li, .header-area {
+    opacity: 0;
+    width: 100%;
+}
+
+li.nav-item.menu-item-has-children.menu-item-has-megamenu ul.ghost-submenu {
+    width: 100vh;
+}

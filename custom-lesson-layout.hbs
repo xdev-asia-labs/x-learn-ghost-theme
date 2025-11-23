@@ -1,0 +1,407 @@
+{{!< default}} {{#post}} {{!-- Breadcrumb Navigation --}} {{> breadcrumb}}
+
+   {{!-- Hero Section - always show for lessons --}}
+   {{> hero-section lesson_style="image_on_right"}}
+
+   <section class="single-lesson-area pt-8 md:pt-10 lg:pt-16">
+      <div class="container mx-auto">
+         <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 lg:gap-8">
+            <div class="md:col-span-12 lg:col-span-4 lg:order-1 order-2">
+               <div class="lesson-list-sidebar sticky top-8">
+                  <div class="sidebar rounded-lg  shadow duration-300">
+                     <div class="left-lesson-list">
+                        {{#has tag="#lesson"}}
+                        {{#foreach tags visibility="internal"}}
+                        {{#match slug "~" "course-id"}}
+                        {{#get "posts" limit="100" include="tags,authors,tiers" filter="tag:{{slug}}+tag:hash-lesson"
+                        order="published_at asc"}}
+                        {{#if posts.length}}
+                        <div class="related-lesson pb-6" data-course-tag="{{slug}}" data-course-id="{{id}}">
+                           <h3
+                              class=" text-2xl font-bold text-gray-800 group-hover:text-blue-800 transition-colors duration-300 px-6 pt-6 pb-6 ">
+                              {{t "course-lessons"}} </h3>
+
+
+                           {{#if access}}
+                           <!-- Course Progress Section -->
+                           <div class="course-progress px-6 pb-6 smooth-fade-in">
+                              <div class="progress-stats flex justify-between items-center mb-2">
+                                 <span class="text-sm text-gray-400">Progress</span>
+                                 <span class="text-sm font-medium text-blue-800" id="progress-percentage">0%</span>
+                              </div>
+                              <div class="progress-bar bg-gray-200 rounded-full h-2 mb-2">
+                                 <div class="progress-fill bg-blue-800 h-2 rounded-full transition-all duration-300"
+                                    id="progress-fill" style="width: 0%"></div>
+                              </div>
+                              <div class="progress-text text-xs text-gray-400" id="progress-text">0 of 0 lessons
+                                 completed</div>
+                           </div>
+                           {{/if}}
+
+
+                           <ol class="lesson-list ">
+                              {{#foreach posts}}
+                              {{> lessonlist}}
+                              {{/foreach}}
+                           </ol>
+                        </div>
+                        {{/if}}
+                        {{/get}}
+                        {{/match}}
+                        {{/foreach}}
+                        {{/has}}
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="md:col-span-12 lg:col-span-8 lg:order-2 order-1">
+               {{> hero-section lesson_style="header_inside_content"}}
+
+               <div class="gh-content prose prose-lg pb-8 dark:prose-invert">
+                  {{content}}
+
+                  <!-- Inline Table of Contents - will be moved after first paragraph by JavaScript -->
+                  <div id="inline-toc-container"
+                     class="inline-toc-widget bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-white/10 rounded-lg p-6 my-8 hidden">
+                     <p class="font-serif text-xl text-gray-800 dark:text-gray-100 font-bold mb-4 mt-0">
+                        {{t "table-of-content"}}
+                     </p>
+                     <div class="gh-toc"></div>
+                  </div>
+               </div>
+
+               <!-- Tags Section -->
+               <div class="post-details-tags flex flex-wrap gap-4 mb-6">
+                  {{#foreach tags visibility="public" limit="10"}}
+                  <a href="{{url}}"
+                     class="tag h-10 hover:shadow-md transform hover:-translate-y-0.5 group inline-flex items-center px-4 py-2 bg-gray-50 dark:bg-slate-800 hover:bg-white dark:hover:bg-slate-700 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 text-base font-medium rounded-md border border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20 transition-all duration-200">{{name}}</a>
+                  {{/foreach}}
+               </div>
+
+               {{#if access}}
+               <!-- Lesson Completion Toggle -->
+               <div
+                  class="lesson-completion-toggle mb-6 py-4 bg-white dark:bg-slate-900 border-t border-blue-200 dark:border-slate-700">
+                  <div class="flex items-center justify-between gap-4">
+                     <div class="mark-lesson-title flex-1 min-w-0">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-1 truncate">{{t "Mark Lesson
+                           Complete"}}
+                           ({{title}})</h3>
+                     </div>
+                     <div class="flex-shrink-0">
+                        <button id="toggle-completion"
+                           class="completion-btn gap-2 h-10 hover:shadow-md transform hover:-translate-y-0.5 group inline-flex items-center px-5 py-2 bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-300 text-base font-medium rounded-lg border border-gray-300 dark:border-slate-600 transition-all duration-200">
+                           <svg id="completion-icon" class="w-5 h-5" fill="none" stroke="currentColor"
+                              viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                              </path>
+                           </svg>
+                           <span id="completion-text">Đánh dấu hoàn thành</span>
+                        </button>
+                     </div>
+                  </div>
+               </div>
+               {{/if}}
+
+               <div class="w-full">
+                  {{#if comments}}
+                  {{comments}}
+                  {{/if}}
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   {{/post}}
+
+   <!-- Course Progress JavaScript -->
+   <script>
+      class CourseProgress {
+         constructor() {
+            this.courseId = this.getCourseId();
+            this.lessonId = this.getLessonId();
+            this.completedLessons = this.loadCompletedLessons();
+            this.totalLessons = this.getTotalLessons();
+            this.init();
+         }
+
+         getCourseId() {
+            // Method 1: Extract course ID from the hero-section (most reliable)
+            const heroCourseElement = document.querySelector('[data-current-course-id]');
+            if (heroCourseElement && heroCourseElement.dataset.currentCourseId) {
+               return heroCourseElement.dataset.currentCourseId;
+            }
+
+            // Method 2: Extract course slug from hero-section as fallback
+            const heroCourseSlug = document.querySelector('[data-current-course-slug]');
+            if (heroCourseSlug && heroCourseSlug.dataset.currentCourseSlug) {
+               return heroCourseSlug.dataset.currentCourseSlug;
+            }
+
+            // Method 3: Extract course ID from the sidebar (fallback)
+            const courseContainer = document.querySelector('.related-lesson');
+            if (courseContainer && courseContainer.dataset.courseId) {
+               return courseContainer.dataset.courseId;
+            }
+
+            // Method 4: Try to get from the lesson's tags (if available)
+            const lessonTags = this.getLessonTags();
+            if (lessonTags && lessonTags.length > 0) {
+               // Look for the course tag (usually the first internal tag)
+               for (let tag of lessonTags) {
+                  if (tag && tag !== 'lesson' && tag !== 'hash-lesson') {
+                     return tag;
+                  }
+               }
+            }
+
+            // Method 5: Try to extract from URL or page context
+            const pathParts = window.location.pathname.split('/');
+
+            // Look for course identifier in URL
+            for (let i = 0; i < pathParts.length; i++) {
+               if (pathParts[i] === 'course' && pathParts[i + 1]) {
+                  return pathParts[i + 1];
+               }
+            }
+
+            return 'default-course';
+         }
+
+         getLessonTags() {
+            // Try to get lesson tags from the current page
+            const metaTags = document.querySelectorAll('meta[name="ghost:tag"]');
+            if (metaTags.length > 0) {
+               return Array.from(metaTags).map(tag => tag.content);
+            }
+
+            // Try to get from the page's data attributes
+            const pageData = document.querySelector('[data-ghost-tags]');
+            if (pageData && pageData.dataset.ghostTags) {
+               return pageData.dataset.ghostTags.split(',').map(tag => tag.trim());
+            }
+
+            return null;
+         }
+
+         getLessonId() {
+            // Extract lesson ID from current URL or page
+            const pathParts = window.location.pathname.split('/');
+            return pathParts[pathParts.length - 2] || 'default';
+         }
+
+         getTotalLessons() {
+            return document.querySelectorAll('.lesson-box').length;
+         }
+
+         // Create unique key for course-lesson combination
+         createCourseLessonKey(courseId, lessonId) {
+            return `${courseId}_${lessonId}`;
+         }
+
+         loadCompletedLessons() {
+            const storageKey = `course_${this.courseId}_completed`;
+            const stored = localStorage.getItem(storageKey);
+            return stored ? JSON.parse(stored) : {};
+         }
+
+         saveCompletedLessons() {
+            const storageKey = `course_${this.courseId}_completed`;
+            localStorage.setItem(storageKey, JSON.stringify(this.completedLessons));
+         }
+
+         toggleLessonCompletion() {
+            // Use unique course-lesson key
+            const courseLessonKey = this.createCourseLessonKey(this.courseId, this.lessonId);
+
+            if (this.completedLessons[courseLessonKey]) {
+               delete this.completedLessons[courseLessonKey];
+            } else {
+               this.completedLessons[courseLessonKey] = true;
+            }
+            this.saveCompletedLessons();
+            this.updateUI();
+            this.updateProgress();
+         }
+
+         updateUI() {
+            // Use unique course-lesson key
+            const courseLessonKey = this.createCourseLessonKey(this.courseId, this.lessonId);
+            const isCompleted = this.completedLessons[courseLessonKey];
+
+            const btn = document.getElementById('toggle-completion');
+            const text = document.getElementById('completion-text');
+            const icon = document.getElementById('completion-icon');
+
+            if (isCompleted) {
+               // Completed state - Green with checkmark
+               btn.classList.remove('bg-gray-100', 'dark:bg-slate-800', 'text-gray-600', 'dark:text-gray-300', 'border-gray-300', 'dark:border-slate-600');
+               btn.classList.add('bg-green-500', 'dark:bg-green-600', 'text-white', 'border-green-600', 'dark:border-green-500', 'hover:bg-green-600', 'dark:hover:bg-green-700');
+               text.textContent = 'Đã hoàn thành';
+               if (icon) {
+                  icon.style.display = 'block';
+               }
+            } else {
+               // Incomplete state - Gray
+               btn.classList.remove('bg-green-500', 'dark:bg-green-600', 'text-white', 'border-green-600', 'dark:border-green-500', 'hover:bg-green-600', 'dark:hover:bg-green-700');
+               btn.classList.add('bg-gray-100', 'dark:bg-slate-800', 'text-gray-600', 'dark:text-gray-300', 'border-gray-300', 'dark:border-slate-600', 'hover:bg-gray-200', 'dark:hover:bg-slate-700');
+               text.textContent = 'Đánh dấu hoàn thành';
+               if (icon) {
+                  icon.style.display = 'none';
+               }
+            }
+
+            // Update lesson list items
+            this.updateLessonList();
+         }
+
+         updateLessonList() {
+            const lessonItems = document.querySelectorAll('.lesson-box');
+            lessonItems.forEach(item => {
+               const lessonSlug = item.dataset.lessonSlug;
+               const iconContainer = item.querySelector('.lesson-logo');
+               const title = item.querySelector('h4');
+
+               // Use unique course-lesson key
+               const courseLessonKey = this.createCourseLessonKey(this.courseId, lessonSlug);
+
+               if (this.completedLessons[courseLessonKey]) {
+                  // Show checkmark for completed lessons
+                  iconContainer.innerHTML = '<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.25 20.2125L6.0375 15L4.2625 16.7625L11.25 23.75L26.25 8.75L24.4875 6.9875L11.25 20.2125Z" fill="currentcolor"/></svg>';
+                  iconContainer.classList.add('bg-green-100', 'text-green-600');
+                  iconContainer.classList.remove('bg-gray-200', 'text-gray-400', 'bg-blue-50');
+
+
+               } else {
+                  // Show lesson icon for incomplete lessons
+                  iconContainer.innerHTML = '<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.25 20.2125L6.0375 15L4.2625 16.7625L11.25 23.75L26.25 8.75L24.4875 6.9875L11.25 20.2125Z" fill="currentcolor"/></svg>';
+                  iconContainer.classList.add('bg-gray-100', 'text-gray-400');
+                  iconContainer.classList.remove('bg-green-100', 'text-green-600', 'bg-blue-50');
+
+                  // Remove completion indicator
+                  const indicator = item.querySelector('.completion-indicator');
+                  if (indicator) indicator.remove();
+               }
+            });
+         }
+
+         updateProgress() {
+            const completedCount = Object.keys(this.completedLessons).length;
+            const percentage = this.totalLessons > 0 ? Math.round((completedCount / this.totalLessons) * 100) : 0;
+
+            // Update progress bar
+            const progressFill = document.getElementById('progress-fill');
+            const progressPercentage = document.getElementById('progress-percentage');
+            const progressText = document.getElementById('progress-text');
+
+            if (progressFill) progressFill.style.width = `${percentage}%`;
+            if (progressPercentage) progressPercentage.textContent = `${percentage}%`;
+            if (progressText) progressText.textContent = `${completedCount} of ${this.totalLessons} lessons completed`;
+         }
+
+         init() {
+            // Initialize completion button
+            const toggleBtn = document.getElementById('toggle-completion');
+            if (toggleBtn) {
+               toggleBtn.addEventListener('click', () => this.toggleLessonCompletion());
+            }
+
+            // Set initial state
+            this.updateUI();
+            this.updateProgress();
+         }
+      }
+
+      // Initialize when DOM is ready
+      if (document.readyState === 'loading') {
+         document.addEventListener('DOMContentLoaded', () => new CourseProgress());
+      } else {
+         new CourseProgress();
+      }
+   </script>
+
+   <link rel="stylesheet" href="{{asset 'css/tocbot.css'}}" />
+   <link rel="stylesheet" href="{{asset 'css/prism.css'}}" />
+   <script src="{{asset 'js/tocbot.min.js'}}"></script>
+   <script src="{{asset 'js/prism.js'}}" defer></script>
+   <script>
+      // Initialize Table of Contents
+      document.addEventListener('DOMContentLoaded', function () {
+         // Check if there are any headings in the content
+         const contentHeadings = document.querySelectorAll('.gh-content h2, .gh-content h3, .gh-content h4, .gh-content h5');
+
+         if (contentHeadings.length === 0) {
+            return;
+         }
+
+         // Check if tocbot is available
+         if (typeof tocbot !== 'undefined') {
+            tocbot.init({
+               tocSelector: '.gh-toc',
+               contentSelector: '.gh-content',
+               headingSelector: 'h2, h3, h4, h5',
+               ignoreSelector: '.js-no-anchor',
+               headingsOffset: 100,
+               scrollSmoothOffset: -100,
+               maxHeaderLength: -1, // unlimited - don't truncate IDs
+               onClick: false, // disable default tocbot click handler - use custom below
+            });
+            tocbot.refresh();
+
+            // Check if tocbot actually generated any TOC items
+            setTimeout(() => {
+               const tocItems = document.querySelectorAll('li.toc-list-item');
+               const tocContainer = document.getElementById('inline-toc-container');
+               if (tocItems.length > 0 && tocContainer) {
+                  // Show TOC container
+                  tocContainer.classList.remove('hidden');
+
+                  // Move TOC to the beginning of content (after first heading)
+                  const firstHeading = document.querySelector('.gh-content > h2');
+                  if (firstHeading && firstHeading.parentNode) {
+                     firstHeading.parentNode.insertBefore(tocContainer, firstHeading.nextSibling);
+                  }
+               }
+
+               // Add smooth scroll to TOC links - wait longer for tocbot to finish
+               const attachSmoothScroll = () => {
+                  const tocLinks = document.querySelectorAll('.gh-toc a');
+                  if (tocLinks.length === 0) {
+                     // Tocbot hasn't generated links yet, retry
+                     setTimeout(attachSmoothScroll, 200);
+                     return;
+                  }
+
+                  tocLinks.forEach(link => {
+                     // Use capture phase to run before default behavior
+                     link.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        const href = this.getAttribute('href');
+                        const targetId = href.startsWith('#') ? href.substring(1) : href;
+                        const targetElement = document.getElementById(targetId);
+
+                        if (targetElement) {
+                           // Smooth scroll to target
+                           targetElement.scrollIntoView({
+                              behavior: 'smooth',
+                              block: 'start'
+                           });
+
+                           // Update URL hash without jumping
+                           if (history.pushState) {
+                              history.pushState(null, null, href);
+                           }
+                        }
+
+                        return false;
+                     }, true); // true = capture phase
+                  });
+               };
+
+               attachSmoothScroll();
+            }, 100);
+         }
+      });
+   </script>

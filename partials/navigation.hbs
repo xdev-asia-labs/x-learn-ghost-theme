@@ -1,0 +1,16 @@
+{{#if isSecondary}}
+<ul class="flex flex-wrap justify-center gap-x-8 gap-y-4">
+  {{#foreach navigation}}
+  <li>
+    <a class="text-base font-medium text-gray-600 hover:text-primary-600 transition-colors duration-200"
+      href="{{url}}">{{label}}</a>
+  </li>
+  {{/foreach}}
+</ul>
+{{else}}
+<!-- Desktop Navigation with Dropdowns -->
+{{> dropdown-navigation isMobile=false}}
+
+<!-- Mobile Navigation with Dropdowns -->
+{{> dropdown-navigation isMobile=true}}
+{{/if}}

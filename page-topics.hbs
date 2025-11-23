@@ -1,0 +1,43 @@
+{{!< default}} {{#post}} {{> hero-section page_style="image_on_right"}}
+   {{/post}}
+   {{#get "tags" include="count.posts" order="count.posts desc" limit="100"}}
+   {{#if tags}}
+   <section class="topics-area-page ">
+      <div class="container mx-auto">
+         <div class="topics-grid grid lg:grid-cols-3 md:grid-cols-2 gap-8 md:gap-10 lg:gap-16">
+            {{#foreach tags}}
+            <div class="topic-{{@number}}  ">
+               <div
+                  class="topics-box-1 rounded-lg hover:-translate-y-1 group text-center duration-300 topic-{{@number}}">
+                  <div class="topics-icon flex justify-center mx-auto mb-6 ">
+                     <a href="{{url}}">
+                        <img class="rounded-lg aspect-[16/9]"
+                           src="{{#if feature_image}} {{img_url feature_image}} {{else}} {{asset " images/blank.png"}}
+                           {{/if}}" alt="{{name}}">
+                     </a>
+                  </div>
+                  <div class="topics-content">
+                     <h4 class="font-serif text-xl text-gray-800 group-hover:text-blue-800 font-bold mb-0 duration-300">
+                        <a href="{{url}}">{{name}}</a>
+                     </h4>
+                     <p class="text-base leading-relaxed text-gray-400 font-normal">{{plural count.posts empty='No
+                        Courses' singular='% Course' plural='% Courses'}}
+                     </p>
+                  </div>
+               </div>
+            </div>
+            {{/foreach}}
+         </div>
+      </div>
+   </section>
+
+   {{#post}}
+   <section class="single-area pt-8 md:pt-10 lg:pt-16">
+      <div class="gh-content container mx-auto prose lg:prose-md">
+         {{content}}
+      </div>
+   </section>
+   {{/post}}
+   {{/if}}
+   {{/get}}
+   {{> filter-topics-course}}

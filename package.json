@@ -1,0 +1,54 @@
+{
+    "name": "x-learn-ghost-theme",
+    "description": "A modern Ghost theme for online courses and learning platforms",
+    "version": "1.0.0",
+    "private": true,
+    "engines": {
+        "ghost": ">=6.0.0"
+    },
+    "license": "CC-BY-NC-ND-4.0",
+    "author": {
+        "name": "DUY TRAN",
+        "email": "duy@xdev.asia",
+        "url": "https://xdev.asia"
+    },
+    "keywords": [
+        "ghost-theme",
+        "education",
+        "courses",
+        "learning"
+    ],
+    "config": {
+        "posts_per_page": 12,
+        "image_sizes": {
+            "xs": {
+                "width": 150
+            },
+            "s": {
+                "width": 300
+            },
+            "m": {
+                "width": 720
+            },
+            "l": {
+                "width": 960
+            },
+            "xl": {
+                "width": 1200
+            },
+            "xxl": {
+                "width": 2000
+            }
+        },
+        "card_assets": true
+    },
+    "scripts": {
+        "dev": "gulp",
+        "zip": "gulp zip",
+        "test": "gscan ."
+    },
+    "devDependencies": {
+        "gulp": "^4.0.2",
+        "gulp-zip": "^5.1.0"
+    }
+}

@@ -1,0 +1,18 @@
+{{!< default}} {{#contentFor "metaTitle" }} <title>{{meta_title}}</title>
+   {{/contentFor}}
+
+   <section class="course-area pt-8 md:pt-10 lg:pt-16">
+      <div class="container mx-auto">
+         <div class="flex justify-between items-center mb-6">
+            <h2 class="text-3xl font-bold text-gray-800">{{t "latest-courses"}}</h2>
+         </div>
+         {{#get "posts" include="tags,authors" filter="tag:hash-course" limit="100"}}
+         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {{#foreach posts}}
+            {{> cards/card-course}}
+            {{/foreach}}
+         </div>
+         {{/get}}
+      </div>
+   </section>
+   {{> filter-topics-course}}

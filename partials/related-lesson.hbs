@@ -1,0 +1,44 @@
+{{#post}}
+{{#has tag="#lesson"}}
+{{#foreach tags visibility="internal" limit="1"}}
+{{#get
+"posts"
+limit="5"
+filter="tag:{{slug}}+tag:hash-lesson"
+order="title asc"
+include="tags,authors"
+}}
+<div class="related-lesson">
+  <div class="section-title max-w-lg mb-8">
+    <h2 class="font-serif text-2xl lg:text-4xl text-gray-800 font-bold mb-6">{{t "related-lessons"}}</h2>
+  </div>
+  <div class="lesson-list sticky top-0">
+    {{#foreach posts}}
+    <div class="{{post_class}}" id="id-{{id}}" data-aos="fade-up" data-aos-delay="400">
+      <div
+        class="lesson-box-1 rounded-lg grid gap-6 lg:grid-cols-12 items-center group shadow hover:shadow-lg hover:-translate-y-1 duration-300 p-6 mb-8">
+        <div class="lg:col-span-8">
+          <div class="lesson-content">
+            <h4 class="font-serif text-xl text-gray-800 hover:text-blue-800 font-bold mb-2 duration-300">
+              <a href="{{url}}">{{title}}</a>
+            </h4>
+            <p class="text-base leading-relaxed text-gray-400 font-normal">{{date published_at="MMM ddd,
+              YYY"}}
+            </p>
+          </div>
+        </div>
+        {{#if primary_tag}}
+        <div class="lg:col-span-4 lg:text-right"><a href="{{url}}"
+            class="inline-block whitespace-nowrap px-8 py-2 text-sm font-medium text-white bg-blue-800 rounded-full hover:opacity-80 duration-300">{{primary_tag.name}}</a>
+        </div>
+        {{/if}}
+      </div>
+    </div>
+    {{/foreach}}
+  </div>
+</div>
+{{/get}}
+{{/foreach}}
+{{/has}}
+
+{{/post}}

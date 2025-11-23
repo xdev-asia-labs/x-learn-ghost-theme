@@ -1,0 +1,17 @@
+{{#get "tags" include="count.posts" order="count.posts desc" limit="100"}}
+  {{#foreach tags}}
+    {{#get
+      "posts"
+      include="tags,authors"
+      filter="tag:{{slug}}+tag:hash-course"
+      limit="1"
+    }}
+      {{#unless posts}}
+        <script>
+          (function() { const topicElement = document.querySelector('.topic-{{@number}}');
+          if (topicElement) { topicElement.remove(); } })();
+        </script>
+      {{/unless}}
+    {{/get}}
+  {{/foreach}}
+{{/get}}

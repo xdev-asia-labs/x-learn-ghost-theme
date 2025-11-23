@@ -1,0 +1,33 @@
+{{#has tag="#blog"}}
+{{#primary_author}}
+<div class="author flex items-center justify-start">
+   <img class="w-10 h-10 rounded-full object-cover" src="{{img_url profile_image size=" s"}}"
+      srcset="{{img_url profile_image size=" s"}} 1x, {{img_url profile_image size="m" }} 2x" alt="{{name}}"
+      loading="lazy">
+   <div class="course-content ml-2">
+      <h6 class="font-serif text-base text-gray-800 hover:text-blue-800 font-bold duration-300">
+         <a href="{{url}}">{{name}}</a>
+      </h6>
+      {{#if location}}
+      <p class="text-sm text-gray-400 font-normal opacity-60">{{location}}</p>
+      {{/if}}
+   </div>
+</div>
+{{/primary_author}}
+{{else}}
+<p class="course-meta-info text-base text-gray-100 font-medium">{{t "published-by"}}
+   {{#primary_author}}
+   <a class="text-gray-400 hover:text-blue-800 duration-300" href="{{url}}">{{name}}</a>
+   {{/primary_author}}
+   {{#foreach tags visibility="internal" limit="1"}}
+   {{#get "posts" include ="tags" filter="tag:{{slug}}+tag:hash-course"}}
+   {{#if posts}}
+   on
+   {{#foreach posts}}
+   <a class="text-gray-400 hover:text-blue-800 duration-300" href="{{url}}">{{title}}</a> <br>
+   {{/foreach}}
+   {{/if}}
+   {{/get}}
+   {{/foreach}}
+</p>
+{{/has}}

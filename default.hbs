@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="{{@site.locale}}">
+
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="x-ua-compatible" content="ie=edge">
+   {{#block "metaTitle"}}
+   <title>{{meta_title}}</title>
+   {{/block}}
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+   <!-- Dark Mode Script -->
+   <script>
+      if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+         document.documentElement.classList.add('dark');
+      } else {
+         document.documentElement.classList.remove('dark');
+      }
+   </script>
+
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet">
+
+   <link rel="stylesheet" href="{{asset 'css/app.min.css'}}">
+   <link rel="stylesheet" href="{{asset 'css/prism.css'}}">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+   {{> ghost-dynamic-style}}
+
+   <!-- Hide Powered by Ghost immediately (before render) -->
+   <style>
+      /* Critical CSS - Hide Ghost branding immediately */
+      .gh-portal-powered,
+      .gh-powered-by,
+      [data-testid="powered-by-ghost"],
+      [class*="powered"],
+      [class*="PoweredBy"],
+      iframe[title="portal-popup"]+style+div a[href*="ghost.org"],
+      footer [href*="ghost.org"],
+      a[href*="ghost.org"][rel*="noopener"],
+      div[class*="Footer"] a[href*="ghost.org"] {
+         display: none !important;
+         opacity: 0 !important;
+         visibility: hidden !important;
+         height: 0 !important;
+         overflow: hidden !important;
+         position: absolute !important;
+         left: -9999px !important;
+      }
+
+      /* Hide Portal trigger button */
+      iframe[title="portal-trigger"],
+      #ghost-portal-root iframe[title="portal-trigger"] {
+         display: none !important;
+      }
+   </style>
+
+   <script src="{{asset 'js/app.js'}}"></script>
+   <script src="{{asset 'js/dropdown-navigation.js'}}"></script>
+   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+   <script src="{{asset 'js/topics-swiper.js'}}"></script>
+   <script src="{{asset 'js/prism.js'}}"></script>
+   <script src="{{asset 'js/code-copy.js'}}"></script>
+
+   {{^is "post, page"}}
+   <script>
+      // Set global pagination variables for load more functionality
+      var pagination_next_page_number = '{{pagination.next}}',
+         pagination_available_pages_number = '{{pagination.pages}}';
+   </script>
+   {{/is}}
+   {{ghost_head}}
+
+   {{!-- Explicit Open Graph Image --}}
+   {{#if feature_image}}
+   <meta property="og:image" content="{{img_url feature_image absolute=" true"}}">
+   {{else}}
+   {{#if @site.cover_image}}
+   <meta property="og:image" content="{{img_url @site.cover_image absolute=" true"}}">
+   {{/if}}
+   {{/if}}
+</head>
+
+<body
+   class="bg-white dark:bg-slate-950 dark:text-gray-100 transition-colors duration-300 {{body_class}} overflow-x-hidden font-sans relative">
+
+   <!-- Global AI Background (Dark Mode Only) -->
+   <div class="fixed inset-0 z-0 pointer-events-none hidden dark:block">
+      <div
+         class="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]">
+      </div>
+      <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px] animate-pulse"></div>
+      <div
+         class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[100px] animate-pulse delay-1000">
+      </div>
+   </div>
+
+   <div class="main-area relative z-10">
+
+
+      {{> header}}
+      {{{body}}}
+      {{> footer}}
+   </div>
+
+   {{ghost_foot}}
+
+   <style>
+      /* Hide Powered by Ghost badge in Portal */
+      .gh-portal-powered,
+      [data-testid="powered-by-ghost"],
+      iframe[title="portal-popup"]+style+div a[href*="ghost.org"] {
+         display: none !important;
+         opacity: 0 !important;
+         visibility: hidden !important;
+         height: 0 !important;
+         overflow: hidden !important;
+      }
+
+      /* Hide Portal trigger button (Subscribe floating button) */
+      iframe[title="portal-trigger"],
+      #ghost-portal-root iframe[title="portal-trigger"] {
+         display: none !important;
+      }
+
+      /* Additional selectors for Powered by Ghost */
+      .gh-powered-by,
+      footer [href*="ghost.org"],
+      a[href*="ghost.org"][rel*="noopener"],
+      div[class*="Footer"] a[href*="ghost.org"] {
+         display: none !important;
+      }
+   </style>
+
+   <script>
+      // Enhanced script to hide "Powered by Ghost" in Portal
+      (function hideGhostBranding() {
+         const hideElements = () => {
+            // Hide in main document
+            const poweredLinks = document.querySelectorAll('a[href*="ghost.org"]');
+            poweredLinks.forEach(link => {
+               const text = link.textContent.toLowerCase();
+               if (text.includes('powered') || text.includes('ghost')) {
+                  link.style.display = 'none';
+                  if (link.parentElement) {
+                     link.parentElement.style.display = 'none';
+                  }
+               }
+            });
+
+            // Hide elements with specific classes
+            const classesToHide = [
+               '.gh-portal-powered',
+               '.gh-powered-by',
+               '[data-testid="powered-by-ghost"]',
+               '[class*="PoweredBy"]',
+               '[class*="powered"]'
+            ];
+
+            classesToHide.forEach(selector => {
+               document.querySelectorAll(selector).forEach(el => {
+                  el.style.display = 'none';
+               });
+            });
+
+            // Target Portal iframe
+            const portalRoot = document.querySelector('#ghost-portal-root');
+            if (portalRoot) {
+               const iframes = portalRoot.querySelectorAll('iframe');
+               iframes.forEach(iframe => {
+                  try {
+                     const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+                     if (iframeDoc) {
+                        let style = iframeDoc.querySelector('#hide-powered-by');
+                        if (!style) {
+                           style = iframeDoc.createElement('style');
+                           style.id = 'hide-powered-by';
+                           style.textContent = `
+                              .gh-portal-powered,
+                              .gh-powered-by,
+                              [class*="powered"],
+                              [class*="PoweredBy"],
+                              footer a[href*="ghost.org"],
+                              a[href*="ghost.org"] {
+                                 display: none !important;
+                                 visibility: hidden !important;
+                                 height: 0 !important;
+                                 overflow: hidden !important;
+                              }
+                           `;
+                           iframeDoc.head.appendChild(style);
+                        }
+
+                        // Also directly hide elements in iframe
+                        const iframeLinks = iframeDoc.querySelectorAll('a[href*="ghost.org"]');
+                        iframeLinks.forEach(link => {
+                           link.style.display = 'none';
+                           if (link.parentElement) {
+                              link.parentElement.style.display = 'none';
+                           }
+                        });
+                     }
+                  } catch (e) {
+                     // Cross-origin iframe restriction
+                  }
+               });
+            }
+         };
+
+         // Run immediately and setup observer
+         hideElements();
+
+         // Setup MutationObserver for dynamic content
+         const observer = new MutationObserver(hideElements);
+         observer.observe(document.body, {
+            childList: true,
+            subtree: true
+         });
+
+         // Also check periodically for Portal popup
+         setInterval(hideElements, 500);
+
+         // Run on DOMContentLoaded
+         if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', hideElements);
+         }
+      })();
+   </script>
+</body>
+
+</html>

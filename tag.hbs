@@ -1,0 +1,69 @@
+{{!< default}} {{#tag}} <div class="hero-area relative py-8 md:py-10 lg:py-16  topic-{{@number}}">
+   <div class="container mx-auto">
+      <div class="page-title-box p-6 rounded-lg" style="background-color: {{accent_color}};">
+         <div class="section-title max-w-4xl text-center mx-auto ">
+
+            <h4 class="tag-name text-3xl lg:text-4xl font-bold text-gray-800 mb-4">{{name}}</h4>
+            {{#get "posts" include="tags,authors" filter="tag:{{slug}}" limit="100" }}
+            {{#contentFor "postCount"}}
+            <p class="post-count mb-2 text-sm px-3 py-1  bg-blue-800 text-white rounded inline-block  ">{{plural
+               posts.length empty='No posts
+               available' singular=' % post available' plural=' % posts available'}}
+            </p>
+            {{/contentFor}}
+            {{#contentFor "courseCount"}}
+            <p class="mb-2 text-sm px-3 py-1  bg-blue-800 text-white rounded inline-block ">{{plural posts.length
+               empty='No Courses available' singular=' % Course available' plural=' % Courses available'}} </p>
+            {{/contentFor}}
+            {{#foreach posts limit="1"}}
+            {{#has tag="#blog"}}
+            {{{block "postCount"}}}
+            {{else}}
+            {{{block "courseCount"}}}
+            {{/has}}
+            {{/foreach}}
+            {{/get}}
+            {{#if description}}
+            <p class="tag-description text-lg text-gray-400 !leading-normal font-normal pt-2">{{description}}</p>
+            {{/if}}
+         </div>
+      </div>
+   </div>
+   </div>
+   {{/tag}}
+
+   <section class="course-area ">
+      <div class="container mx-auto">
+         <div class="posts grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-16">
+            {{#foreach posts}}
+            {{#has tag="#blog"}}
+            {{> cards/card-post}}
+            {{else}}
+            {{> cards/card-course}}
+            {{/has}}
+            {{/foreach}}
+         </div>
+
+         <!-- Load More Button -->
+         {{#if pagination}}
+         {{#if pagination.next}}
+         <div class="load-more-container">
+            <button class="js-load-posts">
+               {{t "load-more-posts"}}
+            </button>
+         </div>
+         {{/if}}
+         {{/if}}
+      </div>
+   </section>
+
+   <!-- Add pagination data for JavaScript -->
+   <script>
+      window.blogPagination = {
+         currentPage: {{ pagination.page }},
+      totalPages: { { pagination.pages } },
+      totalPosts: { { pagination.total } },
+      postsPerPage: { { pagination.limit } },
+      hasNext: { { #if pagination.next } } true{ {else } } false{ {/if } }
+};
+   </script>

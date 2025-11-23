@@ -1,0 +1,35 @@
+{{#get "posts" include="tags,authors" filter="tag:-[hash-course, hash-lesson]" limit="5" as |recent|}}
+
+{{#if recent}}
+<div class="recent-posts-widget">
+   <span class="inline-block font-serif text-xl text-gray-800 font-bold mb-6">{{t "recent-posts"}}</span>
+   <div class="flex flex-col gap-4">
+      {{#foreach recent}}
+      <article class="recent-post-item group">
+         <div class="flex gap-3 rounded-lg transition-colors duration-200 items-center">
+            {{#if feature_image}}
+            <!-- Post Image -->
+            <div class="flex-shrink-0">
+               <a href="{{url}}" class="block">
+                  <img class="w-16 h-16 object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
+                     src=" {{img_url feature_image size=" s"}} "
+                       alt=" {{title}}">
+               </a>
+            </div>
+            {{/if}}
+            <!-- Post Content -->
+            <div class="flex-1 min-w-0">
+               <h4
+                  class="text-md font-semibold text-gray-800 group-hover:text-blue-600 transition-colors duration-200 line-clamp-2 mb-1">
+                  <a href="{{url}}">{{title}}</a>
+               </h4>
+
+
+            </div>
+         </div>
+      </article>
+      {{/foreach}}
+   </div>
+</div>
+{{/if}}
+{{/get}}

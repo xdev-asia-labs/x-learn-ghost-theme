@@ -1,0 +1,27 @@
+{{#if isMobile}}
+<!-- Mobile Navigation -->
+<ul
+  class="lg:hidden space-y-2 max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 dark:scrollbar-thumb-slate-700 dark:scrollbar-track-slate-900 pr-2"
+  id="mobile-nav">
+  {{#foreach @site.navigation}}
+  <li data-nav-item="{{@index}}">
+    <a href="{{this.url}}"
+      class="block text-base text-gray-800 dark:text-gray-200 hover:text-blue-800 dark:hover:text-blue-400 font-medium px-4 py-2 rounded-lg transition-all duration-200 hover:bg-gray-50 dark:hover:bg-slate-800 {{#if current}}text-blue-800 dark:text-blue-400 bg-gray-50 dark:bg-slate-800{{/if}}">
+      {{label}}
+    </a>
+  </li>
+  {{/foreach}}
+</ul>
+{{else}}
+<!-- Desktop Navigation -->
+<ul class="hidden lg:flex items-center space-x-6 invisible transition-all duration-300" id="desktop-nav">
+  {{#foreach @site.navigation}}
+  <li class="relative group" data-nav-item="{{@index}}">
+    <a href="{{this.url}}"
+      class="relative flex items-center text-base text-gray-800 dark:text-gray-200 hover:text-blue-800 dark:hover:text-blue-400 font-medium px-4 py-3 rounded-lg transition-all duration-300 transform {{#if current}}text-blue-800 dark:text-blue-400{{/if}}">
+      <span class="relative z-10">{{label}}</span>
+    </a>
+  </li>
+  {{/foreach}}
+</ul>
+{{/if}}

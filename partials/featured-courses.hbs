@@ -1,0 +1,63 @@
+{{!-- Featured courses removed - @custom.course_tag_slug_* settings no longer supported --}}
+{{!-- Use latest-courses partial instead --}}
+class="group h-10 boder-gray-100 ml-4 hover:shadow-md transform hover:-translate-y-0.5 group inline-flex items-center
+px-4 py-2 bg-gray-50 hover:bg-white text-gray-400 hover:text-gray-800 text-base font-medium rounded-md border
+border-gray-200 hover:border-gray-300 transition-all duration-200">
+<span class="mr-2 hidden sm:block">{{t "view-all"}}</span>
+<svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor"
+  viewBox="0 0 24 24">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+</svg>
+</a>
+</div>
+</div>
+
+
+<div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  {{#foreach posts}}
+  {{> cards/card-course}}
+  {{/foreach}}
+</div>
+</div>
+</section>
+{{/if}}
+{{/get}}
+
+
+{{#get "posts" include="tags,authors" filter="tag:{{@custom.course_tag_slug_2}}+tag:hash-course" limit="3"}}
+{{#if posts}}
+<section class="featured-courses-area">
+  <div class="container mx-auto">
+
+
+    <div class="section-title text-center w-full  mb-6 lg:mb-10">
+      <div class="flex   items-center justify-between gap-2 mb-6  w-full">
+        <h4 class="text-3xl font-bold text-gray-800">
+          {{#foreach posts limit="1"}}
+          {{#foreach tags limit="1"}}{{name}}{{/foreach}}
+          {{/foreach}}
+        </h4>
+
+        <!-- View All Button - Small and Minimal -->
+        <a href="/tag/{{@custom.course_tag_slug_2}}"
+          class="group   h-10   boder-gray-100   ml-4 hover:shadow-md  transform hover:-translate-y-0.5 group inline-flex items-center px-4 py-2 bg-gray-50 hover:bg-white text-gray-400 hover:text-gray-800 text-base font-medium rounded-md border border-gray-200 hover:border-gray-300 transition-all duration-200">
+          <span class="mr-2 hidden sm:block">{{t "view-all"}}</span>
+          <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200" fill="none"
+            stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+
+    <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {{#foreach posts}}
+      {{> cards/card-course}}
+      {{/foreach}}
+    </div>
+  </div>
+</section>
+{{/if}}
+{{/get}}
+</div>

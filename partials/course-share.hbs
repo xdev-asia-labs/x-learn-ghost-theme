@@ -1,0 +1,22 @@
+<ul class="inline-flex items-cente flex-wrap">
+   <li><a class="group bg-facebook-100  w-8 h-8 rounded-full flex items-center justify-center duration-300 mr-2"
+      href="https://www.facebook.com/sharer/sharer.php?u={{url absolute=" true "}}"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+      {{> icons/facebook classes="text-gray-400 group-hover:text-white"}}
+      </a>
+   </li>
+   <li><a class="group bg-twitter-100  w-8 h-8 rounded-full flex items-center justify-center duration-300 mr-2"
+      href="http://twitter.com/share?text={{encode title}}&amp;url={{url absolute=" true "}}"
+      onclick="window.open(this.href, 'twitter-share','width=580,height=296');return false;">
+      {{> icons/twitter classes="text-gray-400 group-hover:text-white"}}
+      </a>
+   </li>
+   <li><a class="group bg-linkedin-100  w-8 h-8 rounded-full flex items-center justify-center duration-300 mr-2"
+      href="https://www.linkedin.com/sharing/share-offsite/?url={{url absolute=" true"}}{{#if
+      feature_image}}&media={{feature_image}}{{/if}}"
+      onclick="window.open(this.href, 'linkedin-share','width=580,height=296');return false;">
+      {{> icons/linkedin classes="text-gray-400 group-hover:text-white"}}
+      </a>
+   </li>
+
+</ul>

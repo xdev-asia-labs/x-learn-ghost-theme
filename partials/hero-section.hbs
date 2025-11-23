@@ -1,0 +1,691 @@
+{{#match home "one"}}
+<div class="hero-area relative overflow-hidden py-12 md:py-16 lg:py-24 bg-gradient-to-b from-primary-50/50 to-white">
+   <div class="container mx-auto">
+      <div class="hero-box-1 grid items-center sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-24">
+         <div class="hero-cotent relative lg:col-span-7 order-2 sm:order-1">
+            <h1 class="font-serif text-5xl lg:text-6xl text-gray-900 font-bold mb-6 !leading-tight tracking-tight">
+               {{@site.title}}
+            </h1>
+            {{#if @site.description}}
+            <p class="text-xl text-gray-600 font-normal mb-8 leading-relaxed">{{@site.description}}</p>
+            {{/if}}
+            <div class="flex flex-wrap gap-4">
+               <a href="/contact-us/"
+                  class="hero-btn-1 inline-flex items-center justify-center text-base text-white font-semibold bg-primary-600 hover:bg-primary-700 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 py-3.5 px-8 rounded-full">
+                  {{t "contact-us"}}
+               </a>
+               <a href="/courses"
+                  class="hero-btn-2 inline-flex items-center justify-center px-8 py-3.5 font-semibold text-base text-gray-700 glass-apple-card hover:text-primary-600 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 rounded-full">
+                  {{t "view-courses"}}
+               </a>
+            </div>
+         </div>
+         {{#if @site.cover_image}}
+         <div class="feature-image relative lg:col-span-5 order-1 sm:order-2">
+            <div
+               class="relative rounded-2xl shadow-2xl overflow-hidden transform hover:scale-[1.02] transition-transform duration-500">
+               <img class="w-full h-auto object-cover" width="1200" height="630" src="{{img_url @site.cover_image size="
+                  xl"}}" srcset="{{img_url @site.cover_image size=" m"}} 600w, {{img_url @site.cover_image size="l" }}
+                  1000w, {{img_url @site.cover_image size="xl" }} 1200w" sizes="(max-width: 768px) 100vw, 50vw"
+                  alt="{{@site.title}}" loading="eager">
+            </div>
+         </div>
+         {{/if}}
+      </div>
+   </div>
+</div>
+{{/match}}
+{{#match home "two"}}
+<div class="hero-area relative overflow-hidden py-16 md:py-20 lg:py-32 bg-gradient-to-b from-primary-50/30 to-white">
+   <div class="container mx-auto">
+      <div class="hero-box-2">
+         <div class="hero-cotent text-center relative max-w-4xl mx-auto">
+            <h1 class="font-serif text-5xl lg:text-6xl text-gray-900 font-bold mb-8 !leading-tight tracking-tight">
+               {{@site.title}}
+            </h1>
+            {{#if @site.description}}
+            <h4 class="text-xl text-gray-600 font-normal mb-12 leading-relaxed">{{@site.description}}</h4>
+            {{/if}}
+            <a href="#/portal/signup" class="subscribe-form block max-w-2xl mx-auto">
+               <div class="md:flex gap-4 relative p-2 bg-white rounded-full shadow-xl border border-gray-100">
+                  <span type="search"
+                     class="block px-6 py-4 w-full text-base text-gray-600 bg-transparent rounded-full focus:text-gray-900 placeholder-gray-400 outline-none">{{t
+                     "Enter your email"}}</span>
+                  <button type="submit"
+                     class="text-base text-white font-bold bg-primary-600 hover:bg-primary-700 transition-all duration-300 rounded-full w-full md:w-auto px-10 py-4 shadow-md hover:shadow-lg whitespace-nowrap">{{t
+                     "Subscribe"}}</button>
+               </div>
+            </a>
+         </div>
+      </div>
+   </div>
+</div>
+{{/match}}
+{{#match course_style "image_on_left"}}
+<div class="hero-area relative py-8 md:py-10 lg:py-16 image-on-right">
+   <div class="container mx-auto">
+      <div class="hero-box-3 grid gap-8 grid-cols-1 lg:grid-cols-12 items-center text-left">
+         <div class="lg:col-span-7 lg:pr-10 order-2">
+            <div
+               class=" hero-content flex flex-wrap content-center relative top-0 bottom-0 left-0 max-w-[860px] z-10 flex-col">
+               {{#foreach tags visibility="all" limit="1"}}
+               {{#get "posts" filter="tag:[hash-lesson]+tag:{{slug}}" order="title asc" include="tags,authors"
+               limit="100" }}
+               <p class="mb-2 text-base leading-relaxed text-blue-800 font-bold">{{plural posts.length empty='No Lessons
+                  available' singular='Total % Lessons available' plural='Total % Lessons available'}}
+               </p>
+               {{/get}}
+               {{/foreach}}
+               <h1 class="font-serif !leading-tight text-4xl lg:text-5xl text-gray-800 font-bold  mb-6">{{title}}
+               </h1>
+               {{#if custom_excerpt}}
+               <p class="text-xl text-gray-400 font-normal mb-6">{{custom_excerpt}}</p>
+               {{/if}}
+
+
+               <div class="w-full">
+                  {{#primary_author}}
+                  <div class="author flex items-center">
+                     <img class="w-10 h-10 rounded-full object-cover" src="{{img_url profile_image size=" s"}}"
+                        srcset="{{img_url profile_image size=" s"}} 1x, {{img_url profile_image size="m" }} 2x"
+                        alt="{{name}}" loading="lazy">
+                     <div class="course-content ml-2">
+                        <h6 class="font-serif text-base text-gray-800 hover:text-blue-800 font-bold duration-300">
+                           <a href="{{url}}">{{name}}</a>
+                        </h6>
+                        {{#if location}}
+                        <p class="text-sm text-gray-400 font-normal opacity-60">{{location}}</p>
+                        {{/if}}
+                     </div>
+                  </div>
+                  {{/primary_author}}
+               </div>
+            </div>
+         </div>
+         {{#if feature_image}}
+         <div class="lg:col-span-5 order-1">
+            <div class="feature-image relative" data-aos="fade" data-aos-delay="100">
+               <img class="w-full rounded-lg" srcset="{{img_url feature_image size=" m"}} 800w, {{img_url feature_image
+                  size="l" }} 1200w, {{img_url feature_image size="xl" }} 1920w" sizes="(max-width: 1024px) 100vw, 50vw"
+                  src="{{img_url feature_image size=" l"}}" alt="{{title}}" loading="eager">
+            </div>
+         </div>
+         {{/if}}
+      </div>
+   </div>
+</div>
+{{/match}}
+
+{{#match course_style "image_on_right"}}
+<div class="hero-area relative py-8 md:py-10 lg:py-16  ">
+   <div class="container mx-auto">
+      <div class="hero-box-3 grid gap-8 grid-cols-1 lg:grid-cols-12 items-center text-left">
+         <div class="lg:col-span-7 lg:pr-10">
+            <div
+               class=" hero-content flex flex-wrap content-center relative top-0 bottom-0 left-0 max-w-[860px] z-10 flex-col">
+               <h1 class="font-serif !leading-tight text-4xl lg:text-5xl text-gray-800 font-bold  mb-6">{{title}}
+               </h1>
+               {{#if custom_excerpt}}
+               <p class="text-xl text-gray-400 font-normal mb-6">{{custom_excerpt}}</p>
+               {{/if}}
+               {{#primary_author}}
+               <div class="author flex items-center">
+                  <img class="w-10 h-10 rounded-full object-cover" src="{{img_url profile_image size=" s"}}"
+                     srcset="{{img_url profile_image size=" s"}} 1x, {{img_url profile_image size="m" }} 2x"
+                     alt="{{name}}" loading="lazy">
+                  <div class="course-content ml-2">
+                     <h6 class="font-serif text-base text-gray-800 hover:text-blue-800 font-bold duration-300">
+                        <a href="{{url}}">{{name}}</a>
+                     </h6>
+                     {{#if location}}
+                     <p class="text-sm text-gray-400 font-normal opacity-60">{{location}}</p>
+                     {{/if}}
+                  </div>
+               </div>
+               {{/primary_author}}
+            </div>
+         </div>
+         {{#if feature_image}}
+         <div class="lg:col-span-5">
+            <div class="feature-image relative" data-aos="fade" data-aos-delay="100">
+               <img class="w-full rounded-lg" srcset="{{img_url feature_image size=" m"}} 800w, {{img_url feature_image
+                  size="l" }} 1200w, {{img_url feature_image size="xl" }} 1920w" sizes="(max-width: 1024px) 100vw, 50vw"
+                  src="{{img_url feature_image size=" l"}}" alt="{{title}}" loading="eager">
+            </div>
+         </div>
+         {{/if}}
+      </div>
+   </div>
+</div>
+{{/match}}
+{{#match lesson_style "image_on_left"}}
+<div class="hero-area relative py-8 md:py-10 lg:py-16  ">
+   <div class="container mx-auto">
+      <div class="hero-box-3 grid gap-8 grid-cols-1 lg:grid-cols-12 items-center text-left">
+         <div class="lg:col-span-8 order-2">
+            <div class="hero-content text-left relative lg:pr-14">
+               <p class="text-base text-gray-100 font-medium">
+                  {{#foreach tags visibility="internal" limit="1"}}
+                  {{#get "posts" include ="tags" filter="tag:{{slug}}+tag:hash-course"}}
+                  {{#if posts}}
+                  {{#foreach posts}}
+                  <a class="mb-2 text-sm px-3 py-1 bg-blue-800 text-white rounded" href="{{url}}"><span
+                        data-current-course-slug="{{slug}}" data-current-course-id="{{id}}">{{title}}</span></a> <br>
+                  {{/foreach}}
+                  {{/if}}
+                  {{/get}}
+                  {{/foreach}}
+               </p>
+               <h1 class="font-serif !leading-tight text-4xl lg:text-5xl text-gray-800 font-bold  mb-6">{{title}}
+               </h1>
+               {{#if custom_excerpt}}
+               <p class="text-xl text-gray-400 font-normal mb-6">{{custom_excerpt}}</p>
+               {{/if}}
+               {{#primary_author}}
+               <div class="author flex items-center">
+                  <img class="w-10 h-10 rounded-full object-cover" src="{{img_url profile_image size=" s"}}"
+                     srcset="{{img_url profile_image size=" s"}} 1x, {{img_url profile_image size="m" }} 2x"
+                     alt="{{name}}" loading="lazy">
+                  <div class="course-content ml-2">
+                     <h6 class="font-serif text-base text-gray-800 hover:text-blue-800 font-bold duration-300">
+                        <a href="{{url}}">{{name}}</a>
+                     </h6>
+                     {{#if location}}
+                     <p class="text-sm text-gray-400 font-normal opacity-60">{{location}}</p>
+                     {{/if}}
+                  </div>
+               </div>
+               {{/primary_author}}
+            </div>
+         </div>
+         {{#if feature_image}}
+         <div class="lg:col-span-4 order-1">
+            <div class="feature-image relative" data-aos="fade" data-aos-delay="100">
+               <img class="w-full rounded-lg" srcset="{{img_url feature_image size=" m"}} 800w, {{img_url feature_image
+                  size="l" }} 1200w, {{img_url feature_image size="xl" }} 1920w" sizes="(max-width: 1024px) 100vw, 50vw"
+                  src="{{img_url feature_image size=" l"}}" alt="{{title}}" loading="eager">
+            </div>
+         </div>
+         {{/if}}
+      </div>
+   </div>
+</div>
+{{/match}}
+{{#match lesson_style "image_on_right"}}
+<div class="hero-area  relative py-8 md:py-10 lg:py-16  ">
+   <div class="container mx-auto">
+      <div class="hero-box-3 grid gap-8 grid-cols-1 lg:grid-cols-12 items-center text-left">
+         <div class="lg:col-span-8 order-2 md:order-1">
+            <div class="hero-content   text-left relative lg:pr-14">
+               <p class="text-base text-gray-100 font-medium">
+                  {{#foreach tags visibility="internal" limit="1"}}
+                  {{#get "posts" include ="tags" filter="tag:{{slug}}+tag:hash-course" limit="1"}}
+                  {{#if posts}}
+                  {{#foreach posts}}
+
+               <nav class="flex items-center space-x-2 text-sm mb-4" aria-label="Breadcrumb">
+                  <a class="flex items-center  text-blue-800 hover:text-blue-800 transition-colors duration-200 font-medium"
+                     href="/courses">
+                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                           d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                        </path>
+                     </svg>
+                     Khóa học
+                  </a>
+                  <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                  <a href="{{url}}">
+
+
+                     <span data-current-course-slug="{{slug}}" data-current-course-id="{{id}}"
+                        class="text-blue-800 font-medium px-3 py-1 bg-blue-100 rounded-md">{{title}}</span>
+                  </a>
+               </nav>
+               {{/foreach}}
+               {{/if}}
+               {{/get}}
+               {{/foreach}}
+               </p>
+               <h1 class="font-serif !leading-tight text-4xl lg:text-5xl text-gray-800 font-bold  mb-6">{{title}}
+               </h1>
+               {{#if custom_excerpt}}
+               <p class="text-xl text-gray-400 font-normal mb-6">{{custom_excerpt}}</p>
+               {{/if}}
+               {{#primary_author}}
+               <div class="author flex items-center">
+                  <img class="w-10 h-10 rounded-full object-cover" src="{{img_url profile_image size=" s"}}"
+                     srcset="{{img_url profile_image size=" s"}} 1x, {{img_url profile_image size="m" }} 2x"
+                     alt="{{name}}" loading="lazy">
+                  <div class="course-content ml-2">
+                     <h6 class="font-serif text-base text-gray-800 hover:text-blue-800 font-bold duration-300">
+                        <a href="{{url}}">{{name}}</a>
+                     </h6>
+                     {{#if location}}
+                     <p class="text-sm text-gray-400 font-normal opacity-60">{{location}}</p>
+                     {{/if}}
+                  </div>
+               </div>
+               {{/primary_author}}
+
+               <!-- Lesson Metadata -->
+               <div class="lesson-meta flex flex-wrap items-center gap-4 text-sm text-gray-500 mt-4">
+                  <div class="meta-item flex items-center gap-1.5">
+                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                           d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                        </path>
+                     </svg>
+                     <time datetime="{{date format=" YYYY-MM-DD"}}">{{date published_at format="DD MMM YYYY"}}</time>
+                  </div>
+                  <div class="meta-item flex items-center gap-1.5">
+                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                           d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                     </svg>
+                     <span>{{reading_time}}</span>
+                  </div>
+               </div>
+            </div>
+         </div>
+         {{#if feature_image}}
+         <div class="lg:col-span-4 order-1 md:order-2">
+            <div class="feature-image relative" data-aos="fade" data-aos-delay="100">
+               <img class="w-full rounded-lg" srcset="{{img_url feature_image size=" m"}} 800w, {{img_url feature_image
+                  size="l" }} 1200w, {{img_url feature_image size="xl" }} 1920w" sizes="(max-width: 1024px) 100vw, 50vw"
+                  src="{{img_url feature_image size=" l"}}" alt="{{title}}" loading="eager">
+            </div>
+         </div>
+         {{/if}}
+      </div>
+   </div>
+</div>
+{{/match}}
+{{#match lesson_style "header_inside_content"}}
+<div class="hero-area  relative  pb-8  ">
+
+   <div class="hero-box-3 grid gap-8 grid-cols-1 lg:grid-cols-12 items-center text-left">
+      <div class="col-span-12 lg:order-1 order-2">
+         <div class="hero-content   text-left relative lg:pr-14">
+            <p class="text-base text-gray-100 font-medium">
+               {{#foreach tags visibility="internal" limit="1"}}
+               {{#get "posts" include ="tags" filter="tag:{{slug}}+tag:hash-course" limit="1"}}
+               {{#if posts}}
+               {{#foreach posts}}
+            <nav class="flex items-center space-x-2 text-sm mb-4" aria-label="Breadcrumb">
+               <a class="flex items-center  text-blue-800 hover:text-blue-800 transition-colors duration-200 font-medium"
+                  href="/courses">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                     </path>
+                  </svg>
+                  Khóa học
+               </a>
+               <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+               </svg>
+               <a href="{{url}}"> <span data-current-course-slug="{{slug}}" data-current-course-id="{{id}}"
+                     class="text-blue-800 font-medium px-3 py-1 bg-blue-100 rounded-md">{{title}}</span></a>
+            </nav>
+            {{/foreach}}
+            {{/if}}
+            {{/get}}
+            {{/foreach}}
+            </p>
+            <h1 class="font-serif !leading-tight text-4xl lg:text-5xl text-gray-800 font-bold  mb-6">{{title}}
+            </h1>
+            {{#if custom_excerpt}}
+            <p class="text-xl text-gray-400 font-normal mb-6">{{custom_excerpt}}</p>
+            {{/if}}
+            {{#primary_author}}
+            <div class="author flex items-center">
+               <img class="w-10 h-10 rounded-full object-cover" src="{{img_url profile_image size=" s"}}"
+                  srcset="{{img_url profile_image size=" s"}} 1x, {{img_url profile_image size="m" }} 2x" alt="{{name}}"
+                  loading="lazy">
+               <div class="course-content ml-2">
+                  <h6 class="font-serif text-base text-gray-800 hover:text-blue-800 font-bold duration-300">
+                     <a href="{{url}}">{{name}}</a>
+                  </h6>
+                  {{#if location}}
+                  <p class="text-sm text-gray-400 font-normal opacity-60">{{location}}</p>
+                  {{/if}}
+               </div>
+            </div>
+            {{/primary_author}}
+         </div>
+      </div>
+      {{#if feature_image}}
+      <div class="col-span-12 lg:order-2 order-1">
+         <div class="feature-image relative" data-aos="fade" data-aos-delay="100">
+            <img class="w-full rounded-lg" srcset="{{img_url feature_image size=" m"}} 800w, {{img_url feature_image
+               size="l" }} 1200w, {{img_url feature_image size="xl" }} 1920w" sizes="(max-width: 1024px) 100vw, 50vw"
+               src="{{img_url feature_image size=" l"}}" alt="{{title}}" loading="eager">
+         </div>
+      </div>
+      {{/if}}
+
+   </div>
+</div>
+{{/match}}
+{{#match post_style "one"}}
+<div class="post-style-one hero-area relative py-8 md:py-10 lg:py-16  ">
+   <div class="container mx-auto">
+      <div class="page-title-box">
+         <div class="section-title max-w-screen-lg mx-auto  mb-20">
+            <h1 class="w-full font-serif text-4xl lg:text-5xl text-gray-800 font-bold mb-8">{{title}}</h1>
+            {{#if custom_excerpt}}
+            <p class="text-xl text-gray-400 font-normal mb-6">{{custom_excerpt}}</p>
+            {{/if}}
+            {{> single-author-info}}
+
+         </div>
+      </div>
+   </div>
+</div>
+{{/match}}
+{{#match post_style "two"}}
+<div class="post-style-two hero-area  relative py-8 md:py-10 lg:py-16  ">
+   <div class="container mx-auto">
+      <div class="hero-box-3 grid gap-8 grid-cols-1 lg:grid-cols-12 items-center text-left">
+         <div class="lg:col-span-8">
+            <div class="hero-content   text-left relative lg:pr-14">
+               <p class="text-base text-gray-100 font-medium">
+                  {{#foreach tags visibility="internal" limit="1"}}
+                  {{#get "posts" include ="tags" filter="tag:{{slug}}+tag:hash-course"}}
+                  {{#if posts}}
+                  {{#foreach posts}}
+                  <a class="mb-2 text-sm px-3 py-1  bg-blue-800 text-white rounded" href="{{url}}">{{title}}</a> <br>
+                  {{/foreach}}
+                  {{/if}}
+                  {{/get}}
+                  {{/foreach}}
+               </p>
+               <h1 class="font-serif !leading-tight text-4xl lg:text-5xl text-gray-800 font-bold  mb-6">{{title}}
+               </h1>
+               {{#if custom_excerpt}}
+               <p class="text-xl text-gray-400 font-normal mb-6">{{custom_excerpt}}</p>
+               {{/if}}
+               {{#primary_author}}
+               <div class="author flex items-center">
+                  <img class="w-10 h-10 rounded-full object-cover" src="{{img_url profile_image size=" s"}}"
+                     srcset="{{img_url profile_image size=" s"}} 1x, {{img_url profile_image size="m" }} 2x"
+                     alt="{{name}}" loading="lazy">
+                  <div class="course-content ml-2">
+                     <h6 class="font-serif text-base text-gray-800 hover:text-blue-800 font-bold duration-300">
+                        <a href="{{url}}">{{name}}</a>
+                     </h6>
+                     {{#if location}}
+                     <p class="text-sm text-gray-400 font-normal opacity-60">{{location}}</p>
+                     {{/if}}
+                  </div>
+               </div>
+               {{/primary_author}}
+            </div>
+         </div>
+         {{#if feature_image}}
+         <div class="lg:col-span-4">
+            <div class="feature-image relative" data-aos="fade" data-aos-delay="100">
+               <img class="w-full rounded-lg" srcset="{{img_url feature_image size=" m"}} 800w, {{img_url feature_image
+                  size="l" }} 1200w, {{img_url feature_image size="xl" }} 1920w" sizes="(max-width: 1024px) 100vw, 50vw"
+                  src="{{img_url feature_image size=" l"}}" alt="{{title}}" loading="eager">
+            </div>
+         </div>
+         {{/if}}
+      </div>
+   </div>
+</div>
+{{/match}}
+{{#match post_style "image_on_right"}}
+<div class="post-style-three hero-area  relative py-8 md:py-10 lg:py-16  ">
+   <div class="container mx-auto">
+      <div class="hero-box-3 grid gap-8 grid-cols-1 lg:grid-cols-12 items-center text-left">
+         <div class="lg:col-span-8">
+            <div class="hero-content   text-left relative lg:pr-14">
+               <p class="text-base text-gray-100 font-medium">
+                  {{#foreach tags visibility="internal" limit="1"}}
+                  {{#get "posts" include ="tags" filter="tag:{{slug}}+tag:hash-course"}}
+                  {{#if posts}}
+                  {{#foreach posts}}
+                  <a class="mb-2 text-sm px-3 py-1  bg-blue-800 text-white rounded" href="{{url}}">{{title}}</a> <br>
+                  {{/foreach}}
+                  {{/if}}
+                  {{/get}}
+                  {{/foreach}}
+               </p>
+               <h1 class="font-serif !leading-tight text-4xl lg:text-5xl text-gray-800 font-bold  mb-6">{{title}}
+               </h1>
+               {{#if custom_excerpt}}
+               <p class="text-xl text-gray-400 font-normal mb-6">{{custom_excerpt}}</p>
+               {{/if}}
+               {{#primary_author}}
+               <div class="author flex items-center">
+                  <img class="w-10 h-10 rounded-full object-cover" src="{{img_url profile_image size=" s"}}"
+                     srcset="{{img_url profile_image size=" s"}} 1x, {{img_url profile_image size="m" }} 2x"
+                     alt="{{name}}" loading="lazy">
+                  <div class="course-content ml-2">
+                     <h6 class="font-serif text-base text-gray-800 hover:text-blue-800 font-bold duration-300">
+                        <a href="{{url}}">{{name}}</a>
+                     </h6>
+                     {{#if location}}
+                     <p class="text-sm text-gray-400 font-normal opacity-60">{{location}}</p>
+                     {{/if}}
+                  </div>
+               </div>
+               {{/primary_author}}
+            </div>
+         </div>
+         {{#if feature_image}}
+         <div class="lg:col-span-4">
+            <div class="feature-image relative" data-aos="fade" data-aos-delay="100">
+               <img class="w-full rounded-lg" srcset="{{img_url feature_image size=" m"}} 800w, {{img_url feature_image
+                  size="l" }} 1200w, {{img_url feature_image size="xl" }} 1920w" sizes="(max-width: 1024px) 100vw, 50vw"
+                  src="{{img_url feature_image size=" l"}}" alt="{{title}}" loading="eager">
+            </div>
+         </div>
+         {{/if}}
+      </div>
+   </div>
+</div>
+{{/match}}
+{{#match post_style "image_on_top"}}
+<div class="post-style-image_on_top hero-area  relative pb-8 md:pb-10 lg:pb -16  ">
+
+   <div class="hero-box-3 grid gap-8 grid-cols-1 ">
+      <div class="hero-box-wrapper">
+         <div class="hero-content   text-left relative">
+
+            <p class="text-base text-gray-100 font-medium">
+               {{#foreach tags visibility="internal" limit="1"}}
+               {{#get "posts" include ="tags" filter="tag:{{slug}}+tag:hash-course"}}
+               {{#if posts}}
+               {{#foreach posts}}
+               <a class="mb-2 text-sm px-3 py-1  bg-blue-800 text-white rounded" href="{{url}}">{{title}}</a> <br>
+               {{/foreach}}
+               {{/if}}
+               {{/get}}
+               {{/foreach}}
+            </p>
+            <h1 class="font-serif !leading-tight text-4xl lg:text-5xl text-gray-800 font-bold  mb-6">{{title}}
+            </h1>
+            {{#if custom_excerpt}}
+            <p class="text-xl text-gray-400 font-normal mb-6">{{custom_excerpt}}</p>
+            {{/if}}
+            {{#primary_author}}
+            <div class="author flex items-center">
+               <img class="w-10 h-10 rounded-full object-cover" src="{{img_url profile_image size=" s"}}"
+                  srcset="{{img_url profile_image size=" s"}} 1x, {{img_url profile_image size="m" }} 2x" alt="{{name}}"
+                  loading="lazy">
+               <div class="course-content ml-2">
+                  <h6 class="font-serif text-base text-gray-800 hover:text-blue-800 font-bold duration-300">
+                     <a href="{{url}}">{{name}}</a>
+                  </h6>
+                  {{#if location}}
+                  <p class="text-sm text-gray-400 font-normal opacity-60">{{location}}</p>
+                  {{/if}}
+               </div>
+            </div>
+            {{/primary_author}}
+         </div>
+         {{#if feature_image}}
+         <div class="featured-image-area mt-6">
+            <div class="feature-image relative" data-aos="fade" data-aos-delay="100">
+               <img class="w-full rounded-lg" srcset="{{img_url feature_image size=" m"}} 800w, {{img_url feature_image
+                  size="l" }} 1200w, {{img_url feature_image size="xl" }} 1920w" sizes="(max-width: 1024px) 100vw, 50vw"
+                  src="{{img_url feature_image size=" l"}}" alt="{{title}}" loading="eager">
+            </div>
+         </div>
+         {{/if}}
+      </div>
+
+
+   </div>
+</div>
+{{/match}}
+{{#match post_style "image_on_left"}}
+<div class="hero-area  relative py-8 md:py-10 lg:py-16  post-style-image-on-left">
+   <div class="container mx-auto">
+      <div class="hero-box-3 grid gap-8 grid-cols-1 lg:grid-cols-12 items-center text-left">
+         {{#if feature_image}}
+         <div class="lg:col-span-4 order-1">
+            <div class="feature-image relative" data-aos="fade" data-aos-delay="100">
+               <img class="w-full rounded-lg" srcset="{{img_url feature_image size=" m"}} 800w, {{img_url feature_image
+                  size="l" }} 1200w, {{img_url feature_image size="xl" }} 1920w" sizes="(max-width: 1024px) 100vw, 50vw"
+                  src="{{img_url feature_image size=" l"}}" alt="{{title}}" loading="eager">
+            </div>
+         </div>
+         {{/if}}
+         <div class="lg:col-span-8 order-2">
+            <div class="hero-content   text-left relative ">
+               <p class="text-base text-gray-100 font-medium">
+                  {{#foreach tags visibility="internal" limit="1"}}
+                  {{#get "posts" include ="tags" filter="tag:{{slug}}+tag:hash-course"}}
+                  {{#if posts}}
+                  {{#foreach posts}}
+                  <a class="mb-2 text-sm px-3 py-1  bg-blue-800 text-white rounded" href="{{url}}">{{title}}</a> <br>
+                  {{/foreach}}
+                  {{/if}}
+                  {{/get}}
+                  {{/foreach}}
+               </p>
+               <h1 class="font-serif !leading-tight text-4xl lg:text-5xl text-gray-800 font-bold  mb-6">{{title}}
+               </h1>
+               {{#if custom_excerpt}}
+               <p class="text-xl text-gray-400 font-normal mb-6">{{custom_excerpt}}</p>
+               {{/if}}
+               {{#primary_author}}
+               <div class="author flex items-center">
+                  <img class="w-10 h-10 rounded-full object-cover" src="{{img_url profile_image size=" s"}}"
+                     srcset="{{img_url profile_image size=" s"}} 1x, {{img_url profile_image size="m" }} 2x"
+                     alt="{{name}}" loading="lazy">
+                  <div class="course-content ml-2">
+                     <h6 class="font-serif text-base text-gray-800 hover:text-blue-800 font-bold duration-300">
+                        <a href="{{url}}">{{name}}</a>
+                     </h6>
+                     {{#if location}}
+                     <p class="text-sm text-gray-400 font-normal opacity-60">{{location}}</p>
+                     {{/if}}
+                  </div>
+               </div>
+               {{/primary_author}}
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+{{/match}}
+{{#match page_style "no_image"}}
+<div class="hero-area relative py-8 md:py-10 lg:py-16  page-style-no-image">
+   {{#match @page.show_title_and_feature_image}}
+   <div class="container mx-auto">
+      <div class="page-title-box">
+         <div class="section-title  max-w-4xl  ">
+            <h1 class="w-full font-serif text-4xl lg:text-5xl text-gray-800 font-bold">{{title}}</h1>
+            {{#if custom_excerpt}}
+            <p class="text-lg text-gray-400 font-normal mt-6 mb-6">{{custom_excerpt}}</p>
+            {{/if}}
+         </div>
+      </div>
+   </div>
+   {{/match}}
+</div>
+{{/match}}
+{{#match page_style "image_on_right"}}
+<div class="hero-area  relative py-8 md:py-10 lg:py-16">
+   {{#match @page.show_title_and_feature_image}}
+   <div class="container mx-auto ">
+      <div class="hero-box-3  relative grid gap-8 grid-cols-1 lg:grid-cols-12 items-center text-left">
+         <div class="lg:col-span-8">
+            <div class="hero-content lg:flex flex-wrap text-left relative lg:pr-14">
+               {{#foreach tags limit="2"}}
+               <a href="{{url}}"
+                  class="mr-2 inline-block px-6 py-2 text-sm font-medium border border-blue-200 rounded-full hover:text-blue-800 group duration-300 mb-4">{{name}}</a>
+               {{/foreach}}
+               {{#if featured}}
+               <div
+                  class="mr-2 inline-block px-6 py-2 text-sm font-medium border border-blue-200 rounded-full hover:text-blue-800 group duration-300 mb-4">
+                  {{t "featured"}}
+               </div>
+               {{/if}}
+               <h1 class="w-full font-serif !leading-tight text-4xl lg:text-5xl text-gray-800 font-bold ">{{title}}</h1>
+               {{#if custom_excerpt}}
+               <p class="text-xl text-gray-400 font-normal mb-6 mt-6">{{custom_excerpt}}</p>
+               {{/if}}
+
+            </div>
+         </div>
+         {{#if feature_image}}
+         <div class="lg:col-span-4">
+            <div class="feature-image relative" data-aos="fade" data-aos-delay="100">
+               <img class="w-full rounded-lg" srcset="{{img_url feature_image size=" m"}} 800w, {{img_url feature_image
+                  size="l" }} 1200w, {{img_url feature_image size="xl" }} 1920w" sizes="(max-width: 1024px) 100vw, 50vw"
+                  src="{{img_url feature_image size=" l"}}" alt="{{title}}" loading="eager">
+            </div>
+         </div>
+         {{/if}}
+      </div>
+   </div>
+   {{/match}}
+</div>
+{{/match}}
+{{#match page_style "image_on_left"}}
+
+
+<div class="hero-area  relative py-8 md:py-10 lg:py-16  page-style-image-on-left">
+   {{#match @page.show_title_and_feature_image}}
+   <div class="container mx-auto ">
+      <div class="hero-box-3  relative grid gap-8 grid-cols-1 lg:grid-cols-12 items-center text-left">
+         {{#if feature_image}}
+         <div class="lg:col-span-4 order-1">
+            <div class="feature-image relative" data-aos="fade" data-aos-delay="100">
+               <img class="w-full rounded-lg" srcset="{{img_url feature_image size=" m"}} 800w, {{img_url feature_image
+                  size="l" }} 1200w, {{img_url feature_image size="xl" }} 1920w" sizes="(max-width: 1024px) 100vw, 50vw"
+                  src="{{img_url feature_image size=" l"}}" alt="{{title}}" loading="eager">
+            </div>
+         </div>
+         {{/if}}
+         <div class="lg:col-span-8 order-2">
+            <div class="hero-content lg:flex flex-wrap text-left relative ">
+               {{#foreach tags limit="2"}}
+               <a href="{{url}}"
+                  class="mr-2 inline-block px-6 py-2 text-sm font-medium border border-blue-200 rounded-full hover:text-blue-800 group duration-300 mb-4">{{name}}</a>
+               {{/foreach}}
+               {{#if featured}}
+               <div
+                  class="mr-2 inline-block px-6 py-2 text-sm font-medium border border-blue-200 rounded-full hover:text-blue-800 group duration-300 mb-4">
+                  {{t "featured"}}
+               </div>
+               {{/if}}
+               <h1 class="w-full font-serif !leading-tight text-4xl lg:text-5xl text-gray-800 font-bold ">{{title}}</h1>
+               {{#if custom_excerpt}}
+               <p class="text-lg  text-gray-400 font-normal my-3">{{custom_excerpt}}</p>
+               {{/if}}
+
+            </div>
+         </div>
+      </div>
+   </div>
+   {{/match}}
+</div>
+{{/match}}

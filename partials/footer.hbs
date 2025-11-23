@@ -1,0 +1,93 @@
+<footer class="footer-area relative pt-16 md:pt-20 lg:pt-24 bg-white dark:bg-slate-950 transition-colors duration-300">
+   <div
+      class="footer-bg bg-gray-50 dark:bg-slate-900/50 absolute bottom-0 left-0 right-0 w-full block h-[400px] -z-10 transition-colors duration-300">
+   </div>
+   <div class="container mx-auto px-4">
+      <div
+         class="glass-apple-dark glass-noise p-8 md:p-12 lg:p-16 rounded-3xl mb-12 lg:mb-20 relative overflow-hidden shadow-2xl group z-0">
+         <!-- Decorative circles -->
+         <div
+            class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-primary-800 dark:bg-blue-500/20 opacity-50 blur-3xl group-hover:bg-blue-500/30 transition-colors duration-500">
+         </div>
+         <div
+            class="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 rounded-full bg-primary-700 dark:bg-purple-500/20 opacity-50 blur-3xl group-hover:bg-purple-500/30 transition-colors duration-500">
+         </div>
+
+         <!-- Cyber Grid Overlay (Dark Mode) -->
+         <div
+            class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:20px_20px] [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_100%)] pointer-events-none hidden dark:block">
+         </div>
+
+         <div class="relative z-10 grid gap-8 md:gap-10 lg:gap-20 grid-cols-1 lg:grid-cols-12 items-center">
+            <div class="lg:col-span-6 xl:col-span-7">
+               <h3 class="font-serif text-3xl lg:text-4xl text-white font-bold mb-4 tracking-tight">{{t
+                  "subscribe-to-learn"}}</h3>
+               <p class="text-lg leading-relaxed text-primary-100 dark:text-gray-300 font-normal">{{t
+                  "newsletter-description"}}</p>
+            </div>
+            <div class="lg:col-span-6 xl:col-span-5">
+               {{> newsletter}}
+            </div>
+         </div>
+      </div>
+
+      <div class="mb-12 lg:mb-16">
+         <div class="footer-list flex justify-center">
+            {{navigation type="secondary"}}
+         </div>
+      </div>
+
+      <div
+         class="border-t border-gray-200 dark:border-white/10 pt-8 pb-12 flex flex-col md:flex-row justify-between items-center gap-6 transition-colors duration-300">
+         <div class="text-center md:text-left">
+            <p class="text-sm leading-relaxed text-gray-500 dark:text-gray-400 font-normal">
+               &copy;
+               <span id="spanYear">
+                  <script> document.getElementById('spanYear').innerHTML = new Date().getFullYear(); </script>
+               </span>
+               {{@site.title}} | {{t "developed-by"}} <a rel="nofollow"
+                  class="text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 font-medium duration-300"
+                  href="https://xdev.asia">{{t "xdev-learn"}}</a>
+            </p>
+         </div>
+
+         <ul class="flex items-center gap-3">
+            {{#if @site.facebook }}
+            <li><a class="group hover:bg-primary-50 dark:hover:bg-white/10 hover:text-primary-600 dark:hover:text-primary-400 text-gray-500 dark:text-gray-400 bg-white dark:bg-slate-800 w-10 h-10 rounded-full flex items-center justify-center duration-300 border border-gray-200 dark:border-white/10 shadow-sm hover:shadow-md hover:-translate-y-0.5"
+                  href="{{social_url type=" facebook"}}">
+                  {{> icons/facebook}}
+               </a>
+            </li>
+            {{/if}}
+            {{#if @site.twitter }}
+            <li><a class="group hover:bg-primary-50 dark:hover:bg-white/10 hover:text-primary-600 dark:hover:text-primary-400 text-gray-500 dark:text-gray-400 bg-white dark:bg-slate-800 w-10 h-10 rounded-full flex items-center justify-center duration-300 border border-gray-200 dark:border-white/10 shadow-sm hover:shadow-md hover:-translate-y-0.5"
+                  href="{{social_url type=" twitter"}}">
+                  {{> icons/twitter}}
+               </a>
+            </li>
+            {{/if}}
+         </ul>
+      </div>
+
+      <a class="scroll-top-button fixed right-6 bottom-6 z-40 inline-flex items-center justify-center w-12 h-12 bg-white dark:bg-slate-800 text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 border border-gray-200 dark:border-white/10 hover:border-primary-200 dark:hover:border-primary-500/50 shadow-lg hover:shadow-xl duration-300 rounded-full transform translate-y-20 opacity-0 transition-all"
+         href="#" id="scrollTopBtn">
+         <svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+            class="fill-current">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+               d="M6 19.3326C5.82321 19.3326 5.65367 19.2624 5.52866 19.1374C5.40366 19.0124 5.33343 18.8428 5.33343 18.666L5.33343 2.94425L1.13935 7.13966C1.01418 7.26483 0.844425 7.33514 0.667415 7.33514C0.490406 7.33514 0.320646 7.26483 0.195481 7.13966C0.0703166 7.0145 4.17049e-09 6.84474 0 6.66773C-4.17049e-09 6.49072 0.0703166 6.32096 0.195481 6.1958L5.52807 0.863209C5.58998 0.801134 5.66354 0.751884 5.74452 0.718281C5.82551 0.684675 5.91232 0.667379 6 0.667379C6.08768 0.667379 6.17449 0.684675 6.25548 0.718281C6.33646 0.751884 6.41002 0.801134 6.47193 0.863209L11.8045 6.1958C11.9297 6.32096 12 6.49072 12 6.66773C12 6.84474 11.9297 7.0145 11.8045 7.13966C11.6794 7.26483 11.5096 7.33514 11.3326 7.33514C11.1556 7.33514 10.9858 7.26483 10.8607 7.13966L6.66657 2.94425L6.66657 18.666C6.66657 18.8428 6.59635 19.0124 6.47134 19.1374C6.34633 19.2624 6.17679 19.3326 6 19.3326Z" />
+         </svg>
+      </a>
+      <script>
+         // Simple scroll to top visibility logic
+         window.addEventListener('scroll', function () {
+            var btn = document.getElementById('scrollTopBtn');
+            if (window.scrollY > 300) {
+               btn.classList.remove('translate-y-20', 'opacity-0');
+            } else {
+               btn.classList.add('translate-y-20', 'opacity-0');
+            }
+         });
+      </script>
+
+   </div>
+</footer>

@@ -1,0 +1,38 @@
+{{#get "posts" include="tags,authors" filter="tag:-[hash-blog, hash-lesson]" limit="12"}}
+{{#if posts}}
+<section class="lesson-area pt-12 md:pt-16 lg:pt-24">
+   <div class="container mx-auto">
+      <div class="section-title text-center w-full mb-8 lg:mb-12">
+         <div class="flex items-center justify-between gap-4 mb-6 w-full border-b border-gray-100 pb-4">
+            <h4 class="text-3xl font-bold text-gray-900 tracking-tight">
+               {{t "latest-courses"}}
+            </h4>
+
+            <!-- View All Button - Small and Minimal -->
+            <a href="/courses"
+               class="group inline-flex items-center px-5 py-2.5 bg-white hover:bg-gray-50 text-gray-600 hover:text-primary-600 text-sm font-semibold rounded-full border border-gray-200 hover:border-primary-200 hover:shadow-md transition-all duration-300">
+               <span class="mr-2 hidden sm:block">{{t "view-all"}}</span>
+               <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" fill="none"
+                  stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3">
+                  </path>
+               </svg>
+            </a>
+         </div>
+      </div>
+
+
+
+   </div>
+   <div class="container mx-auto">
+      <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 posts">
+         {{#foreach posts }}
+         {{> cards/card-course}}
+         {{/foreach}}
+      </div>
+
+   </div>
+   </div>
+</section>
+{{/if}}
+{{/get}}

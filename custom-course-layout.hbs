@@ -1,0 +1,63 @@
+{{!< default}} {{#post}} {{!-- Breadcrumb Navigation --}} {{> breadcrumb}}
+
+   {{> hero-section course_style="image_on_right"}}
+
+   <section class="course-details-area {{post_class}} py-8 md:py-10 lg:py-16">
+      <div class="container mx-auto">
+         <div class="post-page-container grid grid-cols-1 md:grid-cols-12 gap-8">
+            <div class="course-sidebar sm:col-span-12 lg:col-span-4 order-2 lg:order-1">
+               <div class="lesson-list-sidebar sticky top-8">
+                  <div
+                     class="sidebar rounded-2xl shadow-lg border border-gray-100 dark:border-white/10 bg-white dark:bg-slate-900 backdrop-blur-sm duration-300 overflow-hidden">
+                     <div class="left-lesson-list">
+                        {{#get "posts" limit="100" include="tags,authors,tiers"
+                        filter="tag:hash-course-id-1+tag:hash-lesson"
+                        order="published_at asc"}}
+                        {{#if posts.length}}
+                        <div class="related-lesson pb-6">
+                           <h3
+                              class="text-2xl font-bold text-gray-900 dark:text-white transition-colors duration-300 px-6 pt-6 pb-4 border-b border-gray-100 dark:border-white/10">
+                              {{t "course-lessons"}} </h3>
+
+                           <ol class="lesson-list">
+                              {{#foreach posts}}
+                              {{> lessonlist}}
+                              {{/foreach}}
+                           </ol>
+                        </div>
+                        {{else}}
+                        <div class="no-lessons-message px-6 py-8 text-center">
+                           <div class="mb-4">
+                              <svg class="w-16 h-16 mx-auto text-gray-400 dark:text-gray-600" fill="none"
+                                 stroke="currentColor" viewBox="0 0 24 24">
+                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                                 </path>
+                              </svg>
+                           </div>
+                           <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                              {{t "no-lessons-yet"}}
+                           </h4>
+                           <p class="text-sm text-gray-600 dark:text-gray-400">
+                              {{t "lessons-coming-soon"}}
+                           </p>
+                        </div>
+                        {{/if}}
+                        {{/get}}
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="post-content-area md:col-span-12 lg:col-span-8 order-1 lg:order-2">
+               <div class="entry-content">
+                  <div class="gh-content prose prose-lg dark:prose-invert">
+                     {{content}}
+                  </div>
+               </div>
+            </div>
+         </div>
+   </section>
+   {{/post}}
+
+   <link rel="stylesheet" href="{{asset 'css/prism.css'}}" />
+   <script src="{{asset 'js/prism.js'}}" defer></script>
