@@ -239,7 +239,7 @@ jobs:
           echo "Theme package size: $(du -h theme.zip | cut -f1)"
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: ghost-theme-package
           path: theme.zip
