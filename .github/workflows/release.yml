@@ -65,28 +65,22 @@ jobs:
       - name: Create theme package
         id: package
         run: |
-          THEME_NAME=$(node -p "require('./package.json').name")
+          THEME_NAME="x-learn-ghost-theme"
           VERSION=${{ steps.get_version.outputs.version }}
           PACKAGE_NAME="${THEME_NAME}-${VERSION}.zip"
 
           echo "Creating package: $PACKAGE_NAME"
 
-          zip -r "$PACKAGE_NAME" . \
-            -x "node_modules/*" \
-            -x ".git/*" \
-            -x ".github/*" \
-            -x "*.log" \
-            -x ".DS_Store" \
-            -x ".gitignore" \
-            -x "*.md" \
-            -x "tailwind.config.js" \
-            -x "package-lock.json" \
-            -x "assets/css/tailwind.css"
+          # Use gulp zip task to create package
+          npm run zip
+
+          # Rename to version-specific name
+          mv x-learn-ghost-theme.zip "$PACKAGE_NAME"
 
           # Get package info
           SIZE=$(du -h "$PACKAGE_NAME" | cut -f1)
 
-          # Output to both env and step outputs
+          # Output variables
           echo "package_name=$PACKAGE_NAME" >> $GITHUB_OUTPUT
           echo "theme_name=$THEME_NAME" >> $GITHUB_OUTPUT
           echo "package_size=$SIZE" >> $GITHUB_OUTPUT
