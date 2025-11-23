@@ -5,9 +5,9 @@ on:
     branches:
       - main
     paths-ignore:
-      - '**.md'
-      - '.github/**'
-      - 'docs/**'
+      - "**.md"
+      - ".github/**"
+      - "docs/**"
 
 jobs:
   # Run tests first
@@ -46,26 +46,26 @@ jobs:
           # Get latest tag, default to v0.0.0 if no tags exist
           LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
           echo "Latest tag: $LATEST_TAG"
-          
+
           # Remove 'v' prefix and split version
           VERSION=${LATEST_TAG#v}
           IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
-          
+
           # Bump patch version
           PATCH=$((PATCH + 1))
           NEW_VERSION="${MAJOR}.${MINOR}.${PATCH}"
           NEW_TAG="v${NEW_VERSION}"
-          
+
           echo "New version: $NEW_VERSION"
           echo "New tag: $NEW_TAG"
-          
+
           echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
           echo "tag=$NEW_TAG" >> $GITHUB_OUTPUT
 
       - name: Update package.json version
         run: |
           npm version ${{ steps.version.outputs.version }} --no-git-tag-version
-          
+
       - name: Validate theme with GScan
         run: |
           npm install -g gscan
@@ -99,7 +99,7 @@ jobs:
         run: |
           # Get commits since last tag
           LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
-          
+
           if [ -z "$LATEST_TAG" ]; then
             # First release - get all commits
             CHANGELOG=$(git log --pretty=format:"- %s (%h)" --no-merges)
@@ -107,12 +107,12 @@ jobs:
             # Get commits since last tag
             CHANGELOG=$(git log ${LATEST_TAG}..HEAD --pretty=format:"- %s (%h)" --no-merges)
           fi
-          
+
           # If no changelog, use default message
           if [ -z "$CHANGELOG" ]; then
             CHANGELOG="- Initial release"
           fi
-          
+
           echo "changelog<<EOF" >> $GITHUB_OUTPUT
           echo "$CHANGELOG" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
@@ -131,34 +131,34 @@ jobs:
           name: Release ${{ steps.version.outputs.version }}
           body: |
             ## 📦 xDev Learn Ghost Theme ${{ steps.version.outputs.tag }}
-            
+
             ### 📥 Installation
             1. Download `${{ steps.package.outputs.package_name }}`
             2. Go to Ghost Admin → Settings → Design
             3. Click "Change theme" → "Upload theme"
             4. Select the downloaded zip file
             5. Click "Activate"
-            
+
             ### 📊 Package Info
             - **Size**: ${{ steps.package.outputs.package_size }}
             - **Ghost Version**: >= 6.0.0
             - **License**: CC-BY-NC-ND-4.0
-            
+
             ### 🔍 What's Included
             - ✅ Fully built and minified assets
             - ✅ Multi-language support (EN, VI, JA, ZH)
             - ✅ Tailwind CSS optimized
             - ✅ All partials and templates
             - ✅ Ghost theme validation passed
-            
+
             ### 📝 Changes in this release
             ${{ steps.changelog.outputs.changelog }}
-            
+
             ### 🔗 Resources
             - [Documentation](https://github.com/${{ github.repository }}/blob/main/README.md)
             - [Report Issues](https://github.com/${{ github.repository }}/issues)
             - [Security Policy](https://github.com/${{ github.repository }}/blob/main/SECURITY.md)
-            
+
             ---
             **Verified & Tested** ✅ All automated tests passed before release.
           files: |
