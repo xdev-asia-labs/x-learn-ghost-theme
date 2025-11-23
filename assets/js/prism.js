@@ -1154,6 +1154,11 @@ var Prism = (function (_self) {
 		if (!_.disableWorkerMessageHandler) {
 			// In worker
 			_self.addEventListener('message', function (evt) {
+				// In web workers, evt.origin is always "null"
+				if (evt.origin !== "null") {
+					// Ignore messages from unexpected origins
+					return;
+				}
 				var message = JSON.parse(evt.data);
 				var lang = message.language;
 				var code = message.code;
