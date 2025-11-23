@@ -62,12 +62,12 @@
     {{#if pagination}}
     <script>
         window.blogPagination = {
-            currentPage: {{ pagination.page }},
-        totalPages: { { pagination.pages } },
-        totalPosts: { { pagination.total } },
-        postsPerPage: { { pagination.limit } },
-        nextUrl: "{{pagination.next}}",
-            hasNext: { { #if pagination.next } } true{ {else } } false{ {/if } }
+            currentPage: {{pagination.page}},
+            totalPages: {{pagination.pages}},
+            totalPosts: {{pagination.total}},
+            postsPerPage: {{pagination.limit}},
+            nextUrl: "{{pagination.next}}",
+            hasNext: {{#if pagination.next}}true{{else}}false{{/if}}
         };
     </script>
     {{/if}}
