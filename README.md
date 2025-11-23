@@ -1,6 +1,6 @@
 <div align="center">
 
-![X-Learn Ghost Theme Banner](https://raw.githubusercontent.com/xdev-asia-labs/x-learn-ghost-theme/main/assets/images/banner.png)
+![X-Learn Ghost Theme Banner](./assets/images/banner.png)
 
 # 🎓 X-Learn Ghost Theme
 
