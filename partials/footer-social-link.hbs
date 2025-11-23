@@ -31,11 +31,7 @@
    </ul>
    <div class="my-2">
       <p class="text-base leading-relaxed text-gray-800 font-normal">
-         &copy;
-         <span id="spanYear">
-            <script> document.write(new Date().getFullYear()); </script>
-         </span>
-         {{@site.title}}
+         &copy; {{date format="YYYY"}} {{@site.title}}
       </p>
    </div>
 </div>

@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const topicsSwiper = new Swiper(".topics-swiper", {
+  new Swiper(".topics-swiper", {
     // Enable responsive breakpoints
     breakpoints: {
       // Mobile first
@@ -80,14 +80,14 @@ document.addEventListener("DOMContentLoaded", function () {
     a11y: {
       enabled: true,
       prevSlideMessage: "{{t 'Previous slide'}}",
-        nextSlideMessage: "{{t 'Next slide'}}",
+      nextSlideMessage: "{{t 'Next slide'}}",
       firstSlideMessage: "This is the first slide",
       lastSlideMessage: "This is the last slide",
     },
   });
 
   // Initialize Popular Topics Swiper with smooth transition
-  const popularTopicsSwiper = new Swiper(".popular-topics-swiper", {
+  new Swiper(".popular-topics-swiper", {
     // Enable responsive breakpoints
     breakpoints: {
       // Mobile first
@@ -184,7 +184,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Initialize Author Slider with Swiper
-  const authorSwiper = new Swiper(".author-swiper", {
+  new Swiper(".author-swiper", {
     // Enable responsive breakpoints
     breakpoints: {
       // Mobile first
