@@ -46,11 +46,11 @@ jobs:
               echo "Potential multiline syntax error in $file"
               exit 1
             fi
-            # Check for unmatched opening/closing tags (basic check)
-            open_count=$(grep -o '{{#' "$file" | wc -l)
+            # Check for unmatched opening/closing tags ({{# and {{^ are opening tags)
+            open_count=$(grep -oE '{{#|{{\^' "$file" | wc -l)
             close_count=$(grep -o '{{/' "$file" | wc -l)
             if [ "$open_count" -ne "$close_count" ]; then
-              echo "Mismatched block helpers in $file ({{# count: $open_count, {{/ count: $close_count)"
+              echo "Mismatched block helpers in $file (opening count: $open_count, closing count: $close_count)"
               exit 1
             fi
           done

@@ -13,8 +13,8 @@
                         {{#has tag="#lesson"}}
                         {{#foreach tags visibility="internal"}}
                         {{#match slug "~" "course-id"}}
-                        {{#get "posts" limit="100" include="tags,authors,tiers"
-                        filter="tag:{{slug}}+tag:hash-lesson" order="published_at asc"}}
+                        {{#get "posts" limit="100" include="tags,authors,tiers" filter="tag:{{slug}}+tag:hash-lesson"
+                        order="published_at asc"}}
                         {{#if posts.length}}
                         <div class="related-lesson pb-6" data-course-tag="{{slug}}" data-course-id="{{id}}">
                            <h3

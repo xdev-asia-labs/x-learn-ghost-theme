@@ -44,8 +44,11 @@
     },
     "scripts": {
         "dev": "gulp",
+        "build": "gulp",
         "zip": "gulp zip",
-        "test": "gscan ."
+        "test": "gscan .",
+        "test:ci": "./test-ci-local.sh",
+        "precommit": "./test-ci-local.sh"
     },
     "devDependencies": {
         "gulp": "^5.0.1",
