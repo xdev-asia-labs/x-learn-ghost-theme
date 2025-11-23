@@ -18,13 +18,8 @@
             </div>
         </div>
         <div class="container mx-auto">
-
-
-            <!-- Posts Grid -->
-
             {{#if posts}}
-
-            <div class="posts columns-1 md:columns-2 lg:columns-3 gap-8 mb-12" id="posts-container">
+            <div class="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 posts mb-12" id="posts-container">
                 {{#foreach posts}}
                 {{> cards/card-post}}
                 {{/foreach}}
