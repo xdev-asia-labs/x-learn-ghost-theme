@@ -302,7 +302,11 @@
 
             if (progressFill) progressFill.style.width = `${percentage}%`;
             if (progressPercentage) progressPercentage.textContent = `${percentage}%`;
-            if (progressText) progressText.textContent = i18n.lessonsCompleted.replace('%', completedCount).replace('%', this.totalLessons);
+            if (progressText) progressText.textContent = i18n.lessonsCompleted.replace(/%/g, (match, offset, string) => {
+                // If there are two % symbols, replace first with completedCount, second with totalLessons
+                if (offset === string.indexOf('%')) return completedCount;
+                return this.totalLessons;
+            });
          }
 
          init() {
