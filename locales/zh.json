@@ -65,5 +65,12 @@
     "page-not-found-description": "您访问的页面不存在或已被移动。",
     "go-home": "返回首页",
     "go-back": "返回",
-    "all-rights-reserved": "版权所有"
+    "all-rights-reserved": "版权所有",
+    "no-posts-found": "未找到帖子",
+    "home": "首页",
+    "courses": "课程",
+    "progress": "进度",
+    "lessons-completed": "已完成 % / % 课",
+    "mark-as-complete": "标记为完成",
+    "marked-complete": "已完成"
 }

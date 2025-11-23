@@ -65,5 +65,12 @@
   "page-not-found-description": "The page you are looking for doesn't exist or has been moved.",
   "go-home": "Go Home",
   "go-back": "Go Back",
-  "all-rights-reserved": "All Rights Reserved"
+  "all-rights-reserved": "All Rights Reserved",
+  "no-posts-found": "No posts found",
+  "home": "Home",
+  "courses": "Courses",
+  "progress": "Progress",
+  "lessons-completed": "% of % lessons completed",
+  "mark-as-complete": "Mark as Complete",
+  "marked-complete": "Completed"
 }

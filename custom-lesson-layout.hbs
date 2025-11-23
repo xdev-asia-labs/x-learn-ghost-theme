@@ -26,7 +26,7 @@
                            <!-- Course Progress Section -->
                            <div class="course-progress px-6 pb-6 smooth-fade-in">
                               <div class="progress-stats flex justify-between items-center mb-2">
-                                 <span class="text-sm text-gray-400">Progress</span>
+                                 <span class="text-sm text-gray-400">{{t "progress"}}</span>
                                  <span class="text-sm font-medium text-blue-800" id="progress-percentage">0%</span>
                               </div>
                               <div class="progress-bar bg-gray-200 rounded-full h-2 mb-2">
@@ -95,7 +95,7 @@
                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
                               </path>
                            </svg>
-                           <span id="completion-text">Đánh dấu hoàn thành</span>
+                           <span id="completion-text">{{t "mark-as-complete"}}</span>
                         </button>
                      </div>
                   </div>
@@ -115,6 +115,13 @@
 
    <!-- Course Progress JavaScript -->
    <script>
+      // Translation strings
+      const i18n = {
+         markedComplete: '{{t "marked-complete"}}',
+         markAsComplete: '{{t "mark-as-complete"}}',
+         lessonsCompleted: '{{t "lessons-completed"}}'
+      };
+
       class CourseProgress {
          constructor() {
             this.courseId = this.getCourseId();
@@ -236,7 +243,7 @@
                // Completed state - Green with checkmark
                btn.classList.remove('bg-gray-100', 'dark:bg-slate-800', 'text-gray-600', 'dark:text-gray-300', 'border-gray-300', 'dark:border-slate-600');
                btn.classList.add('bg-green-500', 'dark:bg-green-600', 'text-white', 'border-green-600', 'dark:border-green-500', 'hover:bg-green-600', 'dark:hover:bg-green-700');
-               text.textContent = 'Đã hoàn thành';
+               text.textContent = i18n.markedComplete;
                if (icon) {
                   icon.style.display = 'block';
                }
@@ -244,7 +251,7 @@
                // Incomplete state - Gray
                btn.classList.remove('bg-green-500', 'dark:bg-green-600', 'text-white', 'border-green-600', 'dark:border-green-500', 'hover:bg-green-600', 'dark:hover:bg-green-700');
                btn.classList.add('bg-gray-100', 'dark:bg-slate-800', 'text-gray-600', 'dark:text-gray-300', 'border-gray-300', 'dark:border-slate-600', 'hover:bg-gray-200', 'dark:hover:bg-slate-700');
-               text.textContent = 'Đánh dấu hoàn thành';
+               text.textContent = i18n.markAsComplete;
                if (icon) {
                   icon.style.display = 'none';
                }
@@ -295,7 +302,7 @@
 
             if (progressFill) progressFill.style.width = `${percentage}%`;
             if (progressPercentage) progressPercentage.textContent = `${percentage}%`;
-            if (progressText) progressText.textContent = `${completedCount} of ${this.totalLessons} lessons completed`;
+            if (progressText) progressText.textContent = i18n.lessonsCompleted.replace('%', completedCount).replace('%', this.totalLessons);
          }
 
          init() {

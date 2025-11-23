@@ -65,5 +65,12 @@
     "page-not-found-description": "Trang bạn đang tìm kiếm không tồn tại hoặc đã được di chuyển.",
     "go-home": "Về trang chủ",
     "go-back": "Quay lại",
-    "all-rights-reserved": "Tất cả quyền được bảo lưu"
+    "all-rights-reserved": "Tất cả quyền được bảo lưu",
+    "no-posts-found": "Không tìm thấy bài viết",
+    "home": "Trang chủ",
+    "courses": "Khóa học",
+    "progress": "Tiến độ",
+    "lessons-completed": "% trong % bài học đã hoàn thành",
+    "mark-as-complete": "Đánh dấu hoàn thành",
+    "marked-complete": "Đã hoàn thành"
 }

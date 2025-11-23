@@ -36,7 +36,7 @@
             <div class="load-more-container text-center">
                 <button
                     class="js-load-posts bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-300 flex items-center justify-center mx-auto">
-                    <span class="load-text">Load More Posts</span>
+                    <span class="load-text">{{t "load-more-posts"}}</span>
                     <span class="loading-spinner hidden ml-2">
                         <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 24 24">
@@ -53,7 +53,7 @@
             {{/if}}
             {{else}}
             <div class="text-center py-12">
-                <p class="text-gray-400">No posts found.</p>
+                <p class="text-gray-400">{{t "no-posts-found"}}</p>
             </div>
             {{/if}}
 

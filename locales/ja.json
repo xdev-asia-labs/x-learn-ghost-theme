@@ -65,5 +65,12 @@
     "page-not-found-description": "お探しのページは存在しないか、移動されました。",
     "go-home": "ホームに戻る",
     "go-back": "戻る",
-    "all-rights-reserved": "無断転載禁止"
+    "all-rights-reserved": "無断転載禁止",
+    "no-posts-found": "投稿が見つかりません",
+    "home": "ホーム",
+    "courses": "コース",
+    "progress": "進捗",
+    "lessons-completed": "% / % レッスン完了",
+    "mark-as-complete": "完了としてマーク",
+    "marked-complete": "完了"
 }
