@@ -111,7 +111,6 @@ module.exports = {
         "extra-bold": 800,
         black: 900,
       },
-      placeholderColor: (theme) => theme("colors"),
       placeholderColor: {
         "gray-600": "#99A1A6",
       },
