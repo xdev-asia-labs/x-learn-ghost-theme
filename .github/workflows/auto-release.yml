@@ -146,7 +146,7 @@ jobs:
             ## 📦 xDev Learn Ghost Theme ${{ steps.version.outputs.tag }}
 
             ### 📥 Installation
-            1. Download `${{ steps.package.outputs.package_name }}`
+            1. **Download**: ⬇️ [`${{ steps.package.outputs.package_name }}`](https://github.com/${{ github.repository }}/releases/download/${{ steps.version.outputs.tag }}/${{ steps.package.outputs.package_name }})
             2. Go to Ghost Admin → Settings → Design
             3. Click "Change theme" → "Upload theme"
             4. Select the downloaded zip file
