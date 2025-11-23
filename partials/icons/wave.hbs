@@ -1,23 +1,25 @@
+{{!-- Cyber/Tech Wave Icon - Signal Pattern --}}
 <svg class="wave-icon" xmlns='http://www.w3.org/2000/svg' width='200%' height='100%'>
     <defs>
         <style>
-            .wave {
-                animation: wave .5s ease-in-out infinite alternate;
+            .tech-wave {
+                animation: techwave .5s ease-in-out infinite alternate;
                 animation-delay: -0.25s;
                 stroke: var(--ghost-accent-color);
-                stroke-width: 1;
+                stroke-width: 1.5;
                 stroke-linecap: square;
             }
 
-            @keyframes wave {
+            @keyframes techwave {
                 to {
-                    d: path('M 0 40 Q 20 42.5 40 40 Q 60 37.5 80 40');
+                    d: path('M 0 40 L 10 35 L 20 42 L 30 38 L 40 40 L 50 37 L 60 42 L 70 39 L 80 40');
                 }
             }
         </style>
     </defs>
     <pattern id='wavePattern' x='0' y='0' width='80' height='80' patternUnits='userSpaceOnUse'>
-        <path fill='red' class='wave' d='M 0 40 Q 20 37.5 40 40 Q 60 42.5 80 40' />
+        <path fill='none' class='tech-wave'
+            d='M 0 40 L 10 37 L 20 40 L 30 36 L 40 40 L 50 38 L 60 41 L 70 37 L 80 40' />
     </pattern>
     <rect x='0' y='0' width='100%' height='100%' fill='url(#wavePattern)'></rect>
 </svg>

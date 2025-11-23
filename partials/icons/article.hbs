@@ -1,42 +1,15 @@
-{{#if color}}
-  <svg
-    width="44"
-    height="48"
-    viewBox="0 0 44 48"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M40.8 48H2.4C1.76348 48 1.15303 47.7471 0.702944 47.2971C0.252856 46.847 0 46.2365 0 45.6V2.4C0 1.76348 0.252856 1.15303 0.702944 0.702944C1.15303 0.252856 1.76348 0 2.4 0H40.8C41.4365 0 42.047 0.252856 42.4971 0.702944C42.9471 1.15303 43.2 1.76348 43.2 2.4V45.6C43.2 46.2365 42.9471 46.847 42.4971 47.2971C42.047 47.7471 41.4365 48 40.8 48ZM9.6 9.6V19.2H19.2V9.6H9.6ZM9.6 24V28.8H33.6V24H9.6ZM9.6 33.6V38.4H33.6V33.6H9.6ZM24 12V16.8H33.6V12H24Z"
-      fill="currentColor"
-      class="text-{{color}}"
-    />
-  </svg>
-{{else}}
-  <svg
-    width="44"
-    height="48"
-    viewBox="0 0 44 48"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M40.8 48H2.4C1.76348 48 1.15303 47.7471 0.702944 47.2971C0.252856 46.847 0 46.2365 0 45.6V2.4C0 1.76348 0.252856 1.15303 0.702944 0.702944C1.15303 0.252856 1.76348 0 2.4 0H40.8C41.4365 0 42.047 0.252856 42.4971 0.702944C42.9471 1.15303 43.2 1.76348 43.2 2.4V45.6C43.2 46.2365 42.9471 46.847 42.4971 47.2971C42.047 47.7471 41.4365 48 40.8 48ZM9.6 9.6V19.2H19.2V9.6H9.6ZM9.6 24V28.8H33.6V24H9.6ZM9.6 33.6V38.4H33.6V33.6H9.6ZM24 12V16.8H33.6V12H24Z"
-      fill="url(#paint0_linear_507_3935)"
-    />
-    <defs>
-      <linearGradient
-        id="paint0_linear_507_3935"
-        x1="0"
-        y1="24"
-        x2="43.2"
-        y2="24"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop offset="1" stop-color="#0052D4" />
-        <stop offset="0.5" stop-color="#4364F7" />
-        <stop offset="1" stop-color="#6FB1FC" />
-      </linearGradient>
-    </defs>
-  </svg>
-{{/if}}
+{{!-- Cyber/Tech Article Icon - Data Feed --}}
+<svg class="{{#if classes}}{{classes}}{{else}}w-6 h-6{{/if}}" viewBox="0 0 24 24" fill="none"
+  xmlns="http://www.w3.org/2000/svg">
+  {{!-- Feed Container --}}
+  <rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.5" fill="none" />
+  {{!-- Content Blocks with Data Visualization --}}
+  <rect x="6" y="7" width="5" height="4" stroke="currentColor" stroke-width="1" opacity="0.7" fill="none" />
+  <line x1="13" y1="8" x2="18" y2="8" stroke="currentColor" stroke-width="1" opacity="0.8" />
+  <line x1="13" y1="10" x2="17" y2="10" stroke="currentColor" stroke-width="1" opacity="0.5" />
+  {{!-- Stream Lines --}}
+  <line x1="6" y1="14" x2="18" y2="14" stroke="currentColor" stroke-width="1.5" />
+  <line x1="6" y1="17" x2="15" y2="17" stroke="currentColor" stroke-width="1" opacity="0.6" />
+  {{!-- Data Nodes --}}
+  <circle cx="6.5" cy="14" r="0.5" fill="currentColor" />
+</svg>
