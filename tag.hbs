@@ -60,10 +60,10 @@
    <!-- Add pagination data for JavaScript -->
    <script>
       window.blogPagination = {
-         currentPage: {{ pagination.page }},
-      totalPages: { { pagination.pages } },
-      totalPosts: { { pagination.total } },
-      postsPerPage: { { pagination.limit } },
-      hasNext: { { #if pagination.next } } true{ {else } } false{ {/if } }
+         currentPage: {{pagination.page}},
+         totalPages: {{pagination.pages}},
+         totalPosts: {{pagination.total}},
+         postsPerPage: {{pagination.limit}},
+         hasNext: {{#if pagination.next}}true{{else}}false{{/if}}
       };
    </script>
