@@ -16,9 +16,10 @@ build/
 *.zip
 *.tgz
 
-# CSS/JS builds
-assets/css/*.min.css
-assets/js/*.min.js
+# CSS/JS builds (but keep vendor libraries)
+assets/css/app.min.css
+assets/css/tailwind.min.css
+assets/js/build.min.js
 assets/built/
 
 # Logs
