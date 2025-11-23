@@ -1,13 +1,13 @@
 <div class="{{post_class}} postitem group break-inside-avoid mb-8">
    <div
-      class="rounded-2xl transition-all duration-500 overflow-hidden border border-gray-100 dark:border-white/10 glass-apple-card glass-noise hover:shadow-2xl dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] hover:border-blue-200 dark:hover:border-blue-500/30 relative h-full flex flex-col">
+      class="rounded-2xl transition-all duration-500 overflow-hidden glass-apple-card glass-noise hover:shadow-2xl dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] relative h-full flex flex-col">
 
       {{#if feature_image}}
       <!-- Featured Badge -->
       {{#if featured}}
       <div class="absolute top-4 left-4 z-50">
          <span
-            class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold bg-white/90 dark:bg-slate-900/90 backdrop-blur text-blue-600 dark:text-blue-400 shadow-lg border border-white/20">
+            class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold bg-white/90 dark:bg-slate-900/90 backdrop-blur text-blue-600 dark:text-blue-400 shadow-lg">
             <span class="w-1.5 h-1.5 rounded-full bg-blue-500 mr-2 animate-pulse"></span>
             {{t "featured"}}
          </span>
@@ -52,7 +52,7 @@
          </p>
 
          <!-- Author Section -->
-         <div class="flex items-center justify-between pt-6 border-t border-gray-100 dark:border-white/10 mt-auto">
+         <div class="flex items-center justify-between pt-6 mt-auto">
             {{#primary_author}}
             <div class="flex items-center group/author">
                {{#if profile_image}}
@@ -60,13 +60,13 @@
                   <div
                      class="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full opacity-0 group-hover/author:opacity-100 transition duration-300 blur-[2px]">
                   </div>
-                  <img class="relative w-10 h-10 rounded-full object-cover border-2 border-white dark:border-slate-800"
-                     src="{{img_url profile_image size=" s"}}" srcset="{{img_url profile_image size=" s"}} 1x, {{img_url
-                     profile_image size="m" }} 2x" alt="{{name}}" loading="lazy">
+                  <img class="relative w-10 h-10 rounded-full object-cover" src="{{img_url profile_image size=" s"}}"
+                     srcset="{{img_url profile_image size=" s"}} 1x, {{img_url profile_image size="m" }} 2x"
+                     alt="{{name}}" loading="lazy">
                </div>
                {{else}}
                <div
-                  class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-100 to-indigo-200 dark:from-blue-900 dark:to-indigo-900 flex items-center justify-center border-2 border-white dark:border-slate-800">
+                  class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-100 to-indigo-200 dark:from-blue-900 dark:to-indigo-900 flex items-center justify-center">
                   <span class="text-xs font-bold text-blue-700 dark:text-blue-300">{{name}}</span>
                </div>
                {{/if}}

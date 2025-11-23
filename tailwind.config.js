@@ -192,6 +192,10 @@ module.exports = {
             opacity: "0.8",
           },
         },
+        "scan": {
+          "0%": { transform: "translateY(-100%)" },
+          "100%": { transform: "translateY(100%)" },
+        },
       },
       animation: {
         "spin-slow": "spin 5s linear infinite",
@@ -201,6 +205,7 @@ module.exports = {
         "glass-float": "glass-float 6s ease-in-out infinite",
         "shimmer": "shimmer 3s linear infinite",
         "glow-pulse": "glow-pulse 3s ease-in-out infinite",
+        "scan": "scan 3s ease-in-out infinite",
       },
     },
   },

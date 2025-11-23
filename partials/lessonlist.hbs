@@ -1,6 +1,6 @@
 <a href="{{url}}" class="cursor-pointer block">
    <div
-      class="{{post_class}} lesson-box py-3 px-4 flex items-center group bg-transparent hover:bg-blue-50 dark:hover:bg-slate-800/50 transition-all duration-300 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-blue-400"
+      class="{{post_class}} lesson-box py-3 px-4 flex items-center group bg-transparent hover:bg-blue-50 dark:hover:bg-slate-800/50 transition-all duration-300"
       id="{{slug}}" data-lesson-url="{{url}}" data-lesson-id="{{id}}" data-lesson-slug="{{slug}}"
       data-course-lesson-key="">
       <div class="lesson-logo flex-none relative mr-4 transition-all duration-300">
@@ -36,7 +36,7 @@
          const lessonId = item.getAttribute('id'); // This is the slug from {{slug}}
 
          // Reset all items to inactive state first
-         item.classList.remove('bg-blue-100', 'dark:bg-slate-800', 'border-blue-800', 'dark:border-blue-400');
+         item.classList.remove('bg-blue-100', 'dark:bg-slate-800');
 
          // Reset icon container
          const iconContainer = item.querySelector('.lesson-logo > div');
@@ -55,7 +55,7 @@
          // Check if this lesson is the current one by matching slug with ID
          if (lessonId === currentSlug) {
             // This is the active lesson - add active state classes
-            item.classList.add('bg-blue-100', 'dark:bg-slate-800', 'border-blue-800', 'dark:border-blue-400');
+            item.classList.add('bg-blue-100', 'dark:bg-slate-800');
 
             // Update icon container with active gradient
             if (iconContainer) {

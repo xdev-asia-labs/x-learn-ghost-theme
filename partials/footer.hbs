@@ -7,22 +7,24 @@
          class="glass-apple-dark glass-noise p-8 md:p-12 lg:p-16 rounded-3xl mb-12 lg:mb-20 relative overflow-hidden shadow-2xl group z-0">
          <!-- Decorative circles -->
          <div
-            class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-primary-800 dark:bg-blue-500/20 opacity-50 blur-3xl group-hover:bg-blue-500/30 transition-colors duration-500">
+            class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-cyan-500/20 dark:bg-cyan-500/20 opacity-50 blur-3xl group-hover:bg-cyan-500/30 transition-colors duration-500">
          </div>
          <div
-            class="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 rounded-full bg-primary-700 dark:bg-purple-500/20 opacity-50 blur-3xl group-hover:bg-purple-500/30 transition-colors duration-500">
+            class="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 rounded-full bg-blue-600/20 dark:bg-blue-600/20 opacity-50 blur-3xl group-hover:bg-blue-600/30 transition-colors duration-500">
          </div>
 
          <!-- Cyber Grid Overlay (Dark Mode) -->
          <div
-            class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:20px_20px] [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_100%)] pointer-events-none hidden dark:block">
+            class="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.05)_1px,transparent_1px)] bg-[size:20px_20px] [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_100%)] pointer-events-none hidden dark:block">
          </div>
+
+         <!-- Corner Accents Removed -->
 
          <div class="relative z-10 grid gap-8 md:gap-10 lg:gap-20 grid-cols-1 lg:grid-cols-12 items-center">
             <div class="lg:col-span-6 xl:col-span-7">
-               <h3 class="font-serif text-3xl lg:text-4xl text-white font-bold mb-4 tracking-tight">{{t
+               <h3 class="font-serif text-3xl lg:text-4xl text-white font-bold mb-4 tracking-tight drop-shadow-md">{{t
                   "subscribe-to-learn"}}</h3>
-               <p class="text-lg leading-relaxed text-primary-100 dark:text-gray-300 font-normal">{{t
+               <p class="text-lg leading-relaxed text-cyan-100 dark:text-cyan-100/80 font-normal">{{t
                   "newsletter-description"}}</p>
             </div>
             <div class="lg:col-span-6 xl:col-span-5">
@@ -38,7 +40,7 @@
       </div>
 
       <div
-         class="border-t border-gray-200 dark:border-white/10 pt-8 pb-12 flex flex-col md:flex-row justify-between items-center gap-6 transition-colors duration-300">
+         class="pt-8 pb-12 flex flex-col md:flex-row justify-between items-center gap-6 transition-colors duration-300">
          <div class="text-center md:text-left">
             <p class="text-sm leading-relaxed text-gray-500 dark:text-gray-400 font-normal">
                &copy;
@@ -53,14 +55,14 @@
 
          <ul class="flex items-center gap-3">
             {{#if @site.facebook }}
-            <li><a class="group hover:bg-primary-50 dark:hover:bg-white/10 hover:text-primary-600 dark:hover:text-primary-400 text-gray-500 dark:text-gray-400 bg-white dark:bg-slate-800 w-10 h-10 rounded-full flex items-center justify-center duration-300 border border-gray-200 dark:border-white/10 shadow-sm hover:shadow-md hover:-translate-y-0.5"
+            <li><a class="group hover:bg-primary-50 dark:hover:bg-white/10 hover:text-primary-600 dark:hover:text-primary-400 text-gray-500 dark:text-gray-400 bg-white dark:bg-slate-800 w-10 h-10 rounded-full flex items-center justify-center duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5"
                   href="{{social_url type=" facebook"}}">
                   {{> icons/facebook}}
                </a>
             </li>
             {{/if}}
             {{#if @site.twitter }}
-            <li><a class="group hover:bg-primary-50 dark:hover:bg-white/10 hover:text-primary-600 dark:hover:text-primary-400 text-gray-500 dark:text-gray-400 bg-white dark:bg-slate-800 w-10 h-10 rounded-full flex items-center justify-center duration-300 border border-gray-200 dark:border-white/10 shadow-sm hover:shadow-md hover:-translate-y-0.5"
+            <li><a class="group hover:bg-primary-50 dark:hover:bg-white/10 hover:text-primary-600 dark:hover:text-primary-400 text-gray-500 dark:text-gray-400 bg-white dark:bg-slate-800 w-10 h-10 rounded-full flex items-center justify-center duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5"
                   href="{{social_url type=" twitter"}}">
                   {{> icons/twitter}}
                </a>
@@ -69,7 +71,7 @@
          </ul>
       </div>
 
-      <a class="scroll-top-button fixed right-6 bottom-6 z-40 inline-flex items-center justify-center w-12 h-12 bg-white dark:bg-slate-800 text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 border border-gray-200 dark:border-white/10 hover:border-primary-200 dark:hover:border-primary-500/50 shadow-lg hover:shadow-xl duration-300 rounded-full transform translate-y-20 opacity-0 transition-all"
+      <a class="scroll-top-button fixed right-6 bottom-6 z-40 inline-flex items-center justify-center w-12 h-12 bg-white dark:bg-slate-800 text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 shadow-lg hover:shadow-xl duration-300 rounded-full transform translate-y-20 opacity-0 transition-all"
          href="#" id="scrollTopBtn">
          <svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg"
             class="fill-current">
