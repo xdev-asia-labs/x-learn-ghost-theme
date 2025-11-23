@@ -64,6 +64,6 @@
       totalPages: {{pagination.pages}},
       totalPosts: {{pagination.total}},
       postsPerPage: {{pagination.limit}},
-      hasNext: {{#if pagination.next}}true{{else}}false{{/if}}
+      hasNext: {{#if pagination.next 'true' 'false'}},
 };
    </script>
