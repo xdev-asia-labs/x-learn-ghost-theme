@@ -11,6 +11,7 @@ JS Table of Conttent
 07. Masonry Grid
 08. Scroll to Top
 09. Tab 
+10. Typewriter Effect
 */
 
 (function () {
@@ -409,28 +410,28 @@ JS Table of Conttent
   function moveInlineTOC() {
     const tocContainer = $single('#inline-toc-container');
     const contentArea = $single('.gh-content');
-    
+
     if (tocContainer && contentArea) {
       // Check if there are any headings in the content
       const headings = contentArea.querySelectorAll('h1, h2, h3, h4, h5, h6');
-      
+
       if (headings.length === 0) {
         // No headings found, keep TOC hidden
         tocContainer.style.display = 'none';
         return;
       }
-      
+
       // Find the first paragraph in the content
       const firstParagraph = contentArea.querySelector('p');
-      
+
       if (firstParagraph) {
         // Show the TOC container
         tocContainer.classList.remove('hidden');
         tocContainer.style.display = 'block';
-        
+
         // Move TOC after the first paragraph
         firstParagraph.parentNode.insertBefore(tocContainer, firstParagraph.nextSibling);
-        
+
         // Initialize tocbot for the inline TOC
         if (typeof tocbot !== 'undefined') {
           tocbot.init({
@@ -456,6 +457,55 @@ JS Table of Conttent
     }
   }
 
+  // 10. Typewriter Effect
+  function typewriterEffect() {
+    const elements = $(".typewriter-text");
+    if (!elements || elements.length === 0) return;
+
+    elements.forEach((el) => {
+      const text = el.textContent.trim();
+
+      // Fix height to prevent layout shift
+      const parent = el.parentElement;
+      if (parent) {
+        parent.style.minHeight = parent.offsetHeight + 'px';
+      }
+
+      el.textContent = "";
+
+      let i = 0;
+      const speed = 30; // Typing speed in ms
+
+      function type() {
+        if (i < text.length) {
+          el.textContent += text.charAt(i);
+          i++;
+          setTimeout(type, speed);
+        } else {
+          // Optional: Remove min-height after typing to allow resizing
+          if (parent) parent.style.minHeight = '';
+        }
+      }
+
+      // Use IntersectionObserver to start typing when in view
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              type();
+              observer.unobserve(el); // Only type once
+            }
+          });
+        }, { threshold: 0.1 });
+
+        observer.observe(el);
+      } else {
+        // Fallback for browsers without IntersectionObserver
+        type();
+      }
+    });
+  }
+
   // Initialize all functionality when DOM is ready
   ready(function () {
     preloader();
@@ -468,6 +518,7 @@ JS Table of Conttent
     scrolltop();
     tabFunction();
     moveInlineTOC(); // Add TOC positioning
+    typewriterEffect(); // Initialize typewriter effect
 
     // Initialize infinite scroll pagination if we're on a page with posts
     if (document.querySelector(".posts")) {
