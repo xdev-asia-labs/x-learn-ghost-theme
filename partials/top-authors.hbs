@@ -42,7 +42,7 @@
 
             <!-- Avatar Section -->
             <div class="lg:col-span-4 flex justify-center lg:justify-start">
-               <div class="relative w-72 h-72 group/avatar">
+               <div class="relative w-72 h-72">
                   <!-- Tech HUD Rings -->
                   <!-- Outer Dashed Ring -->
                   <div
@@ -57,41 +57,28 @@
                      class="absolute -inset-2 rounded-full border-2 border-transparent border-b-blue-500 border-l-blue-500/30 animate-[spin_10s_linear_infinite_reverse]">
                   </div>
 
-                  <!-- Static HUD Elements -->
-                  <div
-                     class="absolute -top-8 left-1/2 -translate-x-1/2 px-3 py-1 bg-cyan-950/80 border border-cyan-500/30 rounded text-[10px] text-cyan-400 font-mono tracking-widest uppercase opacity-0 group-hover/avatar:opacity-100 transition-opacity duration-300">
-                     System Online
-                  </div>
-                  <div
-                     class="absolute -bottom-8 left-1/2 -translate-x-1/2 px-3 py-1 bg-cyan-950/80 border border-cyan-500/30 rounded text-[10px] text-cyan-400 font-mono tracking-widest uppercase opacity-0 group-hover/avatar:opacity-100 transition-opacity duration-300">
-                     Target Acquired
-                  </div>
-
                   <!-- Glow -->
                   <div
-                     class="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 blur-2xl opacity-20 group-hover/avatar:opacity-60 transition-opacity duration-500">
+                     class="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 blur-2xl opacity-20">
                   </div>
 
                   <!-- Image -->
                   <div
                      class="absolute inset-0 rounded-full overflow-hidden bg-gray-100 dark:bg-slate-900 ring-4 ring-white dark:ring-cyan-900/30 shadow-lg shadow-cyan-500/20">
-                     <img
-                        class="w-full h-full object-cover transform transition-transform duration-700 group-hover/avatar:scale-110 grayscale group-hover/avatar:grayscale-0"
+                     <img class="w-full h-full object-cover"
                         src="{{#if profile_image}}{{profile_image}}{{else}}{{asset " images/author.webp"}}{{/if}}"
                         alt="{{name}}" fetchpriority="high" width="288" height="288">
 
                      <!-- Scanning Line Overlay -->
                      <div
-                        class="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-400/30 to-transparent h-[20%] w-full animate-[scan_2s_linear_infinite] opacity-0 group-hover/avatar:opacity-100 pointer-events-none">
+                        class="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-400/30 to-transparent h-[200%] w-full animate-[scan_4s_linear_infinite] pointer-events-none">
                      </div>
                      <div
                         class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNCIgaGVpZ2h0PSI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSI0IiBoZWlnaHQ9IjQiIGZpbGw9Im5vbmUiLz48cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSIxIiBmaWxsPSJyZ2JhKDAsIDI1NSwgMjU1LCAwLjEpIi8+PC9zdmc+')] opacity-30 pointer-events-none">
                      </div>
                   </div>
                </div>
-            </div>
-
-            <!-- Content Section -->
+            </div> <!-- Content Section -->
             <div class="lg:col-span-8 text-center lg:text-left">
                <div
                   class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 text-xs font-mono mb-4">
@@ -100,7 +87,7 @@
                         class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                      <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
                   </span>
-                  TOP CONTRIBUTOR
+                  {{t "speaker"}}
                </div>
 
                <h2
@@ -180,11 +167,8 @@
                         class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 opacity-0 group-hover/icon:opacity-100 transition-opacity"></span>
                      <div
                         class="relative bg-gray-50 dark:bg-slate-900 rounded-full p-3 transition-transform group-hover/icon:scale-[0.96] group-hover/icon:bg-transparent">
-                        <svg class="w-5 h-5 text-gray-600 dark:text-cyan-400 group-hover/icon:text-white"
-                           fill="currentColor" viewBox="0 0 24 24">
-                           <path
-                              d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                        </svg>
+                        {{> icons/author/facebook classes="w-5 h-5 text-gray-600 dark:text-cyan-400
+                        group-hover/icon:text-white"}}
                      </div>
                   </a>
                   {{/if}}
@@ -303,7 +287,6 @@
             </div>
          </div>
       </div>
-   </div>
    </div>
 </section>
 {{/foreach}}

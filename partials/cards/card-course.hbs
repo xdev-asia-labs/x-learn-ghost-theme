@@ -1,5 +1,6 @@
 <div class="{{post_class}} card-course-item postitem relative" data-aos="fade-up" data-aos-delay="0">
-  <div class="course-card h-full glass-apple-card glass-noise group transition-all duration-500 overflow-hidden">
+  <div
+    class="course-card h-full glass-apple-card glass-noise group transition-all duration-500 overflow-hidden hover:shadow-2xl dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.15)]">
 
     <!-- Featured Badge -->
     {{#if featured}}
@@ -14,13 +15,13 @@
     <div class="course-image relative overflow-hidden aspect-[16/9]">
       <a href="{{url}}">
         {{#if feature_image}}
-        <img class="w-full h-full object-cover transition-transform duration-700 ease-out"
+        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
           srcset="{{img_url feature_image size=" s"}} 400w, {{img_url feature_image size="m" }} 600w, {{img_url
           feature_image size="l" }} 900w, {{img_url feature_image size="xl" }} 1200w"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" src="{{img_url feature_image size=" m"}}"
           alt="{{title}}" loading="lazy" />
         {{else}}
-        <img class="w-full h-full object-cover transition-transform duration-700 ease-out"
+        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
           src="{{asset 'images/blank.png'}}" alt="{{title}}" loading="lazy" />
         {{/if}}
       </a>
