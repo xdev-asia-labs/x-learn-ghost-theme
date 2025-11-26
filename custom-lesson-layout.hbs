@@ -1,4 +1,13 @@
-{{!< default}} {{#post}} {{!-- Breadcrumb Navigation --}} {{> breadcrumb}}
+{{!< default}} {{#post}} {{!-- Get course using primary tag --}} {{#primary_tag}} {{#get "posts" limit="1"
+   filter="primary_tag:{{slug}}+tag:hash-course" }} {{#foreach posts}} <div style="display:none" id="course-info-data"
+   data-course-title="{{title}}" data-course-url="{{url}}">
+   </div>
+   {{/foreach}}
+   {{/get}}
+   {{/primary_tag}}
+
+   {{!-- Breadcrumb Navigation --}}
+   {{> breadcrumb}}
 
    {{!-- Hero Section - always show for lessons --}}
    {{> hero-section lesson_style="image_on_right"}}
@@ -13,6 +22,7 @@
                         {{#has tag="#lesson"}}
                         {{#foreach tags visibility="internal"}}
                         {{#match slug "~" "course-id"}}
+                        {{!-- Get lessons --}}
                         {{#get "posts" limit="100" include="tags,authors,tiers" filter="tag:{{slug}}+tag:hash-lesson"
                         order="published_at asc"}}
                         {{#if posts.length}}
@@ -100,7 +110,8 @@
                </div>
                {{/if}}
 
-               <div class="w-full">
+               <!-- Comments Section -->
+               <div class="w-full mt-8">
                   {{#if comments}}
                   {{comments}}
                   {{/if}}
@@ -110,6 +121,54 @@
       </div>
    </section>
    {{/post}}
+
+   <!-- Inject Course Breadcrumb -->
+   <script>
+      document.addEventListener('DOMContentLoaded', async function () {
+         // Try to extract course info from related-lesson section
+         const relatedLesson = document.querySelector('.related-lesson');
+         if (!relatedLesson) return;
+
+         const courseTag = relatedLesson.getAttribute('data-course-tag');
+         if (!courseTag) return;
+
+         // Extract course ID number from tag (e.g., "hash-course-id-1" -> "1")
+         const courseIdMatch = courseTag.match(/course-id-(\d+)/);
+         if (!courseIdMatch) return;
+
+         const courseId = courseIdMatch[1];
+
+         // Try to find course link by checking all internal links
+         // Course URL pattern: typically /postgresql-high-availability/ or similar
+         // We'll search for a link that might be the course by looking at the page structure
+
+         // Alternative: construct course URL from current lesson URL
+         // Lesson URL pattern: /lesson/bai-1-.../ 
+         // Course URL pattern: might be /course/name/ or just /name/
+
+         // For now, let's try to find the course by looking at meta tags or page data
+         const articleTags = Array.from(document.querySelectorAll('meta[property="article:tag"]'));
+         const primaryTag = articleTags.length > 0 ? articleTags[0].content : null;
+
+         if (primaryTag) {
+            // Construct likely course URL: /course/{primary-tag-slug}/
+            const courseUrl = `/course/${primaryTag}/`;
+            const courseTitle = primaryTag.split('-').map(word =>
+               word.charAt(0).toUpperCase() + word.slice(1)
+            ).join(' ');
+
+            // Update breadcrumb
+            const breadcrumbItem = document.getElementById('course-breadcrumb-item');
+            const breadcrumbLink = document.getElementById('course-breadcrumb-link');
+
+            if (breadcrumbItem && breadcrumbLink) {
+               breadcrumbLink.href = courseUrl;
+               breadcrumbLink.textContent = `Khóa học ${courseTitle}`;
+               breadcrumbItem.style.display = 'flex';
+            }
+         }
+      });
+   </script>
 
    <!-- Course Progress JavaScript -->
    <script>
@@ -271,15 +330,15 @@
                if (this.completedLessons[courseLessonKey]) {
                   // Show checkmark for completed lessons
                   iconContainer.innerHTML = '<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.25 20.2125L6.0375 15L4.2625 16.7625L11.25 23.75L26.25 8.75L24.4875 6.9875L11.25 20.2125Z" fill="currentcolor"/></svg>';
-                  iconContainer.classList.add('bg-green-100', 'text-green-600');
-                  iconContainer.classList.remove('bg-gray-200', 'text-gray-400', 'bg-blue-50');
+                  iconContainer.classList.add('bg-green-100', 'dark:bg-green-900/30', 'text-green-600', 'dark:text-green-400');
+                  iconContainer.classList.remove('bg-gray-200', 'dark:bg-slate-700', 'text-gray-400', 'dark:text-gray-500', 'bg-blue-50', 'dark:bg-blue-900/30');
 
 
                } else {
                   // Show lesson icon for incomplete lessons
                   iconContainer.innerHTML = '<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.25 20.2125L6.0375 15L4.2625 16.7625L11.25 23.75L26.25 8.75L24.4875 6.9875L11.25 20.2125Z" fill="currentcolor"/></svg>';
-                  iconContainer.classList.add('bg-gray-100', 'text-gray-400');
-                  iconContainer.classList.remove('bg-green-100', 'text-green-600', 'bg-blue-50');
+                  iconContainer.classList.add('bg-gray-200', 'dark:bg-slate-700', 'text-gray-500', 'dark:text-gray-400');
+                  iconContainer.classList.remove('bg-green-100', 'dark:bg-green-900/30', 'text-green-600', 'dark:text-green-400', 'bg-blue-50', 'dark:bg-blue-900/30');
 
                   // Remove completion indicator
                   const indicator = item.querySelector('.completion-indicator');
@@ -390,10 +449,11 @@
                         const targetElement = document.getElementById(targetId);
 
                         if (targetElement) {
-                           // Smooth scroll to target
-                           targetElement.scrollIntoView({
-                              behavior: 'smooth',
-                              block: 'start'
+                           // Use native scroll with offset for better performance
+                           const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset - 100;
+                           window.scrollTo({
+                              top: offsetTop,
+                              behavior: 'smooth'
                            });
 
                            // Update URL hash without jumping

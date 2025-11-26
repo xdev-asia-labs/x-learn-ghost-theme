@@ -30,6 +30,12 @@
                   {{> social-share}}
                </div>
 
+               <!-- Comments Section -->
+               <div class="w-full mt-8">
+                  {{#if comments}}
+                  {{comments}}
+                  {{/if}}
+               </div>
 
             </div>
             <div class="post-sidebar md:col-span-12 lg:col-span-4 smooth-fade-in">
@@ -102,10 +108,11 @@
                      const targetElement = document.getElementById(targetId);
 
                      if (targetElement) {
-                        // Smooth scroll to target
-                        targetElement.scrollIntoView({
-                           behavior: 'smooth',
-                           block: 'start'
+                        // Use native scroll with offset for better performance
+                        const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset - 100;
+                        window.scrollTo({
+                           top: offsetTop,
+                           behavior: 'smooth'
                         });
 
                         // Update URL without triggering default jump
