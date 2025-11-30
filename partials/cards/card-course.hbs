@@ -1,102 +1,93 @@
-<div class="{{post_class}} card-course-item postitem relative" data-aos="fade-up" data-aos-delay="0">
+<div class="{{post_class}} card-course-item postitem relative mb-8" data-aos="fade-up" data-aos-delay="0">
   <div
-    class="course-card h-full glass-apple-card glass-noise group transition-all duration-500 overflow-hidden hover:shadow-2xl dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.15)]">
+    class="course-card h-full rounded-3xl transition-all duration-500 overflow-hidden bg-white dark:bg-slate-900 border border-gray-100 dark:border-white/5 hover:border-blue-500/30 dark:hover:border-blue-400/30 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] hover:-translate-y-1 relative flex flex-col group hover:shadow-2xl">
 
+    {{#if feature_image}}
     <!-- Featured Badge -->
     {{#if featured}}
-    <div class="featured-badge absolute top-4 right-4 z-50">
+    <div class="absolute top-4 left-4 z-50">
       <span
-        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white text-blue-800 shadow-lg">
+        class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-blue-600 dark:text-blue-400 border border-white/20 shadow-sm">
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-500 mr-1.5 animate-pulse"></span>
         {{t "featured"}}
       </span>
     </div>
     {{/if}}
-    <!-- Course Image - Optimized: 600x400 (3:2 ratio) for cards -->
-    <div class="course-image relative overflow-hidden aspect-[16/9]">
-      <a href="{{url}}">
-        {{#if feature_image}}
-        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-          srcset="{{img_url feature_image size=" s"}} 400w, {{img_url feature_image size="m" }} 600w, {{img_url
-          feature_image size="l" }} 900w, {{img_url feature_image size="xl" }} 1200w"
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" src="{{img_url feature_image size=" m"}}"
-          alt="{{title}}" loading="lazy" />
-        {{else}}
-        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-          src="{{asset 'images/blank.png'}}" alt="{{title}}" loading="lazy" />
-        {{/if}}
-      </a>
 
-      <!-- Course Share Overlay -->
-      <!-- Lesson Count Badge -->
-      {{#get
-      "posts"
-      filter="tag:hash-course-id-1+tag:hash-lesson"
-      include="tags,authors"
-      limit="100"
-      }}
-      {{#if posts.length}}
-      <div class="mb-0 absolute bottom-4 left-4 z-50">
-        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-800 text-white">
-          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
-            </path>
-          </svg>
-          {{plural
-          posts.length
-          empty="No Lessons"
-          singular="% Lesson"
-          plural="% Lessons"
-          }}
-        </span>
+    <!-- Image -->
+    <div class="relative overflow-hidden aspect-[16/10]">
+      <a href="{{url}}" class="block h-full">
+        <img
+          class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
+          srcset="{{img_url feature_image size=" s"}} 300w, {{img_url feature_image size="m" }} 600w, {{img_url
+          feature_image size="l" }} 1000w, {{img_url feature_image size="xl" }} 2000w"
+          sizes="(max-width: 1000px) 400px, 700px" src="{{img_url feature_image size=" m"}}" alt="{{title}}"
+          loading="lazy" />
+        <!-- Subtle Gradient Overlay -->
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        </div>
+      </a>
+    </div>
+    {{/if}}
+
+    <!-- Content -->
+    <div class="p-6 flex flex-col flex-grow relative">
+      <!-- Tags (Optional) -->
+      {{#if primary_tag}}
+      <div class="mb-3">
+        <a href="{{primary_tag.url}}"
+          class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline uppercase tracking-wider">{{primary_tag.name}}</a>
       </div>
       {{/if}}
-      {{/get}}
 
-    </div>
-
-    <!-- Course Content -->
-    <div class="p-6">
-
-      <!-- Course Title -->
+      <!-- Title -->
       <h4
-        class="course-title text-lg font-bold text-gray-800 dark:text-white group-hover:text-blue-800 dark:group-hover:text-blue-400 transition-colors duration-300 mb-3 line-clamp-2">
+        class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 mb-3 line-clamp-2 leading-snug">
         <a href="{{url}}">{{title}}</a>
       </h4>
 
-      <!-- Course Meta -->
-      <div class="course-meta flex items-center justify-between mb-4">
+      <!-- Excerpt -->
+      <p class="text-gray-500 dark:text-gray-400 line-clamp-2 mb-6 text-sm leading-relaxed flex-grow">
+        {{excerpt}}
+      </p>
 
-        <span class="course-excerpt flex items-center text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
-          {{excerpt characters="80"}}
-        </span>
-
-      </div>
-
-      <!-- Author Info -->
-
-      <div class="course-author-info flex items-center pt-4">
+      <!-- Author & Lesson Count -->
+      <div class="flex items-center justify-between pt-4 mt-auto border-t border-gray-100 dark:border-gray-800/50">
         {{#primary_author}}
-        {{#if profile_image}}
-        <img class="w-10 h-10 rounded-full object-cover transition-all duration-300 mr-3"
-          src="{{img_url profile_image size=" s"}}" srcset="{{img_url profile_image size=" s"}} 1x, {{img_url
-          profile_image size="m" }} 2x" alt="{{name}}" loading="lazy" />
-
-        {{/if}}
-
-        <div class="flex-1">
-          <h6 class="text-sm font-semibold text-gray-800 hover:text-blue-800 transition-colors duration-300">
-            <a href="{{url}}">{{name}}</a>
-          </h6>
-          {{#if location}}
-          <p class="text-xs text-gray-400">{{location}}</p>
+        <div class="flex items-center group/author">
+          {{#if profile_image}}
+          <img class="w-8 h-8 rounded-full object-cover ring-2 ring-white dark:ring-slate-800"
+            src="{{img_url profile_image size=" xs"}}" alt="{{name}}" loading="lazy" />
+          {{else}}
+          <div
+            class="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-xs font-bold text-gray-500">
+            {{name.[0]}}</div>
           {{/if}}
+          <div class="ml-2.5">
+            <h6
+              class="text-xs font-bold text-gray-900 dark:text-gray-200 group-hover/author:text-blue-600 dark:group-hover/author:text-blue-400 transition-colors duration-300">
+              <a href="{{url}}">{{name}}</a>
+            </h6>
+          </div>
         </div>
-
         {{/primary_author}}
 
+        <!-- Lesson Count Badge -->
+        {{#foreach tags visibility="internal" limit="1"}}
+        {{#get "posts" filter="tag:{{slug}}+tag:hash-lesson" limit="1"}}
+        <div
+          class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs font-bold border border-blue-100 dark:border-blue-800/30">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+            </path>
+          </svg>
+          <span>{{plural pagination.total empty='0' singular='% Lesson' plural='% Lessons'}}</span>
+        </div>
+        {{/get}}
+        {{/foreach}}
       </div>
     </div>
-
   </div>
 </div>

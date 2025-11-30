@@ -1,16 +1,38 @@
 {{#match home "one"}}
 <div
    class="hero-area relative overflow-hidden py-12 md:py-16 lg:py-24 bg-gradient-to-b from-cyan-50/50 to-white dark:from-slate-950 dark:to-slate-900 transition-colors duration-300">
-   <!-- Cyber Grid Overlay (Dark Mode) -->
-   <div
-      class="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.05)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_100%)] pointer-events-none hidden dark:block">
+   <!-- AI Background Elements (Dark Mode Only) -->
+   <div class="absolute inset-0 opacity-0 dark:opacity-100 transition-opacity duration-500 pointer-events-none">
+      <!-- Cyber Grid -->
+      <div
+         class="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]">
+      </div>
+
+      <!-- Moving Scan Line Background -->
+      <div
+         class="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/5 to-transparent h-[200%] w-full animate-[scan_4s_linear_infinite] pointer-events-none">
+      </div>
+
+      <!-- Glowing Orbs -->
+      <div class="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-[100px] animate-pulse"></div>
+      <div
+         class="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-[100px] animate-pulse delay-1000">
+      </div>
+   </div>
+
+   <!-- Light Mode Background Elements -->
+   <div class="absolute inset-0 opacity-100 dark:opacity-0 transition-opacity duration-500 pointer-events-none">
+      <div class="absolute inset-0 bg-gradient-to-b from-cyan-50/50 to-white"></div>
+      <div
+         class="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-100/40 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/4">
+      </div>
    </div>
 
    <div class="container mx-auto relative z-10">
       <div class="hero-box-1 grid items-center sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-24">
          <div class="hero-cotent relative lg:col-span-7 order-2 sm:order-1">
             <div
-               class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 text-xs font-mono mb-6">
+               class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 text-xs font-bold font-mono mb-6 border border-cyan-500/20">
                <span class="relative flex h-2 w-2">
                   <span
                      class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
@@ -20,23 +42,24 @@
             </div>
 
             <h1
-               class="font-serif text-5xl lg:text-6xl text-gray-900 dark:text-white font-bold mb-6 !leading-tight tracking-tight">
+               class="font-serif text-5xl lg:text-7xl text-gray-900 dark:text-white font-bold mb-6 !leading-tight tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-cyan-600 to-blue-600 dark:from-white dark:via-cyan-300 dark:to-blue-500 drop-shadow-sm dark:drop-shadow-[0_0_15px_rgba(6,182,212,0.5)]">
                {{@site.title}}
             </h1>
             {{#if @site.description}}
-            <p class="text-xl text-gray-600 dark:text-gray-300 font-normal mb-8 leading-relaxed">{{@site.description}}
+            <p class="text-xl text-gray-600 dark:text-gray-300 font-normal mb-8 leading-relaxed max-w-2xl">
+               {{@site.description}}
             </p>
             {{/if}}
             <div class="flex flex-wrap gap-4">
                <a href="/contact-us/"
-                  class="hero-btn-1 inline-flex items-center justify-center text-base text-white font-semibold bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 hover:-translate-y-0.5 transition-all duration-300 py-3.5 px-8 rounded-full relative overflow-hidden group">
+                  class="hero-btn-1 inline-flex items-center justify-center text-base text-white font-bold bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 hover:-translate-y-0.5 transition-all duration-300 py-3.5 px-8 rounded-full relative overflow-hidden group">
                   <span class="relative z-10">{{t "contact-us"}}</span>
                   <div
                      class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                   </div>
                </a>
                <a href="/courses"
-                  class="hero-btn-2 inline-flex items-center justify-center px-8 py-3.5 font-semibold text-base text-gray-700 dark:text-gray-200 glass-apple-card dark:bg-slate-800/50 hover:text-cyan-600 dark:hover:text-cyan-400 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 rounded-full">
+                  class="hero-btn-2 inline-flex items-center justify-center px-8 py-3.5 font-bold text-base text-gray-700 dark:text-gray-200 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-gray-200 dark:border-white/10 hover:border-cyan-500 dark:hover:border-cyan-400 hover:text-cyan-600 dark:hover:text-cyan-400 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 rounded-full">
                   {{t "view-courses"}}
                </a>
             </div>
@@ -44,7 +67,7 @@
          {{#if @site.cover_image}}
          <div class="feature-image relative lg:col-span-5 order-1 sm:order-2">
             <div
-               class="relative rounded-2xl shadow-2xl shadow-cyan-500/20 overflow-hidden transform hover:scale-[1.02] transition-transform duration-500 group">
+               class="relative rounded-2xl shadow-2xl shadow-cyan-500/20 overflow-hidden transform hover:scale-[1.02] transition-transform duration-500 group border-4 border-white dark:border-slate-800/50">
                <img class="w-full h-auto object-cover" width="1200" height="630" src="{{img_url @site.cover_image size="
                   xl"}}" srcset="{{img_url @site.cover_image size=" m"}} 600w, {{img_url @site.cover_image size="l" }}
                   1000w, {{img_url @site.cover_image size="xl" }} 1200w" sizes="(max-width: 768px) 100vw, 50vw"
@@ -57,10 +80,10 @@
             </div>
 
             <!-- Decorative Elements -->
-            <div class="absolute -top-6 -right-6 w-24 h-24 bg-cyan-500/10 rounded-full blur-xl -z-10 animate-pulse">
+            <div class="absolute -top-6 -right-6 w-24 h-24 bg-cyan-500/20 rounded-full blur-xl -z-10 animate-pulse">
             </div>
             <div
-               class="absolute -bottom-6 -left-6 w-32 h-32 bg-blue-600/10 rounded-full blur-xl -z-10 animate-pulse delay-700">
+               class="absolute -bottom-6 -left-6 w-32 h-32 bg-blue-600/20 rounded-full blur-xl -z-10 animate-pulse delay-700">
             </div>
          </div>
          {{/if}}
@@ -173,28 +196,53 @@
 {{/match}}
 
 {{#match course_style "image_on_right"}}
-<div class="hero-area relative py-8 md:py-10 lg:py-16  ">
-   <div class="container mx-auto">
+<div class="hero-area relative py-8 md:py-10 lg:py-16 overflow-hidden">
+   <!-- Background Decoration -->
+   <div
+      class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-blue-50/50 to-transparent dark:from-slate-900/50 dark:to-transparent pointer-events-none -z-10">
+   </div>
+   <div class="absolute bottom-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl -z-10 animate-pulse"></div>
+
+   <div class="container mx-auto relative z-10">
       <div class="hero-box-3 grid gap-8 grid-cols-1 lg:grid-cols-12 items-center text-left">
          <div class="lg:col-span-7 lg:pr-10">
             <div
-               class=" hero-content flex flex-wrap content-center relative top-0 bottom-0 left-0 max-w-[860px] z-10 flex-col">
-               <h1 class="font-serif !leading-tight text-4xl lg:text-5xl text-gray-800 font-bold  mb-6">{{title}}
+               class="hero-content flex flex-wrap content-center relative top-0 bottom-0 left-0 max-w-[860px] z-10 flex-col">
+               <h1
+                  class="font-serif !leading-tight text-4xl lg:text-6xl text-gray-900 dark:text-white font-bold mb-6 tracking-tight">
+                  {{title}}
                </h1>
                {{#if custom_excerpt}}
-               <p class="text-xl text-gray-400 font-normal mb-6">{{custom_excerpt}}</p>
+               <p class="text-xl text-gray-600 dark:text-gray-300 font-normal mb-8 leading-relaxed">{{custom_excerpt}}
+               </p>
                {{/if}}
                {{#primary_author}}
-               <div class="author flex items-center">
-                  <img class="w-10 h-10 rounded-full object-cover" src="{{img_url profile_image size=" s"}}"
-                     srcset="{{img_url profile_image size=" s"}} 1x, {{img_url profile_image size="m" }} 2x"
-                     alt="{{name}}" loading="lazy">
-                  <div class="course-content ml-2">
-                     <h6 class="font-serif text-base text-gray-800 hover:text-blue-800 font-bold duration-300">
+               <div
+                  class="author flex items-center p-4 rounded-xl bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-gray-100 dark:border-white/5 w-fit">
+                  <div class="relative">
+                     <img class="w-12 h-12 rounded-full object-cover ring-2 ring-white dark:ring-slate-700"
+                        src="{{img_url profile_image size=" s"}}" srcset="{{img_url profile_image size=" s"}} 1x,
+                        {{img_url profile_image size="m" }} 2x" alt="{{name}}" loading="lazy">
+                     <div
+                        class="absolute -bottom-1 -right-1 bg-green-500 w-3 h-3 rounded-full border-2 border-white dark:border-slate-800">
+                     </div>
+                  </div>
+                  <div class="course-content ml-3">
+                     <h6
+                        class="font-sans text-sm font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                         <a href="{{url}}">{{name}}</a>
                      </h6>
                      {{#if location}}
-                     <p class="text-sm text-gray-400 font-normal opacity-60">{{location}}</p>
+                     <p class="text-xs text-gray-500 dark:text-gray-400 font-medium mt-0.5 flex items-center gap-1">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                           </path>
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        {{location}}
+                     </p>
                      {{/if}}
                   </div>
                </div>
@@ -203,9 +251,14 @@
          </div>
          {{#if feature_image}}
          <div class="lg:col-span-5">
-            <div class="feature-image relative" data-aos="fade" data-aos-delay="100">
-               <img class="w-full rounded-lg" srcset="{{img_url feature_image size=" m"}} 800w, {{img_url feature_image
-                  size="l" }} 1200w, {{img_url feature_image size="xl" }} 1920w" sizes="(max-width: 1024px) 100vw, 50vw"
+            <div class="feature-image relative group" data-aos="fade" data-aos-delay="100">
+               <div
+                  class="absolute inset-0 bg-cyan-500/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500 -z-10">
+               </div>
+               <img
+                  class="w-full rounded-2xl shadow-2xl border-4 border-white dark:border-slate-800/50 transform group-hover:scale-[1.02] transition-transform duration-500"
+                  srcset="{{img_url feature_image size=" m"}} 800w, {{img_url feature_image size="l" }} 1200w, {{img_url
+                  feature_image size="xl" }} 1920w" sizes="(max-width: 1024px) 100vw, 50vw"
                   src="{{img_url feature_image size=" l"}}" alt="{{title}}" loading="eager">
             </div>
          </div>
@@ -494,38 +547,68 @@
 </div>
 {{/match}}
 {{#match post_style "image_on_right"}}
-<div class="post-style-three hero-area  relative py-8 md:py-10 lg:py-16  ">
-   <div class="container mx-auto">
+<div class="post-style-three hero-area relative py-8 md:py-10 lg:py-16 overflow-hidden">
+   <!-- Background Decoration -->
+   <div
+      class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-gray-50/50 to-transparent dark:from-slate-900/50 dark:to-transparent pointer-events-none -z-10">
+   </div>
+   <div class="absolute top-1/4 right-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl -z-10 animate-pulse"></div>
+
+   <div class="container mx-auto relative z-10">
       <div class="hero-box-3 grid gap-8 grid-cols-1 lg:grid-cols-12 items-center text-left">
          <div class="lg:col-span-8">
-            <div class="hero-content   text-left relative lg:pr-14">
-               <p class="text-base text-gray-100 font-medium">
+            <div class="hero-content text-left relative lg:pr-14">
+               <div class="flex flex-wrap gap-2 mb-6">
                   {{#foreach tags visibility="internal" limit="1"}}
                   {{#get "posts" include ="tags" filter="tag:{{slug}}+tag:hash-course"}}
                   {{#if posts}}
                   {{#foreach posts}}
-                  <a class="mb-2 text-sm px-3 py-1  bg-blue-800 text-white rounded" href="{{url}}">{{title}}</a> <br>
+                  <a class="text-xs font-bold px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors"
+                     href="{{url}}">
+                     <span class="mr-1">📚</span>{{title}}
+                  </a>
                   {{/foreach}}
                   {{/if}}
                   {{/get}}
                   {{/foreach}}
-               </p>
-               <h1 class="font-serif !leading-tight text-4xl lg:text-5xl text-gray-800 font-bold  mb-6">{{title}}
+               </div>
+
+               <h1
+                  class="font-serif !leading-tight text-4xl lg:text-6xl text-gray-900 dark:text-white font-bold mb-6 tracking-tight">
+                  {{title}}
                </h1>
                {{#if custom_excerpt}}
-               <p class="text-xl text-gray-400 font-normal mb-6">{{custom_excerpt}}</p>
+               <p class="text-xl text-gray-600 dark:text-gray-300 font-normal mb-8 leading-relaxed">{{custom_excerpt}}
+               </p>
                {{/if}}
+
                {{#primary_author}}
-               <div class="author flex items-center">
-                  <img class="w-10 h-10 rounded-full object-cover" src="{{img_url profile_image size=" s"}}"
-                     srcset="{{img_url profile_image size=" s"}} 1x, {{img_url profile_image size="m" }} 2x"
-                     alt="{{name}}" loading="lazy">
-                  <div class="course-content ml-2">
-                     <h6 class="font-serif text-base text-gray-800 hover:text-blue-800 font-bold duration-300">
+               <div
+                  class="author flex items-center p-4 rounded-xl bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-gray-100 dark:border-white/5 w-fit">
+                  <div class="relative">
+                     <img class="w-12 h-12 rounded-full object-cover ring-2 ring-white dark:ring-slate-700"
+                        src="{{img_url profile_image size=" s"}}" srcset="{{img_url profile_image size=" s"}} 1x,
+                        {{img_url profile_image size="m" }} 2x" alt="{{name}}" loading="lazy">
+                     <div
+                        class="absolute -bottom-1 -right-1 bg-green-500 w-3 h-3 rounded-full border-2 border-white dark:border-slate-800">
+                     </div>
+                  </div>
+                  <div class="course-content ml-3">
+                     <h6
+                        class="font-sans text-sm font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                         <a href="{{url}}">{{name}}</a>
                      </h6>
                      {{#if location}}
-                     <p class="text-sm text-gray-400 font-normal opacity-60">{{location}}</p>
+                     <p class="text-xs text-gray-500 dark:text-gray-400 font-medium mt-0.5 flex items-center gap-1">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                           </path>
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        {{location}}
+                     </p>
                      {{/if}}
                   </div>
                </div>
@@ -534,9 +617,14 @@
          </div>
          {{#if feature_image}}
          <div class="lg:col-span-4">
-            <div class="feature-image relative" data-aos="fade" data-aos-delay="100">
-               <img class="w-full rounded-lg" srcset="{{img_url feature_image size=" m"}} 800w, {{img_url feature_image
-                  size="l" }} 1200w, {{img_url feature_image size="xl" }} 1920w" sizes="(max-width: 1024px) 100vw, 50vw"
+            <div class="feature-image relative group" data-aos="fade" data-aos-delay="100">
+               <div
+                  class="absolute inset-0 bg-blue-500/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500 -z-10">
+               </div>
+               <img
+                  class="w-full rounded-2xl shadow-2xl border-4 border-white dark:border-slate-800/50 transform group-hover:scale-[1.02] transition-transform duration-500"
+                  srcset="{{img_url feature_image size=" m"}} 800w, {{img_url feature_image size="l" }} 1200w, {{img_url
+                  feature_image size="xl" }} 1920w" sizes="(max-width: 1024px) 100vw, 50vw"
                   src="{{img_url feature_image size=" l"}}" alt="{{title}}" loading="eager">
             </div>
          </div>

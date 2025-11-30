@@ -1,0 +1,70 @@
+{{!< default}} {{#contentFor "metaTitle" }} <title>{{meta_title}}</title>
+    {{/contentFor}}
+
+
+    <div class="news-page">
+        <div class="container mx-auto py-8 md:py-10 lg:py-16">
+
+            <!-- News Header -->
+            <div class="text-center">
+                <h1 class="w-full font-serif !leading-tight text-4xl lg:text-5xl text-gray-800 font-bold mb-2 ">{{t
+                    "News"}}</h1>
+
+                <p class="text-xl text-gray-400 mb-6 max-w-3xl mx-auto">{{t "news-description"}}</p>
+            </div>
+        </div>
+        <div class="container mx-auto">
+            {{#if posts}}
+            <div class="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 posts mb-12" id="posts-container">
+                {{#foreach posts}}
+                {{> cards/card-post}}
+                {{/foreach}}
+            </div>
+
+            <!-- Load More Button -->
+            {{#if pagination}}
+            {{#if pagination.next}}
+            <div class="load-more-container text-center">
+                <button
+                    class="js-load-posts bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-300 flex items-center justify-center mx-auto">
+                    <span class="load-text">{{t "load-more-news"}}</span>
+                    <span class="loading-spinner hidden ml-2">
+                        <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                            </circle>
+                            <path class="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                            </path>
+                        </svg>
+                    </span>
+                </button>
+            </div>
+            {{/if}}
+            {{/if}}
+            {{else}}
+            <div class="text-center py-12">
+                <p class="text-gray-400">{{t "no-news-found"}}</p>
+            </div>
+            {{/if}}
+
+
+
+        </div>
+    </div>
+
+    <!-- Pass pagination data to JavaScript -->
+    {{#get "posts" include="tags,authors" limit="12"}}
+    {{#if pagination}}
+    <script>
+        window.blogPagination = {
+            currentPage: {{ pagination.page }},
+        totalPages: { { pagination.pages } },
+        totalPosts: { { pagination.total } },
+        postsPerPage: { { pagination.limit } },
+        nextUrl: "{{pagination.next}}",
+            hasNext: { { #if pagination.next } } true{ {else } } false{ {/if } }
+        };
+    </script>
+    {{/if}}
+    {{/get}}

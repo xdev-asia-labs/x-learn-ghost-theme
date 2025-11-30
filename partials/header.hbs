@@ -1,89 +1,87 @@
 <header
-  class="header-area relative top-0 left-0 right-0 py-4 lg:py-5 z-50 glass-apple dark:glass-apple-dark transition-all duration-300 dark:shadow-[0_4px_20px_-10px_rgba(6,182,212,0.3)]">
-  <div class="container mx-auto">
-    <div class="flex items-center relative">
-      <div class="header-logo flex-auto lg:flex-none">
-        <a class="pr-8 inline-block group" href="/">
+  class="header-area relative top-0 z-50 w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-gray-200/50 dark:border-white/10 transition-all duration-300">
+  <div class="container mx-auto px-4 lg:px-8 py-3">
+    <div class="flex items-center justify-between">
+      <!-- Logo -->
+      <div class="header-logo flex-shrink-0">
+        <a class="inline-block group" href="/">
           {{#if @site.logo}}
           <img
             class="max-h-10 h-10 w-auto group-hover:drop-shadow-[0_0_8px_rgba(6,182,212,0.5)] transition-all duration-300 dark:brightness-110 dark:contrast-90"
             src="{{@site.logo}}" alt="{{title}}" loading="eager" />
           {{else}}
           <span
-            class="text-2xl w-5 font-bold font-serif text-gray-900 dark:text-white tracking-tight group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors duration-300">
+            class="text-2xl font-bold font-serif text-gray-900 dark:text-white tracking-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-cyan-500 transition-all duration-300">
             {{@site.title}}</span>
           {{/if}}
         </a>
       </div>
+
       <!-- Desktop Navigation -->
       <nav class="hidden lg:flex flex-1 items-center justify-center">
         {{> navigation navigation=@site.navigation}}
       </nav>
 
-      <!-- Mobile Menu Button -->
-      <a class="lg:hidden flex items-center p-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/10 rounded-full transition-colors duration-200"
-        href="#/search" aria-label="Search">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-        </svg>
-      </a>
-      <button id="mobile-menu-toggle"
-        class="lg:hidden flex flex-col items-center justify-center w-10 h-10 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors duration-200"
-        aria-label="Toggle mobile menu">
-        <span class="w-6 h-0.5 bg-gray-800 dark:bg-white transition-all duration-300 transform origin-center"></span>
-        <span
-          class="w-6 h-0.5 bg-gray-800 dark:bg-white transition-all duration-300 transform origin-center mt-1"></span>
-        <span
-          class="w-6 h-0.5 bg-gray-800 dark:bg-white transition-all duration-300 transform origin-center mt-1"></span>
-      </button>
-
-      <!-- Search Button (Mobile) -->
-
-      <div class="hidden lg:flex items-center right-side-menu-item gap-3">
-        <!-- Dark Mode Toggle -->
-        <button id="theme-toggle" type="button"
-          class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
-          <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg">
-            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-          </svg>
-          <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 100 2h1z"
-              fill-rule="evenodd" clip-rule="evenodd"></path>
-          </svg>
+      <!-- Right Side Actions -->
+      <div class="flex items-center gap-3">
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-toggle"
+          class="lg:hidden flex flex-col items-center justify-center w-10 h-10 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors duration-200"
+          aria-label="Toggle mobile menu">
+          <span
+            class="w-5 h-0.5 bg-gray-800 dark:bg-white transition-all duration-300 transform origin-center rounded-full"></span>
+          <span
+            class="w-5 h-0.5 bg-gray-800 dark:bg-white transition-all duration-300 transform origin-center mt-1.5 rounded-full"></span>
+          <span
+            class="w-5 h-0.5 bg-gray-800 dark:bg-white transition-all duration-300 transform origin-center mt-1.5 rounded-full"></span>
         </button>
 
-        <a class="group flex items-center text-base text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-white/5 transition-all duration-300 px-3 py-2 h-10 w-10 justify-center rounded-full"
-          href="#/search">
+        <!-- Desktop Actions -->
+        <div class="hidden lg:flex items-center gap-3">
+          <!-- Dark Mode Toggle -->
+          <button id="theme-toggle" type="button"
+            class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none rounded-full w-10 h-10 flex items-center justify-center transition-all duration-300 hover:rotate-12">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+            </svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 100 2h1z"
+                fill-rule="evenodd" clip-rule="evenodd"></path>
+            </svg>
+          </button>
 
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-          </svg>
+          <!-- Search -->
+          <a class="group flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-300 w-10 h-10 rounded-full"
+            href="#/search">
+            <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </a>
 
-        </a>
-        {{#if @site.members_enabled}}
-        {{#unless @member}}
-        <a href="#/portal/signup"
-          class="group flex items-center text-sm font-medium hover:shadow-[0_0_15px_rgba(79,70,229,0.5)] hover:-translate-y-0.5 transition-all duration-300 px-6 py-2.5 h-auto bg-primary-600 hover:bg-primary-500 text-white rounded-full relative overflow-hidden">
-          <span class="relative z-10">{{t "sign-up"}}</span>
-          <div
-            class="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          </div>
-        </a>
-        {{else}}
-        <a href="#/portal/account"
-          class="group flex items-center text-sm font-medium hover:shadow-[0_0_15px_rgba(79,70,229,0.5)] hover:-translate-y-0.5 transition-all duration-300 px-6 py-2.5 h-auto bg-primary-600 hover:bg-primary-500 text-white rounded-full relative overflow-hidden">
-          <span class="relative z-10">{{t "account"}}</span>
-          <div
-            class="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          </div>
-        </a>
-        {{/unless}}
-        {{/if}}
+          <!-- Auth Buttons -->
+          {{#if @site.members_enabled}}
+          {{#unless @member}}
+          <a href="#/portal/signup"
+            class="group flex items-center text-sm font-bold hover:shadow-[0_0_20px_rgba(79,70,229,0.6)] hover:-translate-y-0.5 transition-all duration-300 px-6 py-2.5 h-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-full relative overflow-hidden">
+            <span class="relative z-10">{{t "sign-up"}}</span>
+            <div
+              class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            </div>
+          </a>
+          {{else}}
+          <a href="#/portal/account"
+            class="group flex items-center text-sm font-bold hover:shadow-[0_0_20px_rgba(79,70,229,0.6)] hover:-translate-y-0.5 transition-all duration-300 px-6 py-2.5 h-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-full relative overflow-hidden">
+            <span class="relative z-10">{{t "account"}}</span>
+            <div
+              class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            </div>
+          </a>
+          {{/unless}}
+          {{/if}}
+        </div>
       </div>
     </div>
   </div>

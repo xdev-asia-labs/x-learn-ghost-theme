@@ -2,13 +2,18 @@
 
    {{> hero-section course_style="image_on_right"}}
 
-   <section class="course-details-area {{post_class}} py-8 md:py-10 lg:py-16">
+   <section class="course-details-area {{post_class}} py-8 md:py-10 lg:py-16 relative z-10">
+      <!-- Background Decoration -->
+      <div
+         class="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-blue-50/30 to-transparent dark:from-slate-900/30 dark:to-transparent pointer-events-none -z-10">
+      </div>
+
       <div class="container mx-auto">
-         <div class="post-page-container grid grid-cols-1 md:grid-cols-12 gap-8">
+         <div class="post-page-container grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12">
             <div class="course-sidebar sm:col-span-12 lg:col-span-4 order-2 lg:order-1">
                <div class="lesson-list-sidebar sticky top-8">
                   <div
-                     class="sidebar rounded-2xl shadow-lg border border-gray-100 dark:border-white/10 bg-white dark:bg-slate-900 backdrop-blur-sm duration-300 overflow-hidden">
+                     class="sidebar rounded-2xl shadow-xl border border-gray-100 dark:border-white/10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl duration-300 overflow-hidden glass-apple-card glass-noise">
                      <div class="left-lesson-list">
                         {{#get "posts" limit="100" include="tags,authors,tiers"
                         filter="tag:hash-course-id-1+tag:hash-lesson"
@@ -16,29 +21,32 @@
                         {{#if posts.length}}
                         <div class="related-lesson pb-6">
                            <h3
-                              class="text-2xl font-bold text-gray-900 dark:text-white transition-colors duration-300 px-6 pt-6 pb-4 border-b border-gray-100 dark:border-white/10">
-                              {{t "course-lessons"}} </h3>
+                              class="text-xl font-bold text-gray-900 dark:text-white transition-colors duration-300 px-6 pt-6 pb-4 border-b border-gray-100 dark:border-white/10 flex items-center gap-2">
+                              <span class="w-1 h-5 bg-blue-600 rounded-full"></span>
+                              {{t "course-lessons"}}
+                           </h3>
 
-                           <ol class="lesson-list">
+                           <ol class="lesson-list max-h-[60vh] overflow-y-auto custom-scrollbar">
                               {{#foreach posts}}
                               {{> lessonlist}}
                               {{/foreach}}
                            </ol>
                         </div>
                         {{else}}
-                        <div class="no-lessons-message px-6 py-8 text-center">
-                           <div class="mb-4">
-                              <svg class="w-16 h-16 mx-auto text-gray-400 dark:text-gray-600" fill="none"
+                        <div class="no-lessons-message px-6 py-12 text-center">
+                           <div class="mb-4 relative">
+                              <div class="absolute inset-0 bg-blue-500/20 blur-xl rounded-full"></div>
+                              <svg class="w-16 h-16 mx-auto text-blue-500 relative z-10" fill="none"
                                  stroke="currentColor" viewBox="0 0 24 24">
-                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                     d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
                                  </path>
                               </svg>
                            </div>
-                           <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                           <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
                               {{t "no-lessons-yet"}}
                            </h4>
-                           <p class="text-sm text-gray-600 dark:text-gray-400">
+                           <p class="text-sm text-gray-500 dark:text-gray-400 max-w-[200px] mx-auto leading-relaxed">
                               {{t "lessons-coming-soon"}}
                            </p>
                         </div>
@@ -50,15 +58,19 @@
             </div>
             <div class="post-content-area md:col-span-12 lg:col-span-8 order-1 lg:order-2">
                <div class="entry-content">
-                  <div class="gh-content prose prose-lg dark:prose-invert">
+                  <div
+                     class="gh-content prose prose-lg dark:prose-invert max-w-none prose-headings:font-serif prose-headings:font-bold prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-img:rounded-xl prose-img:shadow-lg">
                      {{content}}
                   </div>
                </div>
 
                <!-- Comments Section -->
-               <div class="w-full mt-8">
+               <div class="w-full mt-12">
                   {{#if comments}}
-                  {{comments}}
+                  <div
+                     class="bg-gray-50 dark:bg-slate-900/50 rounded-2xl p-6 md:p-8 border border-gray-100 dark:border-gray-800">
+                     {{comments}}
+                  </div>
                   {{/if}}
                </div>
             </div>
@@ -68,3 +80,64 @@
 
    <link rel="stylesheet" href="{{asset 'css/prism.css'}}" />
    <script src="{{asset 'js/prism.js'}}" defer></script>
+   <script>
+      // Function to highlight active lesson
+      function highlightActiveLesson() {
+         const currentPath = window.location.pathname;
+         // Extract slug from URL path (e.g., /lesson/identifying-business-opportunities/ -> identifying-business-opportunities)
+         const currentSlug = currentPath.split('/').filter(segment => segment.length > 0).pop();
+
+         const lessonItems = document.querySelectorAll('.lesson-box');
+
+         lessonItems.forEach(item => {
+            const lessonId = item.getAttribute('id'); // This is the slug from {{slug}}
+
+            // Reset all items to inactive state first
+            item.classList.remove('bg-blue-50', 'dark:bg-slate-800', 'border-blue-200', 'dark:border-blue-900');
+            item.classList.add('border-transparent');
+
+            // Reset icon container
+            const iconContainer = item.querySelector('.lesson-icon > div');
+            if (iconContainer) {
+               iconContainer.classList.remove('bg-blue-600', 'text-white', 'shadow-lg', 'shadow-blue-500/30');
+               iconContainer.classList.add('bg-blue-50', 'dark:bg-slate-800', 'text-blue-500', 'dark:text-blue-400');
+            }
+
+            // Reset title
+            const title = item.querySelector('h4');
+            if (title) {
+               title.classList.remove('text-blue-700', 'dark:text-blue-400', 'font-bold');
+               title.classList.add('text-gray-600', 'dark:text-gray-400', 'font-medium');
+            }
+
+            // Check if this lesson is the current one by matching slug with ID
+            if (lessonId === currentSlug) {
+               // This is the active lesson - add active state classes
+               item.classList.remove('border-transparent');
+               item.classList.add('bg-blue-50', 'dark:bg-slate-800', 'border-blue-200', 'dark:border-blue-900');
+
+               // Update icon container with active style
+               if (iconContainer) {
+                  iconContainer.classList.remove('bg-blue-50', 'dark:bg-slate-800', 'text-blue-500', 'dark:text-blue-400');
+                  iconContainer.classList.add('bg-blue-600', 'text-white', 'shadow-lg', 'shadow-blue-500/30');
+               }
+
+               // Update title
+               if (title) {
+                  title.classList.remove('text-gray-600', 'dark:text-gray-400', 'font-medium');
+                  title.classList.add('text-blue-700', 'dark:text-blue-400', 'font-bold');
+               }
+
+               // Scroll active lesson into view if needed
+               item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+         });
+      }
+
+      // Run when DOM is ready
+      if (document.readyState === 'loading') {
+         document.addEventListener('DOMContentLoaded', highlightActiveLesson);
+      } else {
+         highlightActiveLesson();
+      }
+   </script>

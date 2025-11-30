@@ -73,5 +73,11 @@
     "progress": "進捗",
     "lessons-completed": "% / % レッスン完了",
     "mark-as-complete": "完了としてマーク",
-    "marked-complete": "完了"
+    "marked-complete": "完了",
+    "news": "ニュース",
+    "latest-news": "最新ニュース",
+    "no-news-found": "ニュースが見つかりません",
+    "load-more-news": "さらにニュースを読み込む",
+    "explore-latest-news-updates": "最新のニュース、更新情報、お知らせをご覧ください",
+    "news-description": "ソフトウェア開発、DevOps、クラウドコンピューティングに関する最新の技術ニュース、トレンド、インサイトをお届けします。"
 }

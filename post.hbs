@@ -2,17 +2,28 @@
 
    {{> hero-section post_style="image_on_right"}}
 
-   <section class="single-area pb-8 md:pb-10 lg:pb-16">
+   <section class="single-area pb-8 md:pb-10 lg:pb-16 relative z-10">
+      <!-- Background Decoration -->
+      <div
+         class="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-gray-50/50 to-transparent dark:from-slate-900/50 dark:to-transparent pointer-events-none -z-10">
+      </div>
+
       <div class="container mx-auto">
-         <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 lg:gap-12">
+         <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12">
             <div class="md:col-span-12 lg:col-span-8">
-               <div class="gh-content prose prose-lg pb-8 dark:prose-invert">
+               <div
+                  class="gh-content prose prose-lg pb-8 dark:prose-invert max-w-none prose-headings:font-serif prose-headings:font-bold prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-img:rounded-xl prose-img:shadow-lg">
                   {{content}}
 
                   <!-- Inline Table of Contents - will be moved after first paragraph by JavaScript -->
                   <div id="inline-toc-container"
-                     class="inline-toc-widget bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-white/10 rounded-lg p-6 my-8 hidden">
-                     <p class="font-serif text-xl text-gray-800 dark:text-gray-100 font-bold mb-4 mt-0">
+                     class="inline-toc-widget bg-gray-50/80 dark:bg-slate-800/80 backdrop-blur border border-gray-200 dark:border-white/10 rounded-xl p-6 my-8 hidden shadow-sm">
+                     <p
+                        class="font-serif text-xl text-gray-800 dark:text-gray-100 font-bold mb-4 mt-0 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M4 6h16M4 12h16M4 18h7"></path>
+                        </svg>
                         {{t "table-of-content"}}
                      </p>
                      <div class="gh-toc"></div>
@@ -20,10 +31,13 @@
                </div>
 
                <!-- add tags -->
-               <div class="post-details-tags flex flex-wrap gap-4">
+               <div
+                  class="post-details-tags flex flex-wrap gap-3 mt-8 border-t border-gray-100 dark:border-gray-800 pt-8">
                   {{#foreach tags limit="5"}}
                   <a href="{{url}}"
-                     class="tag h-10 hover:shadow-md transform hover:-translate-y-0.5 group inline-flex items-center px-4 py-2 bg-gray-50 dark:bg-slate-800 hover:bg-white dark:hover:bg-slate-700 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 text-base font-medium rounded-md border border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20 transition-all duration-200">{{name}}</a>
+                     class="tag h-9 hover:shadow-lg hover:-translate-y-0.5 group inline-flex items-center px-4 py-1 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-900/30 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 text-sm font-bold rounded-full border border-gray-200 dark:border-gray-700 hover:border-blue-200 dark:hover:border-blue-500/50 transition-all duration-300">
+                     <span class="mr-1.5 opacity-50">#</span>{{name}}
+                  </a>
                   {{/foreach}}
                </div>
                <div class="social-share-post mt-8">
@@ -31,9 +45,12 @@
                </div>
 
                <!-- Comments Section -->
-               <div class="w-full mt-8">
+               <div class="w-full mt-12">
                   {{#if comments}}
-                  {{comments}}
+                  <div
+                     class="bg-gray-50 dark:bg-slate-900/50 rounded-2xl p-6 md:p-8 border border-gray-100 dark:border-gray-800">
+                     {{comments}}
+                  </div>
                   {{/if}}
                </div>
 
@@ -42,7 +59,12 @@
 
 
                <!-- Recent Posts Widget -->
-               <div class="sidebar sticky top-8 rounded-lg p-8 shadow hover:shadow-lg duration-300">
+               <div
+                  class="sidebar sticky top-24 rounded-2xl p-6 lg:p-8 glass-apple-card glass-noise border border-gray-100 dark:border-white/10 shadow-xl dark:shadow-none">
+                  <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+                     <span class="w-1 h-6 bg-blue-600 rounded-full"></span>
+                     {{t "recent-posts"}}
+                  </h3>
                   {{> recent-posts}}
                </div>
             </div>

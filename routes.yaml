@@ -16,6 +16,11 @@ collections:
     template: blog
     filter: "tag:hash-blog"
 
+  /news/:
+    permalink: /news/{slug}/
+    template: news
+    filter: "tag:hash-news"
+
   /:
     permalink: /{slug}/
     template: index

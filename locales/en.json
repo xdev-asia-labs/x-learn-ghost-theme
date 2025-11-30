@@ -81,5 +81,11 @@
   "progress": "Progress",
   "lessons-completed": "% of % lessons completed",
   "mark-as-complete": "Mark as Complete",
-  "marked-complete": "Completed"
+  "marked-complete": "Completed",
+  "news": "News",
+  "latest-news": "Latest News",
+  "no-news-found": "No news found",
+  "load-more-news": "Load More News",
+  "explore-latest-news-updates": "Explore the latest news, updates and announcements here",
+  "news-description": "Stay updated with the latest tech news, trends, and insights on software development, DevOps, and cloud computing."
 }

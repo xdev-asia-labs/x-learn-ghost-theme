@@ -1,23 +1,32 @@
-<div class="social-share border-blue-100 pb-10" data-aos="fade-up" data-aos-delay="400">
-   <h4 class="mb-4 opacity-70 text-gray-400">{{t "share-this"}}</h4>
-   <ul class="inline-flex items-cente flex-wrap">
-      <li><a class="group bg-gray-200 hover:bg-blue-500 w-6 h-6 rounded-lg flex items-center justify-center duration-300 mr-2 text-gray-800"
-            href="https://www.facebook.com/sharer/sharer.php?u={{url absolute=" true "}}"
-            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
-            {{> icons/social/facebook classes="text-gray-400 group-hover:text-white"}}
+<div class="social-share pb-10" data-aos="fade-up" data-aos-delay="400">
+   <h4 class="mb-4 text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+      <span class="w-8 h-[1px] bg-gray-200 dark:bg-gray-700"></span>
+      {{t "share-this"}}
+   </h4>
+   <ul class="inline-flex items-center gap-3">
+      <li>
+         <a class="group flex items-center justify-center w-10 h-10 rounded-full bg-white dark:bg-slate-800 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+            href="https://www.facebook.com/sharer/sharer.php?u={{url absolute=" true"}}"
+            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"
+            aria-label="Share on Facebook">
+            {{> icons/social/facebook classes="w-5 h-5 transition-transform group-hover:scale-110"}}
          </a>
       </li>
-      <li><a class="group bg-gray-200 hover:bg-blue-500 w-6 h-6 rounded-lg flex items-center justify-center duration-300 mr-2 text-gray-800"
-            href="http://twitter.com/share?text={{encode title}}&amp;url={{url absolute=" true "}}"
-            onclick="window.open(this.href, 'twitter-share','width=580,height=296');return false;">
-            {{> icons/social/twitter classes="text-gray-400 group-hover:text-white"}}
+      <li>
+         <a class="group flex items-center justify-center w-10 h-10 rounded-full bg-white dark:bg-slate-800 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-50 dark:hover:bg-white/10"
+            href="http://twitter.com/share?text={{encode title}}&amp;url={{url absolute=" true"}}"
+            onclick="window.open(this.href, 'twitter-share','width=580,height=296');return false;"
+            aria-label="Share on Twitter">
+            {{> icons/social/twitter classes="w-5 h-5 transition-transform group-hover:scale-110"}}
          </a>
       </li>
-      <li><a class="group bg-gray-200 hover:bg-blue-500 w-6 h-6 rounded-lg flex items-center justify-center duration-300 mr-2 text-gray-800"
+      <li>
+         <a class="group flex items-center justify-center w-10 h-10 rounded-full bg-white dark:bg-slate-800 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 hover:text-blue-700 dark:hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20"
             href="https://www.linkedin.com/sharing/share-offsite/?url={{url absolute=" true"}}{{#if
             feature_image}}&media={{feature_image}}{{/if}}"
-            onclick="window.open(this.href, 'linkedin-share','width=580,height=296');return false;">
-            {{> icons/social/linkedin classes="text-gray-400 group-hover:text-white"}}
+            onclick="window.open(this.href, 'linkedin-share','width=580,height=296');return false;"
+            aria-label="Share on LinkedIn">
+            {{> icons/social/linkedin classes="w-5 h-5 transition-transform group-hover:scale-110"}}
          </a>
       </li>
    </ul>

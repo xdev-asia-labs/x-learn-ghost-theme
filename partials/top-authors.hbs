@@ -3,7 +3,7 @@
 <section
    class="author-area pt-8 md:pt-10 lg:pt-16 relative overflow-hidden bg-white dark:bg-slate-950 transition-colors duration-500">
    <!-- AI Background Elements (Dark Mode Only) -->
-   <div class="absolute inset-0 opacity-0 dark:opacity-100 transition-opacity duration-500">
+   <div class="absolute inset-0 opacity-0 dark:opacity-100 transition-opacity duration-500 pointer-events-none">
       <!-- Cyber Grid -->
       <div
          class="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]">
@@ -31,7 +31,7 @@
 
    <div class="container mx-auto relative z-10">
       <div
-         class="relative bg-white dark:bg-slate-900/80 backdrop-blur-xl rounded-3xl p-8 lg:p-12 overflow-hidden group transition-all duration-500 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_0_40px_rgba(6,182,212,0.15)] mb-[50px]">
+         class="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-3xl p-8 lg:p-12 overflow-hidden group transition-all duration-500 shadow-2xl border border-white/20 dark:border-white/10 mb-[50px]">
 
          <!-- Cyber Grid Overlay (Dark Mode) -->
          <div
@@ -81,7 +81,7 @@
             </div> <!-- Content Section -->
             <div class="lg:col-span-8 text-center lg:text-left">
                <div
-                  class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 text-xs font-mono mb-4">
+                  class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 text-xs font-bold font-mono mb-4 border border-cyan-500/20">
                   <span class="relative flex h-2 w-2">
                      <span
                         class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
@@ -109,13 +109,15 @@
                {{/if}}
 
                {{#if bio}}
-               <div class="relative mb-5 group/bio max-w-3xl mx-auto lg:mx-0">
-                  <div class="relative bg-slate-50 dark:bg-slate-900/50 p-6 rounded-2xl backdrop-blur-sm">
+               <div class="relative mb-8 group/bio max-w-3xl mx-auto lg:mx-0">
+                  <div
+                     class="relative bg-slate-50/80 dark:bg-slate-900/50 p-6 rounded-2xl backdrop-blur-sm border border-gray-200 dark:border-white/5 shadow-inner">
                      <!-- Terminal Header -->
-                     <div class="flex items-center gap-2 mb-3 pb-2 opacity-60">
-                        <div class="w-2 h-2 rounded-full bg-red-500"></div>
-                        <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
-                        <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                     <div
+                        class="flex items-center gap-2 mb-3 pb-2 opacity-60 border-b border-gray-200 dark:border-white/5">
+                        <div class="w-2.5 h-2.5 rounded-full bg-red-500"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-green-500"></div>
                         <div class="ml-auto text-[10px] font-mono text-gray-400 dark:text-cyan-500/50">BIO.EXE</div>
                      </div>
                      <p class="text-lg text-gray-700 dark:text-cyan-100/90 leading-relaxed font-mono">
@@ -130,11 +132,11 @@
                <div class="flex flex-wrap justify-center lg:justify-start gap-4">
                   {{#if website}}
                   <a href="{{website}}" target="_blank"
-                     class="relative p-[1px] rounded-full group/icon overflow-hidden">
+                     class="relative p-[1px] rounded-full group/icon overflow-hidden hover:scale-110 transition-transform duration-300">
                      <span
                         class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 opacity-0 group-hover/icon:opacity-100 transition-opacity"></span>
                      <div
-                        class="relative bg-gray-50 dark:bg-slate-900 rounded-full p-3 transition-transform group-hover/icon:scale-[0.96] group-hover/icon:bg-transparent">
+                        class="relative bg-white dark:bg-slate-900 rounded-full p-3 transition-all group-hover/icon:bg-transparent shadow-sm">
                         <svg class="w-5 h-5 text-gray-600 dark:text-cyan-400 group-hover/icon:text-white" fill="none"
                            stroke="currentColor" viewBox="0 0 24 24">
                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -146,11 +148,11 @@
 
                   {{#if twitter}}
                   <a href="https://twitter.com/{{twitter}}" target="_blank" aria-label="Twitter profile"
-                     class="relative p-[1px] rounded-full group/icon overflow-hidden">
+                     class="relative p-[1px] rounded-full group/icon overflow-hidden hover:scale-110 transition-transform duration-300">
                      <span
                         class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 opacity-0 group-hover/icon:opacity-100 transition-opacity"></span>
                      <div
-                        class="relative bg-gray-50 dark:bg-slate-900 rounded-full p-3 transition-transform group-hover/icon:scale-[0.96] group-hover/icon:bg-transparent">
+                        class="relative bg-white dark:bg-slate-900 rounded-full p-3 transition-all group-hover/icon:bg-transparent shadow-sm">
                         <svg class="w-5 h-5 text-gray-600 dark:text-cyan-400 group-hover/icon:text-white"
                            fill="currentColor" viewBox="0 0 24 24">
                            <path
@@ -162,11 +164,11 @@
 
                   {{#if facebook}}
                   <a href="https://facebook.com/{{facebook}}" target="_blank" aria-label="Facebook profile"
-                     class="relative p-[1px] rounded-full group/icon overflow-hidden">
+                     class="relative p-[1px] rounded-full group/icon overflow-hidden hover:scale-110 transition-transform duration-300">
                      <span
                         class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 opacity-0 group-hover/icon:opacity-100 transition-opacity"></span>
                      <div
-                        class="relative bg-gray-50 dark:bg-slate-900 rounded-full p-3 transition-transform group-hover/icon:scale-[0.96] group-hover/icon:bg-transparent">
+                        class="relative bg-white dark:bg-slate-900 rounded-full p-3 transition-all group-hover/icon:bg-transparent shadow-sm">
                         {{> icons/social/facebook classes="w-5 h-5 text-gray-600 dark:text-cyan-400
                         group-hover/icon:text-white"}}
                      </div>
@@ -175,11 +177,11 @@
 
                   {{#if instagram}}
                   <a href="https://www.instagram.com/{{instagram}}" target="_blank" aria-label="Instagram profile"
-                     class="relative p-[1px] rounded-full group/icon overflow-hidden">
+                     class="relative p-[1px] rounded-full group/icon overflow-hidden hover:scale-110 transition-transform duration-300">
                      <span
                         class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 opacity-0 group-hover/icon:opacity-100 transition-opacity"></span>
                      <div
-                        class="relative bg-gray-50 dark:bg-slate-900 rounded-full p-3 transition-transform group-hover/icon:scale-[0.96] group-hover/icon:bg-transparent">
+                        class="relative bg-white dark:bg-slate-900 rounded-full p-3 transition-all group-hover/icon:bg-transparent shadow-sm">
                         <div
                            class="w-5 h-5 text-gray-600 dark:text-cyan-400 group-hover/icon:text-white flex items-center justify-center">
                            {{> icons/social/instagram classes="w-5 h-5 fill-current"}}
@@ -190,11 +192,11 @@
 
                   {{#if linkedin}}
                   <a href="https://www.linkedin.com/in/{{linkedin}}" target="_blank" aria-label="LinkedIn profile"
-                     class="relative p-[1px] rounded-full group/icon overflow-hidden">
+                     class="relative p-[1px] rounded-full group/icon overflow-hidden hover:scale-110 transition-transform duration-300">
                      <span
                         class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 opacity-0 group-hover/icon:opacity-100 transition-opacity"></span>
                      <div
-                        class="relative bg-gray-50 dark:bg-slate-900 rounded-full p-3 transition-transform group-hover/icon:scale-[0.96] group-hover/icon:bg-transparent">
+                        class="relative bg-white dark:bg-slate-900 rounded-full p-3 transition-all group-hover/icon:bg-transparent shadow-sm">
                         <svg class="w-5 h-5 text-gray-600 dark:text-cyan-400 group-hover/icon:text-white"
                            fill="currentColor" viewBox="0 0 24 24">
                            <path
@@ -206,11 +208,11 @@
 
                   {{#if bluesky}}
                   <a href="{{bluesky}}" target="_blank" aria-label="Bluesky profile"
-                     class="relative p-[1px] rounded-full group/icon overflow-hidden">
+                     class="relative p-[1px] rounded-full group/icon overflow-hidden hover:scale-110 transition-transform duration-300">
                      <span
                         class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 opacity-0 group-hover/icon:opacity-100 transition-opacity"></span>
                      <div
-                        class="relative bg-gray-50 dark:bg-slate-900 rounded-full p-3 transition-transform group-hover/icon:scale-[0.96] group-hover/icon:bg-transparent">
+                        class="relative bg-white dark:bg-slate-900 rounded-full p-3 transition-all group-hover/icon:bg-transparent shadow-sm">
                         <svg class="w-5 h-5 text-gray-600 dark:text-cyan-400 group-hover/icon:text-white"
                            fill="currentColor" viewBox="0 0 24 24">
                            <path
@@ -222,11 +224,11 @@
 
                   {{#if threads}}
                   <a href="https://www.threads.net/{{threads}}" target="_blank" aria-label="Threads profile"
-                     class="relative p-[1px] rounded-full group/icon overflow-hidden">
+                     class="relative p-[1px] rounded-full group/icon overflow-hidden hover:scale-110 transition-transform duration-300">
                      <span
                         class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 opacity-0 group-hover/icon:opacity-100 transition-opacity"></span>
                      <div
-                        class="relative bg-gray-50 dark:bg-slate-900 rounded-full p-3 transition-transform group-hover/icon:scale-[0.96] group-hover/icon:bg-transparent">
+                        class="relative bg-white dark:bg-slate-900 rounded-full p-3 transition-all group-hover/icon:bg-transparent shadow-sm">
                         <svg class="w-5 h-5 text-gray-600 dark:text-cyan-400 group-hover/icon:text-white"
                            fill="currentColor" viewBox="0 0 24 24">
                            <path
@@ -238,11 +240,11 @@
 
                   {{#if mastodon}}
                   <a href="{{mastodon}}" target="_blank"
-                     class="relative p-[1px] rounded-full group/icon overflow-hidden">
+                     class="relative p-[1px] rounded-full group/icon overflow-hidden hover:scale-110 transition-transform duration-300">
                      <span
                         class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 opacity-0 group-hover/icon:opacity-100 transition-opacity"></span>
                      <div
-                        class="relative bg-gray-50 dark:bg-slate-900 rounded-full p-3 transition-transform group-hover/icon:scale-[0.96] group-hover/icon:bg-transparent">
+                        class="relative bg-white dark:bg-slate-900 rounded-full p-3 transition-all group-hover/icon:bg-transparent shadow-sm">
                         <svg class="w-5 h-5 text-gray-600 dark:text-cyan-400 group-hover/icon:text-white"
                            fill="currentColor" viewBox="0 0 24 24">
                            <path
@@ -254,11 +256,11 @@
 
                   {{#if tiktok}}
                   <a href="https://www.tiktok.com/{{tiktok}}" target="_blank"
-                     class="relative p-[1px] rounded-full group/icon overflow-hidden">
+                     class="relative p-[1px] rounded-full group/icon overflow-hidden hover:scale-110 transition-transform duration-300">
                      <span
                         class="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover/icon:opacity-100 transition-opacity"></span>
                      <div
-                        class="relative bg-gray-50 dark:bg-slate-900 rounded-full p-3 transition-transform group-hover/icon:scale-[0.96] group-hover/icon:bg-transparent">
+                        class="relative bg-white dark:bg-slate-900 rounded-full p-3 transition-all group-hover/icon:bg-transparent shadow-sm">
                         <svg class="w-5 h-5 text-gray-600 dark:text-gray-300 group-hover/icon:text-white"
                            fill="currentColor" viewBox="0 0 24 24">
                            <path
@@ -270,11 +272,11 @@
 
                   {{#if youtube}}
                   <a href="https://www.youtube.com/{{youtube}}" target="_blank"
-                     class="relative p-[1px] rounded-full group/icon overflow-hidden">
+                     class="relative p-[1px] rounded-full group/icon overflow-hidden hover:scale-110 transition-transform duration-300">
                      <span
                         class="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover/icon:opacity-100 transition-opacity"></span>
                      <div
-                        class="relative bg-gray-50 dark:bg-slate-900 rounded-full p-3 transition-transform group-hover/icon:scale-[0.96] group-hover/icon:bg-transparent">
+                        class="relative bg-white dark:bg-slate-900 rounded-full p-3 transition-all group-hover/icon:bg-transparent shadow-sm">
                         <svg class="w-5 h-5 text-gray-600 dark:text-gray-300 group-hover/icon:text-white"
                            fill="currentColor" viewBox="0 0 24 24">
                            <path

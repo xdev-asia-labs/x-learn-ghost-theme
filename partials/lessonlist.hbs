@@ -1,78 +1,24 @@
-<a href="{{url}}" class="cursor-pointer block">
+<a href="{{url}}" class="cursor-pointer block mb-2">
    <div
-      class="{{post_class}} lesson-box py-3 px-4 flex items-center group bg-transparent hover:bg-blue-50 dark:hover:bg-slate-800/50 transition-all duration-300"
-      id="{{slug}}" data-lesson-url="{{url}}" data-lesson-id="{{id}}" data-lesson-slug="{{slug}}"
-      data-course-lesson-key="">
-      <div class="lesson-logo flex-none relative mr-4 transition-all duration-300">
+      class="{{post_class}} lesson-box p-3 rounded-xl flex items-center group transition-all duration-300 border border-transparent hover:bg-blue-50 dark:hover:bg-white/5 hover:border-blue-100 dark:hover:border-white/10"
+      id="{{slug}}" data-lesson-url="{{url}}" data-lesson-id="{{id}}" data-lesson-slug="{{slug}}">
+
+      <!-- Icon Container -->
+      <div class="lesson-icon flex-none relative mr-3">
          <div
-            class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-500/20 dark:to-blue-600/30 border border-blue-200/50 dark:border-blue-400/20 flex items-center justify-center group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-blue-500/20 transition-all duration-300">
-            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 24 24">
-               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" />
+            class="w-8 h-8 rounded-lg bg-blue-50 dark:bg-slate-800 text-blue-500 dark:text-blue-400 flex items-center justify-center border border-blue-100 dark:border-white/10 transition-all duration-300 group-hover:scale-105 group-hover:bg-blue-500 group-hover:text-white dark:group-hover:bg-blue-500 dark:group-hover:text-white">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+               <path d="M8 5v14l11-7z" />
             </svg>
          </div>
       </div>
-      <div class="lesson-content flex-auto">
-         <h4 id="{{slug}}"
-            class="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-blue-700 dark:group-hover:text-blue-400 mb-0 duration-300 line-clamp-2">
+
+      <!-- Content -->
+      <div class="lesson-content flex-auto min-w-0">
+         <h4
+            class="text-sm font-medium text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-300 line-clamp-2 leading-snug">
             {{title}}
          </h4>
       </div>
    </div>
 </a>
-
-<script>
-   // Function to highlight active lesson
-   function highlightActiveLesson() {
-      const currentPath = window.location.pathname;
-      // Extract slug from URL path (e.g., /lesson/identifying-business-opportunities/ -> identifying-business-opportunities)
-      const currentSlug = currentPath.split('/').filter(segment => segment.length > 0).pop();
-
-      const lessonItems = document.querySelectorAll('.lesson-box');
-
-      lessonItems.forEach(item => {
-         const lessonId = item.getAttribute('id'); // This is the slug from {{slug}}
-
-         // Reset all items to inactive state first
-         item.classList.remove('bg-blue-100', 'dark:bg-slate-800');
-
-         // Reset icon container
-         const iconContainer = item.querySelector('.lesson-logo > div');
-         if (iconContainer) {
-            iconContainer.classList.remove('scale-110', 'shadow-lg', 'shadow-blue-500/30', 'from-blue-500', 'to-blue-600', 'dark:from-blue-600', 'dark:to-blue-500', 'border-blue-400/40', 'dark:border-blue-300/30');
-            iconContainer.classList.add('from-blue-50', 'to-blue-100', 'dark:from-blue-500/20', 'dark:to-blue-600/30', 'border-blue-200/50', 'dark:border-blue-400/20');
-         }
-
-         // Reset title
-         const title = item.querySelector('h4');
-         if (title) {
-            title.classList.remove('text-blue-700', 'dark:text-blue-300', 'font-semibold');
-            title.classList.add('text-gray-700', 'dark:text-gray-300', 'font-medium');
-         }
-
-         // Check if this lesson is the current one by matching slug with ID
-         if (lessonId === currentSlug) {
-            // This is the active lesson - add active state classes
-            item.classList.add('bg-blue-100', 'dark:bg-slate-800');
-
-            // Update icon container with active gradient
-            if (iconContainer) {
-               iconContainer.classList.remove('from-blue-50', 'to-blue-100', 'dark:from-blue-500/20', 'dark:to-blue-600/30', 'border-blue-200/50', 'dark:border-blue-400/20');
-               iconContainer.classList.add('scale-110', 'shadow-lg', 'shadow-blue-500/30', 'from-blue-500', 'to-blue-600', 'dark:from-blue-600', 'dark:to-blue-500', 'border-blue-400/40', 'dark:border-blue-300/30');
-            }
-
-            // Update title
-            if (title) {
-               title.classList.remove('text-gray-700', 'dark:text-gray-300', 'font-medium');
-               title.classList.add('text-blue-700', 'dark:text-blue-300', 'font-semibold');
-            }
-         }
-      });
-   }
-
-   // Run when DOM is ready
-   if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', highlightActiveLesson);
-   } else {
-      highlightActiveLesson();
-   }
-</script>

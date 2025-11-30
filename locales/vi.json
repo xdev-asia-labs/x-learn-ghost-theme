@@ -81,5 +81,11 @@
     "progress": "Tiến độ",
     "lessons-completed": "% trong % bài học đã hoàn thành",
     "mark-as-complete": "Đánh dấu hoàn thành",
-    "marked-complete": "Đã hoàn thành"
+    "marked-complete": "Đã hoàn thành",
+    "news": "Tin tức",
+    "latest-news": "Tin tức mới nhất",
+    "no-news-found": "Không tìm thấy tin tức",
+    "load-more-news": "Tải thêm tin tức",
+    "explore-latest-news-updates": "Khám phá tin tức, cập nhật và thông báo mới nhất tại đây",
+    "news-description": "Cập nhật tin tức công nghệ, xu hướng mới và thông tin hữu ích về phát triển phần mềm, DevOps và cloud computing."
 }

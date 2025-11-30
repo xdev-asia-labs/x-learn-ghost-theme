@@ -73,5 +73,11 @@
     "progress": "进度",
     "lessons-completed": "已完成 % / % 课",
     "mark-as-complete": "标记为完成",
-    "marked-complete": "已完成"
+    "marked-complete": "已完成",
+    "news": "新闻",
+    "latest-news": "最新新闻",
+    "no-news-found": "未找到新闻",
+    "load-more-news": "加载更多新闻",
+    "explore-latest-news-updates": "探索最新新闻、更新和公告",
+    "news-description": "了解软件开发、DevOps和云计算领域的最新技术新闻、趋势和见解。"
 }
