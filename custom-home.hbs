@@ -2,20 +2,4 @@
     {{/contentFor}}
 
     {{> top-authors}}
-    {{> latest-courses}}
-
-    <!-- TEST NEWS SECTION -->
-    <section class="test-news-area pt-12">
-        <div class="container mx-auto">
-            <h2>TEST: Tin tức</h2>
-            {{#get "posts" include="tags" filter="tag:hash-news" limit="3"}}
-            <p>Found {{posts.length}} posts</p>
-            {{#foreach posts}}
-            <div>{{title}}</div>
-            {{/foreach}}
-            {{/get}}
-        </div>
-    </section>
-
-    {{> latest-news}}
-    {{> latest-articles}}
+    {{> recent-feed}}

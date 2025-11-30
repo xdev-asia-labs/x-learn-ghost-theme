@@ -18,10 +18,6 @@
   "latest-course": "Latest Course",
   "more-articles": "More Articles",
   "more-courses": "More Courses",
-  "latest-article": "Latest Article",
-  "latest-course": "Latest Course",
-  "more-articles": "More Articles",
-  "more-courses": "More Courses",
   "courses-created": "Courses Created",
   "lessons-uploaded": "Lessons Uploaded",
   "articles-published": "Articles Published",
@@ -87,5 +83,16 @@
   "no-news-found": "No news found",
   "load-more-news": "Load More News",
   "explore-latest-news-updates": "Explore the latest news, updates and announcements here",
-  "news-description": "Stay updated with the latest tech news, trends, and insights on software development, DevOps, and cloud computing."
+  "news-description": "Stay updated with the latest tech news, trends, and insights on software development, DevOps, and cloud computing.",
+  "news-badge": "News",
+  "course-badge": "Course",
+  "blog-badge": "Blog",
+  "recent": "Recent",
+  "explore-courses": "Explore Courses",
+  "course-description": "Upgrade your skills with in-depth courses from beginner to advanced.",
+  "explore-blog": "Explore Blog",
+  "blog-description": "Sharing knowledge, experiences, and perspectives on technology.",
+  "check-back-later": "Please check back later.",
+  "load-more-courses": "Load More Courses",
+  "no-courses-found": "No courses found"
 }

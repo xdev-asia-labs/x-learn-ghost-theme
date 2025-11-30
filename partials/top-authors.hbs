@@ -129,160 +129,54 @@
                {{/if}}
 
                <!-- Social Stats / Links -->
-               <div class="flex flex-wrap justify-center lg:justify-start gap-4">
+               <div class="flex flex-wrap justify-center lg:justify-start gap-3">
                   {{#if website}}
                   <a href="{{website}}" target="_blank"
-                     class="relative p-[1px] rounded-full group/icon overflow-hidden hover:scale-110 transition-transform duration-300">
-                     <span
-                        class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 opacity-0 group-hover/icon:opacity-100 transition-opacity"></span>
-                     <div
-                        class="relative bg-white dark:bg-slate-900 rounded-full p-3 transition-all group-hover/icon:bg-transparent shadow-sm">
-                        <svg class="w-5 h-5 text-gray-600 dark:text-cyan-400 group-hover/icon:text-white" fill="none"
-                           stroke="currentColor" viewBox="0 0 24 24">
-                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                        </svg>
-                     </div>
+                     class="group flex items-center justify-center w-10 h-10 rounded-full bg-white dark:bg-slate-900 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20">
+                     <svg class="w-5 h-5 transition-transform group-hover:scale-110" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                           d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                     </svg>
                   </a>
                   {{/if}}
 
                   {{#if twitter}}
                   <a href="https://twitter.com/{{twitter}}" target="_blank" aria-label="Twitter profile"
-                     class="relative p-[1px] rounded-full group/icon overflow-hidden hover:scale-110 transition-transform duration-300">
-                     <span
-                        class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 opacity-0 group-hover/icon:opacity-100 transition-opacity"></span>
-                     <div
-                        class="relative bg-white dark:bg-slate-900 rounded-full p-3 transition-all group-hover/icon:bg-transparent shadow-sm">
-                        <svg class="w-5 h-5 text-gray-600 dark:text-cyan-400 group-hover/icon:text-white"
-                           fill="currentColor" viewBox="0 0 24 24">
-                           <path
-                              d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                        </svg>
-                     </div>
+                     class="group flex items-center justify-center w-10 h-10 rounded-full bg-white dark:bg-slate-900 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-50 dark:hover:bg-white/10">
+                     {{> icons/social/twitter classes="w-5 h-5 transition-transform group-hover:scale-110"}}
                   </a>
                   {{/if}}
 
                   {{#if facebook}}
                   <a href="https://facebook.com/{{facebook}}" target="_blank" aria-label="Facebook profile"
-                     class="relative p-[1px] rounded-full group/icon overflow-hidden hover:scale-110 transition-transform duration-300">
-                     <span
-                        class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 opacity-0 group-hover/icon:opacity-100 transition-opacity"></span>
-                     <div
-                        class="relative bg-white dark:bg-slate-900 rounded-full p-3 transition-all group-hover/icon:bg-transparent shadow-sm">
-                        {{> icons/social/facebook classes="w-5 h-5 text-gray-600 dark:text-cyan-400
-                        group-hover/icon:text-white"}}
-                     </div>
+                     class="group flex items-center justify-center w-10 h-10 rounded-full bg-white dark:bg-slate-900 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20">
+                     {{> icons/social/facebook classes="w-5 h-5 transition-transform group-hover:scale-110"}}
                   </a>
                   {{/if}}
 
                   {{#if instagram}}
                   <a href="https://www.instagram.com/{{instagram}}" target="_blank" aria-label="Instagram profile"
-                     class="relative p-[1px] rounded-full group/icon overflow-hidden hover:scale-110 transition-transform duration-300">
-                     <span
-                        class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 opacity-0 group-hover/icon:opacity-100 transition-opacity"></span>
-                     <div
-                        class="relative bg-white dark:bg-slate-900 rounded-full p-3 transition-all group-hover/icon:bg-transparent shadow-sm">
-                        <div
-                           class="w-5 h-5 text-gray-600 dark:text-cyan-400 group-hover/icon:text-white flex items-center justify-center">
-                           {{> icons/social/instagram classes="w-5 h-5 fill-current"}}
-                        </div>
-                     </div>
+                     class="group flex items-center justify-center w-10 h-10 rounded-full bg-white dark:bg-slate-900 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400 hover:bg-pink-50 dark:hover:bg-pink-900/20">
+                     {{> icons/social/instagram classes="w-5 h-5 transition-transform group-hover:scale-110"}}
                   </a>
                   {{/if}}
 
                   {{#if linkedin}}
                   <a href="https://www.linkedin.com/in/{{linkedin}}" target="_blank" aria-label="LinkedIn profile"
-                     class="relative p-[1px] rounded-full group/icon overflow-hidden hover:scale-110 transition-transform duration-300">
-                     <span
-                        class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 opacity-0 group-hover/icon:opacity-100 transition-opacity"></span>
-                     <div
-                        class="relative bg-white dark:bg-slate-900 rounded-full p-3 transition-all group-hover/icon:bg-transparent shadow-sm">
-                        <svg class="w-5 h-5 text-gray-600 dark:text-cyan-400 group-hover/icon:text-white"
-                           fill="currentColor" viewBox="0 0 24 24">
-                           <path
-                              d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                        </svg>
-                     </div>
-                  </a>
-                  {{/if}}
-
-                  {{#if bluesky}}
-                  <a href="{{bluesky}}" target="_blank" aria-label="Bluesky profile"
-                     class="relative p-[1px] rounded-full group/icon overflow-hidden hover:scale-110 transition-transform duration-300">
-                     <span
-                        class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 opacity-0 group-hover/icon:opacity-100 transition-opacity"></span>
-                     <div
-                        class="relative bg-white dark:bg-slate-900 rounded-full p-3 transition-all group-hover/icon:bg-transparent shadow-sm">
-                        <svg class="w-5 h-5 text-gray-600 dark:text-cyan-400 group-hover/icon:text-white"
-                           fill="currentColor" viewBox="0 0 24 24">
-                           <path
-                              d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565-.131 2.032-.241 3.124-.078 4.087c.56 3.314 2.306 9.723 5.865 13.085 1.044.99 3.719 2.997 6.213.557 2.494 2.44 5.169.433 6.213-.557 3.559-3.362 5.305-9.771 5.865-13.085.163-.963.053-2.055-.98-2.522-.659-.299-1.664-.621-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z" />
-                        </svg>
-                     </div>
-                  </a>
-                  {{/if}}
-
-                  {{#if threads}}
-                  <a href="https://www.threads.net/{{threads}}" target="_blank" aria-label="Threads profile"
-                     class="relative p-[1px] rounded-full group/icon overflow-hidden hover:scale-110 transition-transform duration-300">
-                     <span
-                        class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 opacity-0 group-hover/icon:opacity-100 transition-opacity"></span>
-                     <div
-                        class="relative bg-white dark:bg-slate-900 rounded-full p-3 transition-all group-hover/icon:bg-transparent shadow-sm">
-                        <svg class="w-5 h-5 text-gray-600 dark:text-cyan-400 group-hover/icon:text-white"
-                           fill="currentColor" viewBox="0 0 24 24">
-                           <path
-                              d="M12.005 5.69c-3.94 0-6.64 2.75-6.64 6.31 0 3.56 2.65 6.31 6.59 6.31 1.8 0 3.26-.7 4.16-1.86h.05v1.56c0 1.75-.8 2.6-2.3 2.6-1.45 0-2.45-.8-2.45-2.25h-2.3c0 2.6 2.05 4.25 4.8 4.25 2.8 0 4.55-1.8 4.55-4.6V6.14c0-2.6-2.1-4.45-4.85-4.45H12Zm-.1 2.05c1.75 0 3.1 1.4 3.1 4.26 0 2.85-1.35 4.25-3.1 4.25-1.7 0-3.05-1.4-3.05-4.25 0-2.85 1.35-4.26 3.05-4.26Z" />
-                        </svg>
-                     </div>
-                  </a>
-                  {{/if}}
-
-                  {{#if mastodon}}
-                  <a href="{{mastodon}}" target="_blank"
-                     class="relative p-[1px] rounded-full group/icon overflow-hidden hover:scale-110 transition-transform duration-300">
-                     <span
-                        class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 opacity-0 group-hover/icon:opacity-100 transition-opacity"></span>
-                     <div
-                        class="relative bg-white dark:bg-slate-900 rounded-full p-3 transition-all group-hover/icon:bg-transparent shadow-sm">
-                        <svg class="w-5 h-5 text-gray-600 dark:text-cyan-400 group-hover/icon:text-white"
-                           fill="currentColor" viewBox="0 0 24 24">
-                           <path
-                              d="M23.193 11.878c0-5.516-3.633-7.246-3.633-7.246C17.037 3.37 13.92 3.37 13.92 3.37h-.338c0 0-3.117 0-5.64.963 0 0-3.633 1.73-3.633 7.246 0 3.826.492 7.59 2.46 9.56 2.34 2.34 6.89 2.46 6.89 2.46 2.648 0 4.926-.616 4.926-.616l-.185-2.71s-2.032.616-4.31.616c-2.217 0-4.065-.492-4.31-2.217-.062-.43-.062-1.17-.062-1.17s3.264.74 7.883.678c4.682-.062 8.59-3.264 8.59-9.237Zm-12.87 3.264H8.23V8.12h2.094v4.003c0 1.047.43 1.6 1.293 1.6.924 0 1.416-.616 1.416-1.786V8.12h2.217v3.82c0 1.17.492 1.786 1.416 1.786.862 0 1.293-.554 1.293-1.6V8.12h2.094v7.022h-2.094V11.63c0-.554-.246-.74-.616-.74-.43 0-.677.246-.677.8v3.45h-2.217v-3.45c0-.554-.246-.8-.677-.8-.37 0-.616.185-.616.74v3.51Z" />
-                        </svg>
-                     </div>
-                  </a>
-                  {{/if}}
-
-                  {{#if tiktok}}
-                  <a href="https://www.tiktok.com/{{tiktok}}" target="_blank"
-                     class="relative p-[1px] rounded-full group/icon overflow-hidden hover:scale-110 transition-transform duration-300">
-                     <span
-                        class="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover/icon:opacity-100 transition-opacity"></span>
-                     <div
-                        class="relative bg-white dark:bg-slate-900 rounded-full p-3 transition-all group-hover/icon:bg-transparent shadow-sm">
-                        <svg class="w-5 h-5 text-gray-600 dark:text-gray-300 group-hover/icon:text-white"
-                           fill="currentColor" viewBox="0 0 24 24">
-                           <path
-                              d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1Z" />
-                        </svg>
-                     </div>
+                     class="group flex items-center justify-center w-10 h-10 rounded-full bg-white dark:bg-slate-900 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 hover:text-blue-700 dark:hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20">
+                     {{> icons/social/linkedin classes="w-5 h-5 transition-transform group-hover:scale-110"}}
                   </a>
                   {{/if}}
 
                   {{#if youtube}}
                   <a href="https://www.youtube.com/{{youtube}}" target="_blank"
-                     class="relative p-[1px] rounded-full group/icon overflow-hidden hover:scale-110 transition-transform duration-300">
-                     <span
-                        class="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover/icon:opacity-100 transition-opacity"></span>
-                     <div
-                        class="relative bg-white dark:bg-slate-900 rounded-full p-3 transition-all group-hover/icon:bg-transparent shadow-sm">
-                        <svg class="w-5 h-5 text-gray-600 dark:text-gray-300 group-hover/icon:text-white"
-                           fill="currentColor" viewBox="0 0 24 24">
-                           <path
-                              d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                        </svg>
-                     </div>
+                     class="group flex items-center justify-center w-10 h-10 rounded-full bg-white dark:bg-slate-900 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20">
+                     <svg class="w-5 h-5 transition-transform group-hover:scale-110" fill="currentColor"
+                        viewBox="0 0 24 24">
+                        <path
+                           d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                     </svg>
                   </a>
                   {{/if}}
                </div>

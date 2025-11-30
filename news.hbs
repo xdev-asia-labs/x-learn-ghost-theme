@@ -1,70 +1,159 @@
 {{!< default}} {{#contentFor "metaTitle" }} <title>{{meta_title}}</title>
     {{/contentFor}}
 
+    <div class="news-page relative">
+        <!-- Hero Section -->
+        <div class="relative pt-32 pb-16 lg:pt-40 lg:pb-24 overflow-hidden">
+            <!-- Background Decorations -->
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full z-0 pointer-events-none">
+                <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[100px]"></div>
+                <div class="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[100px]">
+                </div>
+            </div>
 
-    <div class="news-page">
-        <div class="container mx-auto py-8 md:py-10 lg:py-16">
-
-            <!-- News Header -->
-            <div class="text-center">
-                <h1 class="w-full font-serif !leading-tight text-4xl lg:text-5xl text-gray-800 font-bold mb-2 ">{{t
-                    "News"}}</h1>
-
-                <p class="text-xl text-gray-400 mb-6 max-w-3xl mx-auto">{{t "news-description"}}</p>
+            <div class="container mx-auto relative z-10 text-center px-4">
+                <div
+                    class="inline-flex items-center justify-center p-2 mb-6 rounded-full bg-cyan-500/10 border border-cyan-500/20 backdrop-blur-sm">
+                    <span
+                        class="px-3 py-1 text-xs font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider">{{t
+                        "news"}}</span>
+                </div>
+                <h1
+                    class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight">
+                    {{t "explore-latest-news-updates"}}
+                </h1>
+                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                    {{t "news-description"}}
+                </p>
             </div>
         </div>
-        <div class="container mx-auto">
+
+        <div class="container mx-auto px-4 pb-20">
             {{#if posts}}
-            <div class="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 posts mb-12" id="posts-container">
-                {{#foreach posts}}
-                {{> cards/card-post}}
+            <!-- Featured Post (First Item) -->
+            <div class="mb-16">
+                {{#foreach posts to="1"}}
+                <article
+                    class="relative group grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white dark:bg-slate-900 rounded-3xl p-6 border border-gray-100 dark:border-white/5 hover:border-cyan-500/50 transition-all duration-500 shadow-xl shadow-gray-200/50 dark:shadow-none">
+                    <!-- Image -->
+                    <div
+                        class="lg:col-span-7 relative overflow-hidden rounded-2xl aspect-video group-hover:shadow-2xl transition-all duration-500">
+                        <a href="{{url}}" class="block h-full">
+                            {{#if feature_image}}
+                            <img class="w-full h-full object-cover transition-transform duration-700"
+                                srcset="{{img_url feature_image size=" s"}} 300w, {{img_url feature_image size="m" }}
+                                600w, {{img_url feature_image size="l" }} 1000w, {{img_url feature_image size="xl" }}
+                                2000w" sizes="(max-width: 1000px) 400px, 700px" src="{{img_url feature_image size="
+                                l"}}" alt="{{title}}" loading="lazy" />
+                            {{else}}
+                            <div class="w-full h-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                                <span class="text-gray-400">No Image</span>
+                            </div>
+                            {{/if}}
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="lg:col-span-5 flex flex-col justify-center">
+                        <div class="mb-4 flex items-center gap-3">
+                            <span
+                                class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
+                                {{t "news"}}
+                            </span>
+                            <span class="text-sm text-gray-500 font-medium">{{date published_at format="MMM DD,
+                                YYYY"}}</span>
+                        </div>
+
+                        <h2
+                            class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4 leading-tight group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                            <a href="{{url}}">{{title}}</a>
+                        </h2>
+
+                        <p class="text-gray-600 dark:text-gray-400 mb-6 line-clamp-3 text-base leading-relaxed">
+                            {{excerpt}}
+                        </p>
+
+                        <!-- Author -->
+                        <div
+                            class="flex items-center justify-between mt-auto pt-6 border-t border-gray-100 dark:border-gray-800">
+                            {{#primary_author}}
+                            <div class="flex items-center gap-3">
+                                {{#if profile_image}}
+                                <img class="w-10 h-10 rounded-full object-cover ring-2 ring-white dark:ring-slate-800"
+                                    src="{{img_url profile_image size=" xs"}}" alt="{{name}}">
+                                {{else}}
+                                <div
+                                    class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-sm font-bold text-gray-500">
+                                    {{name.[0]}}</div>
+                                {{/if}}
+                                <div>
+                                    <h6 class="text-sm font-bold text-gray-900 dark:text-white">{{name}}</h6>
+                                    <span class="text-xs text-gray-500">{{t "published-by"}}</span>
+                                </div>
+                            </div>
+                            {{/primary_author}}
+
+                            <a href="{{url}}"
+                                class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-50 dark:bg-slate-800 text-gray-600 dark:text-gray-400 group-hover:bg-cyan-500 group-hover:text-white transition-all duration-300">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </article>
                 {{/foreach}}
             </div>
 
-            <!-- Load More Button -->
-            {{#if pagination}}
+            <!-- Remaining Posts Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 posts mb-16" id="posts-container">
+                {{#foreach posts from="2"}}
+                {{> cards/card-news}}
+                {{/foreach}}
+            </div>
+
+            <!-- Load More -->
             {{#if pagination.next}}
-            <div class="load-more-container text-center">
+            <div class="text-center">
                 <button
-                    class="js-load-posts bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-300 flex items-center justify-center mx-auto">
-                    <span class="load-text">{{t "load-more-news"}}</span>
-                    <span class="loading-spinner hidden ml-2">
-                        <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
-                            </circle>
-                            <path class="opacity-75" fill="currentColor"
-                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                            </path>
-                        </svg>
-                    </span>
+                    class="js-load-posts group relative inline-flex items-center justify-center px-8 py-3 font-bold text-white transition-all duration-300 bg-cyan-600 rounded-full hover:bg-cyan-700 hover:shadow-lg hover:shadow-cyan-500/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">
+                    <span class="mr-2">{{t "load-more-news"}}</span>
+                    <svg class="w-5 h-5 transition-transform duration-300 group-hover:translate-y-1" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                    </svg>
                 </button>
             </div>
             {{/if}}
-            {{/if}}
+
             {{else}}
-            <div class="text-center py-12">
-                <p class="text-gray-400">{{t "no-news-found"}}</p>
+            <div class="text-center py-20">
+                <div
+                    class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-800 mb-4">
+                    <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z">
+                        </path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{t "no-news-found"}}</h3>
+                <p class="text-gray-500">{{t "check-back-later"}}</p>
             </div>
             {{/if}}
-
-
-
         </div>
     </div>
 
-    <!-- Pass pagination data to JavaScript -->
-    {{#get "posts" include="tags,authors" limit="12"}}
-    {{#if pagination}}
+    {{#contentFor "scripts"}}
     <script>
-        window.blogPagination = {
-            currentPage: {{ pagination.page }},
-        totalPages: { { pagination.pages } },
-        totalPosts: { { pagination.total } },
-        postsPerPage: { { pagination.limit } },
-        nextUrl: "{{pagination.next}}",
-            hasNext: { { #if pagination.next } } true{ {else } } false{ {/if } }
-        };
+        // Simple load more logic (placeholder)
+        document.querySelector('.js-load-posts')?.addEventListener('click', function () {
+            // Implement load more logic here or use Ghost's pagination API
+            console.log('Load more clicked');
+        });
     </script>
-    {{/if}}
-    {{/get}}
+    {{/contentFor}}

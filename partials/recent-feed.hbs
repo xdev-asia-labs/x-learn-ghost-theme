@@ -1,0 +1,45 @@
+{{#get "posts" include="tags,authors" filter="tag:hash-course,tag:hash-news,tag:hash-blog,tag:hash-lesson" limit="12"
+order="published_at desc"}}
+{{#if posts}}
+<section class="recent-feed-area pt-12 md:pt-16 lg:pt-24 relative z-10">
+    <!-- Background Decoration -->
+    <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl pointer-events-none">
+    </div>
+    <div
+        class="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none">
+    </div>
+
+    <div class="container mx-auto relative z-10">
+        <div class="section-title text-center w-full mb-8 lg:mb-12">
+            <div
+                class="flex items-center justify-between gap-4 mb-6 w-full pb-4 transition-colors duration-300 border-b border-gray-100 dark:border-gray-800">
+                <h4 class="text-3xl font-bold text-gray-900 dark:text-white tracking-tight relative">
+                    <span class="relative z-10">{{t "recent-posts"}}</span>
+                    <span
+                        class="absolute -bottom-4 left-0 w-1/3 h-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full"></span>
+                </h4>
+            </div>
+        </div>
+
+        <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 posts">
+            {{#foreach posts}}
+            {{#has tag="#course"}}
+            {{> cards/card-course}}
+            {{else}}
+            {{#has tag="#news"}}
+            {{> cards/card-news}}
+            {{else}}
+            {{#has tag="#lesson"}}
+            {{> cards/card-lesson}}
+            {{else}}
+            {{> cards/card-post}}
+            {{/has}}
+            {{/has}}
+            {{/has}}
+            {{/foreach}}
+        </div>
+
+    </div>
+</section>
+{{/if}}
+{{/get}}
