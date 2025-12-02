@@ -1,0 +1,40 @@
+{
+    "mail": {
+        "transport": "SMTP",
+        "options": {
+            "host": "smtp.gmail.com",
+            "port": 587,
+            "secure": false,
+            "auth": {
+                "user": "your-email@gmail.com",
+                "pass": "your-app-password"
+            }
+        }
+    },
+    "url": "http://localhost:2368/",
+    "server": {
+        "port": 2368,
+        "host": "127.0.0.1"
+    },
+    "database": {
+        "client": "sqlite3",
+        "connection": {
+            "filename": "content/data/ghost-local.db"
+        }
+    },
+    "logging": {
+        "transports": [
+            "file",
+            "stdout"
+        ]
+    },
+    "process": "local",
+    "security": {
+        "staffDeviceVerification": false
+    },
+    "paths": {
+        "contentPath": "content"
+    },
+    "theme": "x-learn-ghost-theme",
+    "contentApiKey": "YOUR_CONTENT_API_KEY_HERE"
+}
