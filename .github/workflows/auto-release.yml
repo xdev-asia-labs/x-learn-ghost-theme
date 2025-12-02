@@ -1,7 +1,7 @@
-name: Manual Release
+name: Auto Release
 
-# Manual release workflow - run from GitHub Actions
-# Go to Actions → Manual Release → Run workflow → Enter version
+# Disabled: Use manual release workflow instead
+# To create a release, go to Actions → Release and enter version manually
 on:
   workflow_dispatch:
     inputs:
