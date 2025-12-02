@@ -1,12 +1,23 @@
-name: Auto Release
+name: Manual Release
 
+# Manual release workflow - run from GitHub Actions
+# Go to Actions → Manual Release → Run workflow → Enter version
 on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - "**.md"
-      - "docs/**"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g., 0.0.20)'
+        required: true
+        type: string
+
+# Automatic release on push disabled
+# on:
+#   push:
+#     branches:
+#       - main
+#     paths-ignore:
+#       - "**.md"
+#       - "docs/**"
 
 jobs:
   # Run tests first
@@ -14,8 +25,8 @@ jobs:
     name: Run Tests
     uses: ./.github/workflows/ci.yml
 
-  # Auto release after successful build
-  auto-release:
+  # Manual release with specified version
+  manual-release:
     name: Auto Create Release
     runs-on: ubuntu-latest
     needs: test
@@ -42,24 +53,15 @@ jobs:
       - name: Build production assets
         run: npm run build
 
-      - name: Get latest tag and bump version
+      - name: Set version from input
         id: version
         run: |
-          # Get latest tag, default to v0.0.0 if no tags exist
-          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
-          echo "Latest tag: $LATEST_TAG"
-
-          # Remove 'v' prefix and split version
-          VERSION=${LATEST_TAG#v}
-          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
-
-          # Bump patch version
-          PATCH=$((PATCH + 1))
-          NEW_VERSION="${MAJOR}.${MINOR}.${PATCH}"
+          # Use version from workflow input
+          NEW_VERSION="${{ github.event.inputs.version }}"
           NEW_TAG="v${NEW_VERSION}"
 
-          echo "New version: $NEW_VERSION"
-          echo "New tag: $NEW_TAG"
+          echo "Version: $NEW_VERSION"
+          echo "Tag: $NEW_TAG"
 
           echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
           echo "tag=$NEW_TAG" >> $GITHUB_OUTPUT
