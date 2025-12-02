@@ -45,70 +45,49 @@ The theme uses Ghost Content API to dynamically load course lessons. You need to
 
 2. Update Ghost's config file with your settings (database, mail, etc.)
 
-3. The `config.development.json` file should be git-ignored for security. Never commit it to the repository.
+3. Configure the Content API key for dynamic lesson loading (see below)
 
-### Method 1: Via Ghost Admin (Recommended)
+### Configure Content API Key
 
-1. Go to <http://localhost:2368/ghost>
-2. Navigate to **Settings → Integrations**
-3. Click **Add custom integration**
-4. Name it: `Course Lessons Loader`
-5. Copy the **Content API Key**
-6. Add it to your config file (`config.development.json`):
+This theme uses AJAX to dynamically load course lessons. You need to configure the Ghost Content API key via **Code Injection**.
 
-   ```json
-   {
-     ...
-     "theme": "x-learn-ghost-theme",
-     "contentApiKey": "YOUR_API_KEY_HERE"
-   }
+#### Step 1: Create Custom Integration
+
+1. Go to <http://localhost:2368/ghost/#/settings/integrations>
+2. Click **Add custom integration**
+3. Name it: `Theme API` (or any name you prefer)
+4. Copy the **Content API Key** (e.g., `1f06b81ddee9f42ffca580be1b`)
+
+#### Step 2: Add to Code Injection
+
+1. Go to **Settings → Code Injection** (<http://localhost:2368/ghost/#/settings/code-injection>)
+2. In the **Site Header** section, add:
+
+   ```html
+   <script>
+     window.ghostConfig = {
+       apiKey: 'YOUR_CONTENT_API_KEY_HERE'
+     };
+   </script>
    ```
 
-### Method 2: Via Database (Quick Setup)
+3. Replace `YOUR_CONTENT_API_KEY_HERE` with the key you copied in Step 1
+4. Click **Save**
 
-Run this command to create an API key automatically:
+#### How It Works
 
-```bash
-# Generate and insert API key into database
-sqlite3 content/data/ghost-local.db << 'EOF'
--- Create custom integration
-INSERT INTO integrations (id, type, name, slug, created_at, updated_at)
-VALUES ('a1b2c3d4e5f647890000', 'custom', 'Course Lessons Loader', 'course-lessons-loader', datetime('now'), datetime('now'));
-
--- Create Content API key
-INSERT INTO api_keys (id, type, secret, integration_id, created_at, updated_at)
-VALUES ('k1l2m3n4o5p647890000', 'content', 'GENERATED_KEY_HERE', 'a1b2c3d4e5f647890000', datetime('now'), datetime('now'));
-
--- Display the API key
-SELECT 'API Key: ' || secret FROM api_keys WHERE id = 'k1l2m3n4o5p647890000';
-EOF
-```
-
-Replace `GENERATED_KEY_HERE` with a random 26-character hex string. Generate one with:
-
-```bash
-node -e "console.log(require('crypto').randomBytes(13).toString('hex'))"
-```
-
-Then add the key to `config.development.json`:
-
-```json
-{
-  ...
-  "contentApiKey": "GENERATED_KEY_HERE"
-}
-```
-
-**Current Setup:** API key `1f06b81ddee9f42ffca580be1b` is already configured in both database and `config.development.json`
+- The theme's course and lesson pages use AJAX to fetch lesson lists from the Ghost Content API
+- The API key is read from `window.ghostConfig.apiKey` in JavaScript
+- If no key is configured, you'll see "Không thể tải danh sách bài học" (Cannot load lesson list)
 
 ### Security Notes
 
 ⚠️ **Important:**
 
-- `config.development.json` and `config.production.json` are git-ignored
-- Never commit real API keys to the repository
-- Use `config.example.json` as a template for new setups
-- For production, use environment variables or secure vault services
+- Content API keys are **read-only** and safe to expose in client-side code
+- Never use Admin API keys in Code Injection (they have write access)
+- The key is only used to fetch published posts via the Content API
+- For production, create a separate integration for better tracking
 
 ## Import Demo Content
 
