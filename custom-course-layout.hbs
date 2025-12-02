@@ -14,14 +14,60 @@
                <div class="lesson-list-sidebar sticky top-8">
                   <div
                      class="sidebar rounded-2xl shadow-xl border border-gray-100 dark:border-white/10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl duration-300 overflow-hidden glass-apple-card glass-noise">
-                     <div class="left-lesson-list" data-load-lessons="true">
-                        <!-- Loading indicator -->
-                        <div class="loading-lessons px-6 py-12 text-center">
-                           <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4">
-                           </div>
-                           <p class="text-sm text-gray-500 dark:text-gray-400">Đang tải bài học...</p>
-                        </div>
+                     {{#foreach tags}}
+                     {{#match slug "^hash-course-id-"}}
+                     {{#get "posts" filter="tag:{{slug}}+tag:hash-lesson" include="tags,authors" order="published_at
+                     asc" limit="100"}}
+                     {{#if posts}}
+                     <div class="related-lesson pb-6">
+                        <h3
+                           class="text-xl font-bold text-gray-900 dark:text-white transition-colors duration-300 px-6 pt-6 pb-4 border-b border-gray-100 dark:border-white/10 flex items-center gap-2">
+                           <span class="w-1 h-5 bg-blue-600 rounded-full"></span>
+                           Bài học khóa học
+                        </h3>
+                        <ol class="lesson-list max-h-[60vh] overflow-y-auto custom-scrollbar">
+                           {{#foreach posts}}
+                           <li class="lesson-item mb-2">
+                              <a href="{{url}}"
+                                 class="lesson-box block p-4 rounded-xl border border-transparent hover:bg-blue-50 dark:hover:bg-slate-800 hover:border-blue-200 dark:hover:border-blue-900 transition-all duration-300"
+                                 id="{{slug}}">
+                                 <div class="flex items-start gap-4">
+                                    <div class="lesson-icon flex-shrink-0">
+                                       <div
+                                          class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-slate-800 text-blue-500 dark:text-blue-400 flex items-center justify-center text-sm font-bold transition-all duration-300">
+                                          {{@number}}
+                                       </div>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                       <h4
+                                          class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1 transition-colors duration-300">
+                                          {{title}}</h4>
+                                    </div>
+                                 </div>
+                              </a>
+                           </li>
+                           {{/foreach}}
+                        </ol>
                      </div>
+                     {{else}}
+                     <div class="no-lessons-message px-6 py-12 text-center">
+                        <div class="mb-4 relative">
+                           <div class="absolute inset-0 bg-blue-500/20 blur-xl rounded-full"></div>
+                           <svg class="w-16 h-16 mx-auto text-blue-500 relative z-10" fill="none" stroke="currentColor"
+                              viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                 d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                              </path>
+                           </svg>
+                        </div>
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Chưa có bài học</h4>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 max-w-[200px] mx-auto leading-relaxed">Các
+                           bài học cho khóa học này sẽ sớm được cập nhật. Hãy chờ đợi nhé!</p>
+                     </div>
+                     {{/if}}
+                     {{/get}}
+                     {{/match}}
+                     {{/foreach}}
                   </div>
                </div>
             </div>
@@ -49,184 +95,3 @@
 
    <link rel="stylesheet" href="{{asset 'css/prism.css'}}" />
    <script src="{{asset 'js/prism.js'}}" defer></script>
-
-   <script>
-      // Dynamic Course Lessons Loader
-      async function loadCourseLessons() {
-         const lessonContainer = document.querySelector('[data-load-lessons="true"]');
-         if (!lessonContainer) {
-            console.log('Lesson container not found');
-            return;
-         }
-
-         // Extract course ID from body classes (e.g., "tag-hash-course-id-1" -> "hash-course-id-1")
-         const bodyClasses = document.body.className;
-         const courseIdMatch = bodyClasses.match(/tag-(hash-course-id-[\w-]+)/);
-
-         if (!courseIdMatch) {
-            lessonContainer.innerHTML = `
-               <div class="no-lessons-message px-6 py-12 text-center">
-                  <div class="mb-4 relative">
-                     <div class="absolute inset-0 bg-blue-500/20 blur-xl rounded-full"></div>
-                     <svg class="w-16 h-16 mx-auto text-blue-500 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                     </svg>
-                  </div>
-                  <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Không tìm thấy khóa học</h4>
-                  <p class="text-sm text-gray-500 dark:text-gray-400 max-w-[200px] mx-auto leading-relaxed">Không thể xác định ID khóa học.</p>
-               </div>
-            `;
-            return;
-         }
-
-         const courseId = courseIdMatch[1]; // e.g., "hash-course-id-1"
-
-         try {
-            // Use Ghost Content API with the auto-generated key
-            const apiKey = '1f06b81ddee9f42ffca580be1b';
-            const siteUrl = '{{@site.url}}'.replace(/\/$/, ''); // Remove trailing slash
-            const apiUrl = `${siteUrl}/ghost/api/content/posts/`;
-            const params = new URLSearchParams({
-               key: apiKey,
-               filter: `tag:${courseId}+tag:hash-lesson`,
-               include: 'tags,authors',
-               order: 'published_at asc',
-               limit: '100'
-            });
-
-            const response = await fetch(`${apiUrl}?${params}`);
-
-            if (!response.ok) {
-               throw new Error(`API Error: ${response.status}`);
-            }
-
-            const data = await response.json();
-
-            if (data.posts && data.posts.length > 0) {
-               const lessonsHTML = data.posts.map((post, index) => `
-                  <li class="lesson-item mb-2">
-                     <a href="${post.url}" class="lesson-box block p-4 rounded-xl border border-transparent hover:bg-blue-50 dark:hover:bg-slate-800 hover:border-blue-200 dark:hover:border-blue-900 transition-all duration-300" id="${post.slug}">
-                        <div class="flex items-start gap-4">
-                           <div class="lesson-icon flex-shrink-0">
-                              <div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-slate-800 text-blue-500 dark:text-blue-400 flex items-center justify-center text-sm font-bold transition-all duration-300">
-                                 ${index + 1}
-                              </div>
-                           </div>
-                           <div class="flex-1 min-w-0">
-                              <h4 class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1 transition-colors duration-300">${post.title}</h4>
-                           </div>
-                        </div>
-                     </a>
-                  </li>
-               `).join('');
-
-               lessonContainer.innerHTML = `
-                  <div class="related-lesson pb-6">
-                     <h3 class="text-xl font-bold text-gray-900 dark:text-white transition-colors duration-300 px-6 pt-6 pb-4 border-b border-gray-100 dark:border-white/10 flex items-center gap-2">
-                        <span class="w-1 h-5 bg-blue-600 rounded-full"></span>
-                        Bài học khóa học
-                     </h3>
-                     <ol class="lesson-list max-h-[60vh] overflow-y-auto custom-scrollbar">
-                        ${lessonsHTML}
-                     </ol>
-                  </div>
-               `;
-
-               // Highlight active lesson after loading
-               setTimeout(highlightActiveLesson, 100);
-            } else {
-               lessonContainer.innerHTML = `
-                  <div class="no-lessons-message px-6 py-12 text-center">
-                     <div class="mb-4 relative">
-                        <div class="absolute inset-0 bg-blue-500/20 blur-xl rounded-full"></div>
-                        <svg class="w-16 h-16 mx-auto text-blue-500 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                        </svg>
-                     </div>
-                     <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Chưa có bài học</h4>
-                     <p class="text-sm text-gray-500 dark:text-gray-400 max-w-[200px] mx-auto leading-relaxed">Các bài học cho khóa học này sẽ sớm được cập nhật. Hãy chờ đợi nhé!</p>
-                  </div>
-               `;
-            }
-         } catch (error) {
-            console.error('Error loading lessons:', error);
-            lessonContainer.innerHTML = `
-               <div class="px-6 py-12 text-center">
-                  <svg class="w-12 h-12 mx-auto text-red-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-                  </svg>
-                  <p class="text-sm text-red-500 mb-2">Không thể tải bài học</p>
-                  <p class="text-xs text-gray-500 dark:text-gray-400">Lỗi: ${error.message}</p>
-                  <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">Kiểm tra Content API Key trong Ghost Admin</p>
-               </div>
-            `;
-         }
-      }
-
-      // Run when DOM is ready
-      if (document.readyState === 'loading') {
-         document.addEventListener('DOMContentLoaded', loadCourseLessons);
-      } else {
-         loadCourseLessons();
-      }
-
-      // Function to highlight active lesson
-      function highlightActiveLesson() {
-         const currentPath = window.location.pathname;
-         // Extract slug from URL path (e.g., /lesson/identifying-business-opportunities/ -> identifying-business-opportunities)
-         const currentSlug = currentPath.split('/').filter(segment => segment.length > 0).pop();
-
-         const lessonItems = document.querySelectorAll('.lesson-box');
-
-         lessonItems.forEach(item => {
-            const lessonId = item.getAttribute('id'); // This is the slug from {{slug}}
-
-            // Reset all items to inactive state first
-            item.classList.remove('bg-blue-50', 'dark:bg-slate-800', 'border-blue-200', 'dark:border-blue-900');
-            item.classList.add('border-transparent');
-
-            // Reset icon container
-            const iconContainer = item.querySelector('.lesson-icon > div');
-            if (iconContainer) {
-               iconContainer.classList.remove('bg-blue-600', 'text-white', 'shadow-lg', 'shadow-blue-500/30');
-               iconContainer.classList.add('bg-blue-50', 'dark:bg-slate-800', 'text-blue-500', 'dark:text-blue-400');
-            }
-
-            // Reset title
-            const title = item.querySelector('h4');
-            if (title) {
-               title.classList.remove('text-blue-700', 'dark:text-blue-400', 'font-bold');
-               title.classList.add('text-gray-600', 'dark:text-gray-400', 'font-medium');
-            }
-
-            // Check if this lesson is the current one by matching slug with ID
-            if (lessonId === currentSlug) {
-               // This is the active lesson - add active state classes
-               item.classList.remove('border-transparent');
-               item.classList.add('bg-blue-50', 'dark:bg-slate-800', 'border-blue-200', 'dark:border-blue-900');
-
-               // Update icon container with active style
-               if (iconContainer) {
-                  iconContainer.classList.remove('bg-blue-50', 'dark:bg-slate-800', 'text-blue-500', 'dark:text-blue-400');
-                  iconContainer.classList.add('bg-blue-600', 'text-white', 'shadow-lg', 'shadow-blue-500/30');
-               }
-
-               // Update title
-               if (title) {
-                  title.classList.remove('text-gray-600', 'dark:text-gray-400', 'font-medium');
-                  title.classList.add('text-blue-700', 'dark:text-blue-400', 'font-bold');
-               }
-
-               // Scroll active lesson into view if needed
-               item.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-         });
-      }
-
-      // Run when DOM is ready
-      if (document.readyState === 'loading') {
-         document.addEventListener('DOMContentLoaded', highlightActiveLesson);
-      } else {
-         highlightActiveLesson();
-      }
-   </script>

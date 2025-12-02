@@ -1,24 +1,53 @@
-<a href="{{url}}" class="cursor-pointer block mb-2">
-   <div
-      class="{{post_class}} lesson-box p-3 rounded-xl flex items-center group transition-all duration-300 border border-transparent hover:bg-blue-50 dark:hover:bg-white/5 hover:border-blue-100 dark:hover:border-white/10"
-      id="{{slug}}" data-lesson-url="{{url}}" data-lesson-id="{{id}}" data-lesson-slug="{{slug}}">
-
-      <!-- Icon Container -->
-      <div class="lesson-icon flex-none relative mr-3">
-         <div
-            class="w-8 h-8 rounded-lg bg-blue-50 dark:bg-slate-800 text-blue-500 dark:text-blue-400 flex items-center justify-center border border-blue-100 dark:border-white/10 transition-all duration-300 group-hover:scale-105 group-hover:bg-blue-500 group-hover:text-white dark:group-hover:bg-blue-500 dark:group-hover:text-white">
-            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-               <path d="M8 5v14l11-7z" />
-            </svg>
-         </div>
-      </div>
-
-      <!-- Content -->
-      <div class="lesson-content flex-auto min-w-0">
-         <h4
-            class="text-sm font-medium text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-300 line-clamp-2 leading-snug">
-            {{title}}
-         </h4>
-      </div>
+{{!-- Extract course ID from post tags --}}
+{{#foreach tags}}
+{{#match slug "^hash-course-id-"}}
+{{!-- Found course ID tag, now get all lessons for this course --}}
+{{#get "posts" filter="tag:{{slug}}+tag:hash-lesson" include="tags,authors" order="published_at asc" limit="100"}}
+{{#if posts}}
+<div class="related-lesson pb-6">
+   <h3
+      class="text-xl font-bold text-gray-900 dark:text-white transition-colors duration-300 px-6 pt-6 pb-4 border-b border-gray-100 dark:border-white/10 flex items-center gap-2">
+      <span class="w-1 h-5 bg-blue-600 rounded-full"></span>
+      Bài học khóa học
+   </h3>
+   <ol class="lesson-list max-h-[60vh] overflow-y-auto custom-scrollbar">
+      {{#foreach posts}}
+      <li class="lesson-item mb-2">
+         <a href="{{url}}"
+            class="lesson-box block p-4 rounded-xl border border-transparent hover:bg-blue-50 dark:hover:bg-slate-800 hover:border-blue-200 dark:hover:border-blue-900 transition-all duration-300"
+            id="{{slug}}">
+            <div class="flex items-start gap-4">
+               <div class="lesson-icon flex-shrink-0">
+                  <div
+                     class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-slate-800 text-blue-500 dark:text-blue-400 flex items-center justify-center text-sm font-bold transition-all duration-300">
+                     {{@number}}
+                  </div>
+               </div>
+               <div class="flex-1 min-w-0">
+                  <h4 class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1 transition-colors duration-300">
+                     {{title}}</h4>
+               </div>
+            </div>
+         </a>
+      </li>
+      {{/foreach}}
+   </ol>
+</div>
+{{else}}
+<div class="no-lessons-message px-6 py-12 text-center">
+   <div class="mb-4 relative">
+      <div class="absolute inset-0 bg-blue-500/20 blur-xl rounded-full"></div>
+      <svg class="w-16 h-16 mx-auto text-blue-500 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+         </path>
+      </svg>
    </div>
-</a>
+   <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Chưa có bài học</h4>
+   <p class="text-sm text-gray-500 dark:text-gray-400 max-w-[200px] mx-auto leading-relaxed">Các bài học cho khóa học
+      này sẽ sớm được cập nhật. Hãy chờ đợi nhé!</p>
+</div>
+{{/if}}
+{{/get}}
+{{/match}}
+{{/foreach}}
