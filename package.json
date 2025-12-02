@@ -1,7 +1,7 @@
 {
     "name": "x-learn-ghost-theme",
     "description": "A modern Ghost theme for online courses and learning platforms",
-    "version": "0.0.1",
+    "version": "0.0.19",
     "private": true,
     "type": "module",
     "engines": {
