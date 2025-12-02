@@ -51,7 +51,7 @@
    <script src="{{asset 'js/prism.js'}}" defer></script>
 
    <script>
-      // Dynamic Course Lessons Loader
+      // Dynamic Course Lessons Loader with AJAX
       async function loadCourseLessons() {
          const lessonContainer = document.querySelector('[data-load-lessons="true"]');
          if (!lessonContainer) {
@@ -82,8 +82,8 @@
          const courseId = courseIdMatch[1]; // e.g., "hash-course-id-1"
 
          try {
-            // Use Ghost Content API with the auto-generated key
-            const apiKey = '1f06b81ddee9f42ffca580be1b';
+            // Get API key from Ghost Code Injection config
+            const apiKey = window.ghostConfig?.apiKey || '1f06b81ddee9f42ffca580be1b';
             const siteUrl = '{{@site.url}}'.replace(/\/$/, ''); // Remove trailing slash
             const apiUrl = `${siteUrl}/ghost/api/content/posts/`;
             const params = new URLSearchParams({
@@ -126,7 +126,7 @@
                         <span class="w-1 h-5 bg-blue-600 rounded-full"></span>
                         Bài học khóa học
                      </h3>
-                     <ol class="lesson-list max-h-[60vh] overflow-y-auto custom-scrollbar">
+                     <ol class="lesson-list max-h-[60vh] overflow-y-auto custom-scrollbar px-4 pt-4">
                         ${lessonsHTML}
                      </ol>
                   </div>
