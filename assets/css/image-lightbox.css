@@ -1,0 +1,124 @@
+/**
+ * Image Lightbox Styles
+ * Pure CSS for image popup viewer
+ */
+
+/* Fade in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Lightbox base styles */
+#image-lightbox {
+    transition: opacity 0.3s ease;
+}
+
+#image-lightbox.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Image styles */
+#lightbox-image {
+    transition: opacity 0.3s ease;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+/* Button hover effects */
+#lightbox-close:hover,
+#lightbox-prev:hover:not(:disabled),
+#lightbox-next:hover:not(:disabled) {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}
+
+#lightbox-close:active,
+#lightbox-prev:active:not(:disabled),
+#lightbox-next:active:not(:disabled) {
+    transform: scale(0.95);
+}
+
+/* Disabled button styles */
+#lightbox-prev:disabled,
+#lightbox-next:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* Loading spinner */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+/* Caption styles */
+#lightbox-caption {
+    transition: opacity 0.3s ease;
+}
+
+/* Counter styles */
+#lightbox-counter {
+    font-variant-numeric: tabular-nums;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #lightbox-prev {
+        left: 0.5rem;
+    }
+
+    #lightbox-next {
+        right: 0.5rem;
+    }
+
+    #lightbox-close {
+        top: 0.5rem;
+        right: 0.5rem;
+    }
+
+    #lightbox-caption {
+        bottom: 4rem;
+        max-width: 90%;
+        padding: 0.5rem 1rem;
+        font-size: 0.75rem;
+    }
+
+    #lightbox-counter {
+        bottom: 1rem;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+    #lightbox-prev,
+    #lightbox-next {
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* Print styles - hide lightbox */
+@media print {
+    #image-lightbox {
+        display: none !important;
+    }
+}

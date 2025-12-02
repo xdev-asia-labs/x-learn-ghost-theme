@@ -5,6 +5,7 @@ A modern, feature-rich Ghost theme designed for online learning platforms with b
 ## Features
 
 - 🎓 **Course Management** - Dynamic course and lesson system with AJAX loading
+- 🖼️ **Image Lightbox** - Click any image in posts to view in full-screen popup with navigation
 - 📱 **Responsive Design** - Mobile-first approach with Tailwind CSS
 - 🎨 **Dark Mode** - Built-in dark mode support
 - 🔍 **SEO Optimized** - Structured data and meta tags
@@ -148,6 +149,36 @@ Tags: hash-lesson, hash-course-id-1
 ```
 
 The lessons will be automatically loaded via AJAX when viewing the course page.
+
+## Image Lightbox
+
+The theme includes a built-in image lightbox feature that automatically activates for images in posts and pages.
+
+### Features
+
+- 🖼️ **Auto-detect Images** - Automatically finds images in post content (>200px to exclude icons/avatars)
+- ⌨️ **Keyboard Navigation** - Use `Escape` to close, `Left/Right` arrows to navigate between images
+- 📱 **Mobile Responsive** - Touch-friendly with swipe gestures
+- 🎨 **Image Gallery** - Navigate through multiple images with counter (e.g., "1 / 5")
+- 💬 **Captions** - Shows image alt text as caption
+- ⏳ **Loading States** - Animated spinner while images load
+- 🎯 **Smart Detection** - Filters out small images, icons, and avatars automatically
+
+### Usage
+
+No configuration needed! The lightbox automatically activates for all images in:
+- `.gh-content` (Ghost content area)
+- `.post-content` (custom post content)
+- `article` (article elements)
+
+Simply add images to your posts and they'll be clickable with the lightbox.
+
+### Keyboard Shortcuts
+
+- `Escape` - Close lightbox
+- `Left Arrow` - Previous image
+- `Right Arrow` - Next image
+- Click outside image - Close lightbox
 
 ## Development
 
