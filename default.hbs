@@ -24,7 +24,7 @@
       rel="stylesheet" media="print" onload="this.media='all'">
 
    <link rel="stylesheet" href="{{asset 'css/app.min.css'}}">
-   <link rel="stylesheet" href="{{asset 'css/prism.css'}}">
+   <link rel="stylesheet" href="{{asset 'css/highlight-custom.css'}}">
    <link rel="preload" href="{{asset 'css/swiper-bundle.min.css'}}" as="style"
       onload="this.onload=null;this.rel='stylesheet'">
    <noscript>
@@ -64,7 +64,19 @@
    <script src="{{asset 'js/dropdown-navigation.js'}}" defer></script>
    <script src="{{asset 'js/swiper-bundle.min.js'}}" defer></script>
    <script src="{{asset 'js/topics-swiper.js'}}" defer></script>
-   <script src="{{asset 'js/prism.js'}}" defer></script>
+   <!-- Highlight.js from CDN -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+      media="(prefers-color-scheme: light)">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
+      media="(prefers-color-scheme: dark)">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/shell.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/nginx.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dockerfile.min.js"></script>
+   <script src="{{asset 'js/highlight-bundle.js'}}" defer></script>
    <script src="{{asset 'js/code-copy.js'}}" defer></script>
 
    {{^is "post, page"}}
