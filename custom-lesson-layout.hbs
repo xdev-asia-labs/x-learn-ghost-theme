@@ -17,20 +17,14 @@
          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 lg:gap-8">
             <div class="md:col-span-12 lg:col-span-4 lg:order-1 order-2">
                <div class="lesson-list-sidebar sticky top-8">
-                  <div class="sidebar rounded-lg  shadow duration-300">
+                  <div class="sidebar rounded-lg shadow duration-300">
                      <div class="left-lesson-list">
-                        {{#has tag="#lesson"}}
-                        {{#foreach tags visibility="internal"}}
-                        {{#match slug "~" "course-id"}}
-                        {{!-- Get lessons --}}
-                        {{#get "posts" limit="100" include="tags,authors,tiers" filter="tag:{{slug}}+tag:hash-lesson"
-                        order="published_at asc"}}
-                        {{#if posts.length}}
-                        <div class="related-lesson pb-6" data-course-tag="{{slug}}" data-course-id="{{id}}">
+                        <!-- Lesson list container with loading state -->
+                        <div class="lessons-container" data-load-lessons="true">
                            <h3
-                              class=" text-2xl font-bold text-gray-800 group-hover:text-blue-800 transition-colors duration-300 px-6 pt-6 pb-6 ">
-                              {{t "course-lessons"}} </h3>
-
+                              class="text-2xl font-bold text-gray-800 group-hover:text-blue-800 transition-colors duration-300 px-6 pt-6 pb-6">
+                              {{t "course-lessons"}}
+                           </h3>
 
                            {{#if access}}
                            <!-- Course Progress Section -->
@@ -48,18 +42,22 @@
                            </div>
                            {{/if}}
 
+                           <!-- Loading indicator -->
+                           <div class="lessons-loading px-6 py-4 text-center text-gray-500">
+                              <svg class="animate-spin h-8 w-8 mx-auto mb-2" xmlns="http://www.w3.org/2000/svg"
+                                 fill="none" viewBox="0 0 24 24">
+                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4"></circle>
+                                 <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                 </path>
+                              </svg>
+                              <p>{{t "loading"}}...</p>
+                           </div>
 
-                           <ol class="lesson-list ">
-                              {{#foreach posts}}
-                              {{> lessonlist}}
-                              {{/foreach}}
-                           </ol>
+                           <!-- Lessons will be loaded here -->
+                           <ol class="lesson-list" style="display:none;"></ol>
                         </div>
-                        {{/if}}
-                        {{/get}}
-                        {{/match}}
-                        {{/foreach}}
-                        {{/has}}
                      </div>
                   </div>
                </div>
@@ -121,6 +119,86 @@
       </div>
    </section>
    {{/post}}
+
+   <!-- Load Lessons via AJAX -->
+   <script>
+      document.addEventListener('DOMContentLoaded', async function () {
+         const lessonsContainer = document.querySelector('[data-load-lessons="true"]');
+         if (!lessonsContainer) return;
+
+         // Extract course ID from body classes (same as course page)
+         const bodyClasses = document.body.className;
+         const courseIdMatch = bodyClasses.match(/tag-(hash-course-id-[\w-]+)/);
+
+         if (!courseIdMatch) {
+            console.error('No course ID found in body classes');
+            return;
+         }
+
+         const courseId = courseIdMatch[1];
+         await loadCourseLessons(courseId);
+      });
+
+      async function loadCourseLessons(courseId) {
+         const apiKey = window.ghostConfig?.apiKey || '1f06b81ddee9f42ffca580be1b';
+         const apiUrl = window.location.origin;
+         const lessonsContainer = document.querySelector('[data-load-lessons="true"]');
+         const loadingIndicator = lessonsContainer.querySelector('.lessons-loading');
+         const lessonList = lessonsContainer.querySelector('.lesson-list');
+
+         try {
+            // Fetch lessons from Ghost Content API
+            const response = await fetch(`${apiUrl}/ghost/api/content/posts/?key=${apiKey}&filter=tag:${courseId}+tag:hash-lesson&include=tags,authors,tiers&limit=all&order=published_at asc`);
+
+            if (!response.ok) {
+               throw new Error(`API request failed: ${response.status}`);
+            }
+
+            const data = await response.json();
+            const lessons = data.posts || [];
+
+            if (lessons.length === 0) {
+               loadingIndicator.innerHTML = '<p class="text-gray-500 px-6 py-4">Chưa có bài học nào.</p>';
+               return;
+            }
+
+            // Generate lesson list HTML
+            let lessonsHTML = '';
+            lessons.forEach((lesson, index) => {
+               const lessonNumber = index + 1;
+               const lessonSlug = lesson.slug;
+               const lessonTitle = lesson.title;
+               const lessonUrl = lesson.url;
+               const isCurrentLesson = window.location.pathname.includes(lessonSlug);
+
+               lessonsHTML += `
+                  <li class="lesson-box ${isCurrentLesson ? 'active' : ''}" data-lesson-slug="${lessonSlug}">
+                     <a href="${lessonUrl}" class="lesson-link">
+                        <div class="lesson-logo">
+                           <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M11.25 20.2125L6.0375 15L4.2625 16.7625L11.25 23.75L26.25 8.75L24.4875 6.9875L11.25 20.2125Z" fill="currentcolor"/>
+                           </svg>
+                        </div>
+                        <div class="lesson-content">
+                           <span class="lesson-number">${lessonNumber}</span>
+                           <h4 class="lesson-title">${lessonTitle}</h4>
+                        </div>
+                     </a>
+                  </li>
+               `;
+            });
+
+            // Update UI
+            lessonList.innerHTML = lessonsHTML;
+            loadingIndicator.style.display = 'none';
+            lessonList.style.display = 'block';
+
+         } catch (error) {
+            console.error('Error loading lessons:', error);
+            loadingIndicator.innerHTML = '<p class="text-red-500 px-6 py-4">Không thể tải danh sách bài học. Vui lòng thử lại sau.</p>';
+         }
+      }
+   </script>
 
    <!-- Inject Course Breadcrumb -->
    <script>
