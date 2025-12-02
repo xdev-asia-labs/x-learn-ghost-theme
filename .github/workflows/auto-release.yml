@@ -134,7 +134,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          
+
           # Check if tag already exists locally
           if git rev-parse "${{ steps.version.outputs.tag }}" >/dev/null 2>&1; then
             echo "⚠️  Tag ${{ steps.version.outputs.tag }} already exists locally"
@@ -142,7 +142,7 @@ jobs:
             git tag -a ${{ steps.version.outputs.tag }} -m "Release ${{ steps.version.outputs.version }}"
             echo "✅ Created tag ${{ steps.version.outputs.tag }}"
           fi
-          
+
           # Try to push tag, ignore if it already exists on remote
           git push origin ${{ steps.version.outputs.tag }} || echo "⚠️  Tag already exists on remote, skipping push"
 
