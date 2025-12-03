@@ -155,6 +155,88 @@
       div[class*="Footer"] a[href*="ghost.org"] {
          display: none !important;
       }
+
+      /* Customize Ghost Membership Paywall - Vietnamese Translation */
+      .gh-post-upgrade-cta {
+         background: linear-gradient(to right, rgba(37, 99, 235, 0.9), rgba(8, 145, 178, 0.9)),
+         url("{{asset 'images/banner.jpeg'}}") !important;
+         background-size: cover !important;
+         background-position: center !important;
+         color: #ffffff !important;
+         position: relative !important;
+         overflow: hidden !important;
+      }
+
+      .gh-post-upgrade-cta h2::after {
+         content: '{{t "this-post-is-for-subscribers-only"}}' !important;
+         display: block;
+         font-size: 2rem !important;
+         font-weight: 700 !important;
+         color: #ffffff !important;
+      }
+
+      .gh-post-upgrade-cta h2 {
+         font-size: 0 !important;
+         line-height: 0 !important;
+      }
+
+      /* Subscribe button text */
+      .gh-post-upgrade-cta-content .gh-btn::after {
+         content: '{{t "subscribe-now"}}' !important;
+         font-size: 1rem !important;
+      }
+
+      .gh-post-upgrade-cta-content .gh-btn {
+         font-size: 0 !important;
+         background: #ffffff !important;
+         color: #2563eb !important;
+         font-weight: 600 !important;
+         padding: 0.875rem 2rem !important;
+      }
+
+      /* Already have account text */
+      .gh-post-upgrade-cta-content p:last-of-type,
+      .gh-post-upgrade-cta-content p:last-of-type small {
+         font-size: 0 !important;
+         visibility: hidden !important;
+      }
+
+      .gh-post-upgrade-cta-content p:last-of-type::before {
+         content: '{{t "already-have-an-account"}} ' !important;
+         visibility: visible !important;
+         font-size: 0.875rem !important;
+         color: #ffffff !important;
+         display: inline !important;
+      }
+
+      .gh-post-upgrade-cta-content p:last-of-type a {
+         visibility: visible !important;
+         font-size: 0 !important;
+         color: #ffffff !important;
+         text-decoration: underline !important;
+         font-weight: 600 !important;
+         pointer-events: auto !important;
+      }
+
+      .gh-post-upgrade-cta-content p:last-of-type a::after {
+         content: '{{t "sign-in"}}' !important;
+         font-size: 0.875rem !important;
+         visibility: visible !important;
+         display: inline !important;
+      }
+
+      /* This post is for subscribers only text inside content box */
+      .gh-post-upgrade-cta-content p:first-of-type::after {
+         content: '{{t "this-content-is-for-subscribers-only"}}' !important;
+         display: block;
+         font-size: 1rem !important;
+         color: #ffffff !important;
+         line-height: 1.5 !important;
+      }
+
+      .gh-post-upgrade-cta-content p:first-of-type {
+         font-size: 0 !important;
+      }
    </style>
 
    <script>

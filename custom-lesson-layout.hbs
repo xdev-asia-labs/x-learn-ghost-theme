@@ -160,7 +160,7 @@
             if (data.posts && data.posts.length > 0) {
                const lessonsHTML = data.posts.map((post, index) => `
                   <li class="lesson-item mb-2">
-                     <a href="${post.url}" class="lesson-box block p-4 rounded-xl border border-transparent hover:bg-blue-50 dark:hover:bg-slate-800 hover:border-blue-200 dark:hover:border-blue-900 transition-all duration-300" id="${post.slug}">
+                     <a href="${post.url}" class="lesson-box block p-4 rounded-xl border border-transparent hover:bg-blue-50 dark:hover:bg-slate-800 hover:border-blue-200 dark:hover:border-blue-900 transition-all duration-300" id="${post.slug}" data-lesson-slug="${post.slug}">
                         <div class="flex items-start gap-4">
                            <div class="lesson-icon flex-shrink-0">
                               <div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-slate-800 text-blue-500 dark:text-blue-400 flex items-center justify-center text-sm font-bold transition-all duration-300">
@@ -450,21 +450,19 @@
             const text = document.getElementById('completion-text');
             const icon = document.getElementById('completion-icon');
 
-            if (isCompleted) {
-               // Completed state - Green with checkmark
-               btn.classList.remove('bg-gray-100', 'dark:bg-slate-800', 'text-gray-600', 'dark:text-gray-300', 'border-gray-300', 'dark:border-slate-600');
-               btn.classList.add('bg-green-500', 'dark:bg-green-600', 'text-white', 'border-green-600', 'dark:border-green-500', 'hover:bg-green-600', 'dark:hover:bg-green-700');
-               text.textContent = i18n.markedComplete;
-               if (icon) {
-                  icon.style.display = 'block';
-               }
-            } else {
-               // Incomplete state - Gray
-               btn.classList.remove('bg-green-500', 'dark:bg-green-600', 'text-white', 'border-green-600', 'dark:border-green-500', 'hover:bg-green-600', 'dark:hover:bg-green-700');
-               btn.classList.add('bg-gray-100', 'dark:bg-slate-800', 'text-gray-600', 'dark:text-gray-300', 'border-gray-300', 'dark:border-slate-600', 'hover:bg-gray-200', 'dark:hover:bg-slate-700');
-               text.textContent = i18n.markAsComplete;
-               if (icon) {
-                  icon.style.display = 'none';
+            if (btn) {
+               if (isCompleted) {
+                  // Completed state - Green with checkmark
+                  btn.classList.remove('bg-gray-100', 'dark:bg-slate-800', 'text-gray-600', 'dark:text-gray-300', 'border-gray-300', 'dark:border-slate-600');
+                  btn.classList.add('bg-green-500', 'dark:bg-green-600', 'text-white', 'border-green-600', 'dark:border-green-500', 'hover:bg-green-600', 'dark:hover:bg-green-700');
+                  if (text) text.textContent = i18n.markedComplete;
+                  if (icon) icon.style.display = 'block';
+               } else {
+                  // Incomplete state - Gray
+                  btn.classList.remove('bg-green-500', 'dark:bg-green-600', 'text-white', 'border-green-600', 'dark:border-green-500', 'hover:bg-green-600', 'dark:hover:bg-green-700');
+                  btn.classList.add('bg-gray-100', 'dark:bg-slate-800', 'text-gray-600', 'dark:text-gray-300', 'border-gray-300', 'dark:border-slate-600', 'hover:bg-gray-200', 'dark:hover:bg-slate-700');
+                  if (text) text.textContent = i18n.markAsComplete;
+                  if (icon) icon.style.display = 'none';
                }
             }
 
@@ -474,29 +472,25 @@
 
          updateLessonList() {
             const lessonItems = document.querySelectorAll('.lesson-box');
-            lessonItems.forEach(item => {
-               const lessonSlug = item.dataset.lessonSlug;
-               const iconContainer = item.querySelector('.lesson-logo');
+            lessonItems.forEach((item, index) => {
+               const lessonSlug = item.dataset.lessonSlug || item.id;
+               const iconContainer = item.querySelector('.lesson-icon > div');
+
+               if (!iconContainer) return;
 
                // Use unique course-lesson key
                const courseLessonKey = this.createCourseLessonKey(this.courseId, lessonSlug);
 
                if (this.completedLessons[courseLessonKey]) {
                   // Show checkmark for completed lessons
-                  iconContainer.innerHTML = '<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.25 20.2125L6.0375 15L4.2625 16.7625L11.25 23.75L26.25 8.75L24.4875 6.9875L11.25 20.2125Z" fill="currentcolor"/></svg>';
+                  iconContainer.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
                   iconContainer.classList.add('bg-green-100', 'dark:bg-green-900/30', 'text-green-600', 'dark:text-green-400');
-                  iconContainer.classList.remove('bg-gray-200', 'dark:bg-slate-700', 'text-gray-400', 'dark:text-gray-500', 'bg-blue-50', 'dark:bg-blue-900/30');
-
-
+                  iconContainer.classList.remove('bg-blue-50', 'dark:bg-slate-800', 'text-blue-500', 'dark:text-blue-400');
                } else {
-                  // Show lesson icon for incomplete lessons
-                  iconContainer.innerHTML = '<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.25 20.2125L6.0375 15L4.2625 16.7625L11.25 23.75L26.25 8.75L24.4875 6.9875L11.25 20.2125Z" fill="currentcolor"/></svg>';
-                  iconContainer.classList.add('bg-gray-200', 'dark:bg-slate-700', 'text-gray-500', 'dark:text-gray-400');
-                  iconContainer.classList.remove('bg-green-100', 'dark:bg-green-900/30', 'text-green-600', 'dark:text-green-400', 'bg-blue-50', 'dark:bg-blue-900/30');
-
-                  // Remove completion indicator
-                  const indicator = item.querySelector('.completion-indicator');
-                  if (indicator) indicator.remove();
+                  // Show lesson number for incomplete lessons
+                  iconContainer.innerHTML = index + 1;
+                  iconContainer.classList.add('bg-blue-50', 'dark:bg-slate-800', 'text-blue-500', 'dark:text-blue-400');
+                  iconContainer.classList.remove('bg-green-100', 'dark:bg-green-900/30', 'text-green-600', 'dark:text-green-400');
                }
             });
          }

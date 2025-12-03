@@ -102,5 +102,10 @@
     "cannot-load-lessons": "Không thể tải bài học",
     "error": "Lỗi",
     "check-api-key": "Kiểm tra Content API Key trong Ghost Admin",
-    "no-image": "Không có hình ảnh"
+    "no-image": "Không có hình ảnh",
+    "this-post-is-for-subscribers-only": "Bài viết này chỉ dành cho thành viên",
+    "subscribe-now": "Đăng ký ngay",
+    "already-have-an-account": "Đã có tài khoản?",
+    "sign-in": "Đăng nhập",
+    "this-content-is-for-subscribers-only": "Nội dung này chỉ dành cho thành viên đã đăng ký"
 }

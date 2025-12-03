@@ -102,5 +102,10 @@
   "cannot-load-lessons": "Cannot load lessons",
   "error": "Error",
   "check-api-key": "Check Content API Key in Ghost Admin",
-  "no-image": "No Image"
+  "no-image": "No Image",
+  "this-post-is-for-subscribers-only": "This post is for subscribers only",
+  "subscribe-now": "Subscribe now",
+  "already-have-an-account": "Already have an account?",
+  "sign-in": "Sign in",
+  "this-content-is-for-subscribers-only": "This content is for subscribers only"
 }
