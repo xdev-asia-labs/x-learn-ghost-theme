@@ -94,5 +94,13 @@
   "blog-description": "Sharing knowledge, experiences, and perspectives on technology.",
   "check-back-later": "Please check back later.",
   "load-more-courses": "Load More Courses",
-  "no-courses-found": "No courses found"
+  "no-courses-found": "No courses found",
+  "loading-lessons": "Loading lessons...",
+  "course-not-found": "Course not found",
+  "course-id-error": "Cannot determine course ID.",
+  "no-lessons-title": "No lessons yet",
+  "cannot-load-lessons": "Cannot load lessons",
+  "error": "Error",
+  "check-api-key": "Check Content API Key in Ghost Admin",
+  "no-image": "No Image"
 }

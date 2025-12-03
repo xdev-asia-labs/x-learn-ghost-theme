@@ -18,10 +18,10 @@
                   "courses"}}</span>
             </div>
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight">
-               Khám phá Khóa học
+               {{t "explore-courses"}}
             </h1>
             <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
-               Nâng cao kỹ năng với các khóa học chuyên sâu từ cơ bản đến nâng cao.
+               {{t "course-description"}}
             </p>
          </div>
       </div>
@@ -45,7 +45,7 @@
                         alt="{{title}}" loading="lazy" />
                      {{else}}
                      <div class="w-full h-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-                        <span class="text-gray-400">No Image</span>
+                        <span class="text-gray-400">{{t "no-image"}}</span>
                      </div>
                      {{/if}}
                      <div

@@ -94,5 +94,13 @@
     "blog-description": "Chia sẻ kiến thức, kinh nghiệm và góc nhìn về công nghệ.",
     "check-back-later": "Vui lòng quay lại sau.",
     "load-more-courses": "Tải thêm khóa học",
-    "no-courses-found": "Không tìm thấy khóa học"
+    "no-courses-found": "Không tìm thấy khóa học",
+    "loading-lessons": "Đang tải bài học...",
+    "course-not-found": "Không tìm thấy khóa học",
+    "course-id-error": "Không thể xác định ID khóa học.",
+    "no-lessons-title": "Chưa có bài học",
+    "cannot-load-lessons": "Không thể tải bài học",
+    "error": "Lỗi",
+    "check-api-key": "Kiểm tra Content API Key trong Ghost Admin",
+    "no-image": "Không có hình ảnh"
 }

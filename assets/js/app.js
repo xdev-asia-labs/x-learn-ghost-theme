@@ -412,8 +412,9 @@ JS Table of Conttent
     const contentArea = $single('.gh-content');
 
     if (tocContainer && contentArea) {
-      // Check if there are any headings in the content
-      const headings = contentArea.querySelectorAll('h1, h2, h3, h4, h5, h6');
+      // Check if there are any headings in the content, excluding upgrade CTA
+      const headings = Array.from(contentArea.querySelectorAll('h1, h2, h3, h4, h5, h6'))
+        .filter(h => !h.closest('.gh-post-upgrade-cta'));
 
       if (headings.length === 0) {
         // No headings found, keep TOC hidden
@@ -438,6 +439,7 @@ JS Table of Conttent
             tocSelector: '#inline-toc-container .gh-toc',
             contentSelector: '.gh-content',
             headingSelector: 'h1, h2, h3, h4, h5, h6',
+            ignoreSelector: '.js-no-anchor, .gh-post-upgrade-cta h2',
             hasInnerContainers: true,
             linkClass: 'toc-link',
             activeLinkClass: 'is-active-link',

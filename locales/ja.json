@@ -79,5 +79,13 @@
     "no-news-found": "ニュースが見つかりません",
     "load-more-news": "さらにニュースを読み込む",
     "explore-latest-news-updates": "最新のニュース、更新情報、お知らせをご覧ください",
-    "news-description": "ソフトウェア開発、DevOps、クラウドコンピューティングに関する最新の技術ニュース、トレンド、インサイトをお届けします。"
+    "news-description": "ソフトウェア開発、DevOps、クラウドコンピューティングに関する最新の技術ニュース、トレンド、インサイトをお届けします。",
+    "loading-lessons": "レッスンを読み込んでいます...",
+    "course-not-found": "コースが見つかりません",
+    "course-id-error": "コースIDを特定できません。",
+    "no-lessons-title": "まだレッスンがありません",
+    "cannot-load-lessons": "レッスンを読み込めません",
+    "error": "エラー",
+    "check-api-key": "Ghost AdminでContent API Keyを確認してください",
+    "no-image": "画像がありません"
 }

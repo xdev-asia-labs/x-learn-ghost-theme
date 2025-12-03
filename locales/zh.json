@@ -79,5 +79,13 @@
     "no-news-found": "未找到新闻",
     "load-more-news": "加载更多新闻",
     "explore-latest-news-updates": "探索最新新闻、更新和公告",
-    "news-description": "了解软件开发、DevOps和云计算领域的最新技术新闻、趋势和见解。"
+    "news-description": "了解软件开发、DevOps和云计算领域的最新技术新闻、趋势和见解。",
+    "loading-lessons": "正在加载课程...",
+    "course-not-found": "未找到课程",
+    "course-id-error": "无法确定课程ID。",
+    "no-lessons-title": "暂无课程",
+    "cannot-load-lessons": "无法加载课程",
+    "error": "错误",
+    "check-api-key": "请检查Ghost Admin中的Content API Key",
+    "no-image": "无图像"
 }

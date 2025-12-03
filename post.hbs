@@ -82,14 +82,20 @@
    <script>
       // Wait for DOM to be ready and tocbot to load
       document.addEventListener('DOMContentLoaded', function () {
-         // Check if there are any headings in the content
-         const contentHeadings = document.querySelectorAll('.gh-content h2, .gh-content h3, .gh-content h4, .gh-content h5');
+         // Check if there are any headings in the content, excluding the upgrade CTA
+         const contentHeadings = Array.from(document.querySelectorAll('.gh-content h2, .gh-content h3, .gh-content h4, .gh-content h5'))
+            .filter(h => !h.closest('.gh-post-upgrade-cta'));
 
          if (contentHeadings.length === 0) {
             // No headings found, hide the entire sidebar
             const sidebar = document.getElementById('toc-sidebar');
             if (sidebar) {
                sidebar.style.display = 'none';
+            }
+            // Also hide inline TOC if it exists
+            const inlineToc = document.getElementById('inline-toc-container');
+            if (inlineToc) {
+               inlineToc.style.display = 'none';
             }
             return;
          }
@@ -101,7 +107,7 @@
                contentSelector: '.gh-content',
                headingSelector: 'h2, h3, h4, h5',
                // For headings inside relative or absolute positioned containers within content.
-               ignoreSelector: '.js-no-anchor',
+               ignoreSelector: '.js-no-anchor, .gh-post-upgrade-cta h2',
                headingsOffset: 100,
                scrollSmoothOffset: -100,
                maxHeaderLength: -1, // unlimited - don't truncate IDs for long Vietnamese headings
