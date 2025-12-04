@@ -2,7 +2,6 @@
   <div
     class="course-card h-full rounded-3xl transition-all duration-500 overflow-hidden bg-white dark:bg-slate-900 border border-gray-100 dark:border-white/5 hover:border-blue-500 dark:hover:border-blue-400 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] relative flex flex-col group hover:shadow-2xl">
 
-    {{#if feature_image}}
     <!-- Featured Badge -->
     {{#if featured}}
     <div class="absolute top-4 left-4 z-50">
@@ -30,18 +29,50 @@
     <!-- Image -->
     <div class="relative overflow-hidden aspect-video">
       <a href="{{url}}" class="block h-full">
-        <img class="w-full h-full object-cover transition-transform duration-700 ease-out"
+        {{#if feature_image}}
+        <img class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
           srcset="{{img_url feature_image size=" s"}} 300w, {{img_url feature_image size="m" }} 600w, {{img_url
           feature_image size="l" }} 1000w, {{img_url feature_image size="xl" }} 2000w"
           sizes="(max-width: 1000px) 400px, 700px" src="{{img_url feature_image size=" m"}}" alt="{{title}}"
           loading="lazy" />
+        {{else}}
+        <div
+          class="w-full h-full bg-gradient-to-br from-blue-100 via-cyan-50 to-blue-50 dark:from-slate-800 dark:via-blue-950 dark:to-slate-900 relative overflow-hidden">
+          <!-- Background Pattern -->
+          <div class="absolute inset-0 opacity-5 dark:opacity-10">
+            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <pattern id="grid-course" width="10" height="10" patternUnits="userSpaceOnUse">
+                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" stroke-width="0.5" />
+              </pattern>
+              <rect width="100" height="100" fill="url(#grid-course)" />
+            </svg>
+          </div>
+          <!-- Title Overlay -->
+          <div class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-10">
+            {{#if @site.logo}}
+            <img src="{{@site.logo}}" alt="{{@site.title}}"
+              class="h-12 w-auto max-w-[120px] mb-3 opacity-80 dark:opacity-70 object-contain" loading="lazy" />
+            {{else}}
+            <svg class="w-10 h-10 text-blue-400 dark:text-blue-600 mb-3 opacity-50" fill="none" stroke="currentColor"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+              </path>
+            </svg>
+            {{/if}}
+            <h3
+              class="text-lg font-extrabold text-gray-900 dark:text-white line-clamp-3 leading-tight px-4 drop-shadow-sm">
+              {{title}}
+            </h3>
+          </div>
+        </div>
+        {{/if}}
         <!-- Subtle Gradient Overlay -->
         <div
           class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         </div>
       </a>
     </div>
-    {{/if}}
 
     <!-- Content -->
     <div class="p-6 flex flex-col flex-grow relative">
