@@ -271,6 +271,15 @@
                   title.classList.remove('text-gray-600', 'dark:text-gray-400', 'font-medium');
                   title.classList.add('text-blue-700', 'dark:text-blue-400', 'font-bold');
                }
+
+               // Auto-scroll active lesson into view (within lesson list container only)
+               setTimeout(() => {
+                  item.scrollIntoView({
+                     behavior: 'smooth',
+                     block: 'center',
+                     inline: 'nearest'
+                  });
+               }, 300); // Small delay to ensure DOM is fully rendered
             }
          });
       }

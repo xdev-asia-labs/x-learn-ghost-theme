@@ -9,6 +9,11 @@
     scroll-behavior: smooth;
   }
 
+  /* Smooth scroll for lesson list container */
+  .lesson-list {
+    scroll-behavior: smooth;
+  }
+
   /* Optimize rendering performance */
   * {
     -webkit-font-smoothing: antialiased;
