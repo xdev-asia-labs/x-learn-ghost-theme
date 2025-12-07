@@ -18,10 +18,8 @@
       }
    </script>
 
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet" media="print" onload="this.media='all'">
+   <!-- Local Fonts -->
+   <link rel="stylesheet" href="{{asset 'vendor/fonts/fonts.css'}}">
 
    <link rel="stylesheet" href="{{asset 'css/app.min.css'}}">
    <link rel="stylesheet" href="{{asset 'css/highlight-custom.css'}}">
@@ -64,18 +62,16 @@
    <script src="{{asset 'js/dropdown-navigation.js'}}" defer></script>
    <script src="{{asset 'js/swiper-bundle.min.js'}}" defer></script>
    <script src="{{asset 'js/topics-swiper.js'}}" defer></script>
-   <!-- Highlight.js from CDN -->
-   <link rel="stylesheet" id="hljs-light"
-      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
-   <link rel="stylesheet" id="hljs-dark"
-      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" disabled>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/shell.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/nginx.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dockerfile.min.js"></script>
+   <!-- Highlight.js (Local) -->
+   <link rel="stylesheet" id="hljs-light" href="{{asset 'vendor/highlight.js/atom-one-light.min.css'}}">
+   <link rel="stylesheet" id="hljs-dark" href="{{asset 'vendor/highlight.js/atom-one-dark.min.css'}}" disabled>
+   <script src="{{asset 'vendor/highlight.js/highlight.min.js'}}"></script>
+   <script src="{{asset 'vendor/highlight.js/languages/bash.min.js'}}"></script>
+   <script src="{{asset 'vendor/highlight.js/languages/shell.min.js'}}"></script>
+   <script src="{{asset 'vendor/highlight.js/languages/sql.min.js'}}"></script>
+   <script src="{{asset 'vendor/highlight.js/languages/yaml.min.js'}}"></script>
+   <script src="{{asset 'vendor/highlight.js/languages/nginx.min.js'}}"></script>
+   <script src="{{asset 'vendor/highlight.js/languages/dockerfile.min.js'}}"></script>
    <script src="{{asset 'js/highlight-bundle.js'}}" defer></script>
    <script src="{{asset 'js/code-copy.js'}}" defer></script>
 
