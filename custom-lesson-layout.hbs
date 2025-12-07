@@ -15,54 +15,133 @@
    <section class="single-lesson-area pt-8 md:pt-10 lg:pt-16">
       <div class="container mx-auto">
          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 lg:gap-8">
-            <div class="md:col-span-12 lg:col-span-4 lg:order-1 order-2">
+            <div class="md:col-span-12 lg:col-span-4 lg:order-2 order-2">
                <div class="lesson-list-sidebar sticky top-8">
                   <div class="sidebar rounded-lg shadow duration-300">
                      <div class="left-lesson-list">
-                        <!-- Lesson list container with loading state -->
-                        <div class="lessons-container" data-load-lessons="true">
+                        <!-- Lesson list with server-side rendering -->
+                        <div class="lessons-container">
                            <h3
                               class="text-2xl font-bold text-gray-800 group-hover:text-blue-800 transition-colors duration-300 px-6 pt-6 pb-6">
                               {{t "course-lessons"}}
                            </h3>
 
-                           {{#if access}}
-                           <!-- Course Progress Section -->
-                           <div class="course-progress px-6 pb-6 smooth-fade-in">
-                              <div class="progress-stats flex justify-between items-center mb-2">
-                                 <span class="text-sm text-gray-400">{{t "progress"}}</span>
-                                 <span class="text-sm font-medium text-blue-800" id="progress-percentage">0%</span>
+
+                           {{!-- Load all lessons, filter by course ID with JavaScript --}}
+                           {{#get "posts" filter="tag:hash-lesson" limit="all" order="published_at asc" include="tags"}}
+                           {{#if posts}}
+                           <style>
+                              .related-lesson {
+                                 opacity: 0;
+                                 transition: opacity 0.3s ease;
+                              }
+
+                              .related-lesson.visible {
+                                 opacity: 1;
+                              }
+
+                              .lesson-item {
+                                 display: none;
+                              }
+
+                              .lesson-item.visible {
+                                 display: block;
+                              }
+
+                              .lesson-box.active {
+                                 background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+                                 border-color: transparent !important;
+                              }
+
+                              .lesson-box.active .lesson-icon div {
+                                 background: rgba(255, 255, 255, 0.2) !important;
+                                 color: white !important;
+                              }
+
+                              .lesson-box.active h4 {
+                                 color: white !important;
+                              }
+                           </style>
+                           <div class="related-lesson pb-6">
+                              <ol class="lesson-list max-h-[60vh] overflow-y-auto custom-scrollbar px-4 pt-4">
+                                 {{#foreach posts}}
+                                 <li class="lesson-item mb-2" data-all-tags="{{#foreach tags visibility="
+                                    all"}}{{slug}},{{/foreach}}">
+                                    <a href="{{url}}"
+                                       class="lesson-box block p-3 rounded-xl border border-transparent hover:bg-blue-50 dark:hover:bg-slate-800 hover:border-blue-200 dark:hover:border-blue-900 transition-all duration-300"
+                                       id="{{slug}}" data-lesson-slug="{{slug}}">
+                                       <h4
+                                          class="text-sm font-medium text-gray-600 dark:text-gray-400 transition-colors duration-300">
+                                          {{title}}
+                                       </h4>
+                                    </a>
+                                 </li>
+                                 {{/foreach}}
+                              </ol>
+                           </div>
+                           <script>
+                              // Filter lessons by course ID from body class
+                              (function () {
+                                 const bodyClasses = document.body.className;
+                                 const courseIdMatch = bodyClasses.match(/tag-(hash-course-id-\d+)/);
+
+                                 if (!courseIdMatch) return;
+
+                                 const currentCourseId = courseIdMatch[1];
+                                 const container = document.querySelector('.related-lesson');
+
+                                 if (!container) return;
+
+                                 const allLessons = container.querySelectorAll('.lesson-item[data-all-tags]');
+                                 let visibleCount = 0;
+                                 const currentPath = window.location.pathname;
+
+                                 allLessons.forEach((lesson) => {
+                                    const allTags = lesson.getAttribute('data-all-tags') || '';
+
+                                    if (allTags.includes(currentCourseId)) {
+                                       lesson.classList.add('visible');
+                                       visibleCount++;
+                                       const numberEl = lesson.querySelector('.lesson-icon div');
+                                       if (numberEl) numberEl.textContent = visibleCount;
+
+                                       // Highlight active lesson
+                                       const box = lesson.querySelector('.lesson-box');
+                                       if (box && currentPath.includes(box.id)) {
+                                          box.classList.add('active');
+                                       }
+                                    }
+                                 });
+
+                                 if (visibleCount > 0) {
+                                    container.classList.add('visible');
+                                 }
+                              })();
+                           </script>
+                           {{else}}
+                           <div class="no-lessons-message px-6 py-12 text-center">
+                              <div class="mb-4 relative">
+                                 <div class="absolute inset-0 bg-blue-500/20 blur-xl rounded-full"></div>
+                                 <svg class="w-16 h-16 mx-auto text-blue-500 relative z-10" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                       d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                                    </path>
+                                 </svg>
                               </div>
-                              <div class="progress-bar bg-gray-200 rounded-full h-2 mb-2">
-                                 <div class="progress-fill bg-blue-800 h-2 rounded-full transition-all duration-300"
-                                    id="progress-fill" style="width: 0%"></div>
-                              </div>
-                              <div class="progress-text text-xs text-gray-400" id="progress-text">0 of 0 lessons
-                                 completed</div>
+                              <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2">{{t "no-lessons-title"}}
+                              </h4>
+                              <p class="text-sm text-gray-500 dark:text-gray-400 max-w-[200px] mx-auto leading-relaxed">
+                                 {{t "lessons-coming-soon"}}</p>
                            </div>
                            {{/if}}
-
-                           <!-- Loading indicator -->
-                           <div class="lessons-loading px-6 py-4 text-center text-gray-500">
-                              <svg class="animate-spin h-8 w-8 mx-auto mb-2" xmlns="http://www.w3.org/2000/svg"
-                                 fill="none" viewBox="0 0 24 24">
-                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                    stroke-width="4"></circle>
-                                 <path class="opacity-75" fill="currentColor"
-                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                                 </path>
-                              </svg>
-                              <p>{{t "loading"}}...</p>
-                           </div>
-
-                           <!-- Lessons will be loaded here -->
-                           <ol class="lesson-list" style="display:none;"></ol>
+                           {{/get}}
                         </div>
                      </div>
                   </div>
                </div>
             </div>
-            <div class="md:col-span-12 lg:col-span-8 lg:order-2 order-1">
+            <div class="md:col-span-12 lg:col-span-8 lg:order-1 order-1">
                <div class="gh-content prose prose-lg pb-8 dark:prose-invert">
                   {{content}}
 
@@ -120,111 +199,8 @@
    </section>
    {{/post}}
 
-   <!-- Load Lessons via AJAX (copied from course page) -->
+   <!-- Highlight Active Lesson -->
    <script>
-      async function loadCourseLessons() {
-         const lessonContainer = document.querySelector('[data-load-lessons="true"]');
-         if (!lessonContainer) return;
-
-         // Extract course ID from body classes (e.g., "tag-hash-course-id-1")
-         const bodyClasses = document.body.className;
-         const courseIdMatch = bodyClasses.match(/tag-(hash-course-id-[\d]+)/);
-         if (!courseIdMatch) {
-            console.error('No course ID found in body classes');
-            return;
-         }
-
-         const courseId = courseIdMatch[1]; // e.g., "hash-course-id-1"
-
-         try {
-            // Get API key from Ghost Code Injection config
-            const apiKey = window.ghostConfig?.apiKey || '1f06b81ddee9f42ffca580be1b';
-            const siteUrl = '{{@site.url}}'.replace(/\/$/, ''); // Remove trailing slash
-            const apiUrl = `${siteUrl}/ghost/api/content/posts/`;
-            const params = new URLSearchParams({
-               key: apiKey,
-               filter: `tag:${courseId}+tag:hash-lesson`,
-               include: 'tags,authors',
-               order: 'published_at asc',
-               limit: '100'
-            });
-
-            const response = await fetch(`${apiUrl}?${params}`);
-
-            if (!response.ok) {
-               throw new Error(`API Error: ${response.status}`);
-            }
-
-            const data = await response.json();
-
-            if (data.posts && data.posts.length > 0) {
-               const lessonsHTML = data.posts.map((post, index) => `
-                  <li class="lesson-item mb-2">
-                     <a href="${post.url}" class="lesson-box block p-4 rounded-xl border border-transparent hover:bg-blue-50 dark:hover:bg-slate-800 hover:border-blue-200 dark:hover:border-blue-900 transition-all duration-300" id="${post.slug}" data-lesson-slug="${post.slug}">
-                        <div class="flex items-start gap-4">
-                           <div class="lesson-icon flex-shrink-0">
-                              <div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-slate-800 text-blue-500 dark:text-blue-400 flex items-center justify-center text-sm font-bold transition-all duration-300">
-                                 ${index + 1}
-                              </div>
-                           </div>
-                           <div class="flex-1 min-w-0">
-                              <h4 class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1 transition-colors duration-300">${post.title}</h4>
-                           </div>
-                        </div>
-                     </a>
-                  </li>
-               `).join('');
-
-               lessonContainer.innerHTML = `
-                  <div class="related-lesson pb-6">
-                     <h3 class="text-xl font-bold text-gray-900 dark:text-white transition-colors duration-300 px-6 pt-6 pb-4 border-b border-gray-100 dark:border-white/10 flex items-center gap-2">
-                        <span class="w-1 h-5 bg-blue-600 rounded-full"></span>
-                        {{t "course-lessons"}}
-                     </h3>
-                     <ol class="lesson-list max-h-[60vh] overflow-y-auto custom-scrollbar px-4 pt-4">
-                        ${lessonsHTML}
-                     </ol>
-                  </div>
-               `;
-
-               // Highlight active lesson after loading
-               setTimeout(highlightActiveLesson, 100);
-            } else {
-               lessonContainer.innerHTML = `
-                  <div class="no-lessons-message px-6 py-12 text-center">
-                     <div class="mb-4 relative">
-                        <div class="absolute inset-0 bg-blue-500/20 blur-xl rounded-full"></div>
-                        <svg class="w-16 h-16 mx-auto text-blue-500 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                        </svg>
-                     </div>
-                     <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2">{{t "no-lessons-title"}}</h4>
-                     <p class="text-sm text-gray-500 dark:text-gray-400 max-w-[200px] mx-auto leading-relaxed">{{t "lessons-coming-soon"}}</p>
-                  </div>
-               `;
-            }
-         } catch (error) {
-            console.error('Error loading lessons:', error);
-            lessonContainer.innerHTML = `
-               <div class="px-6 py-12 text-center">
-                  <svg class="w-12 h-12 mx-auto text-red-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-                  </svg>
-                  <p class="text-sm text-red-500 mb-2">{{t "cannot-load-lessons"}}</p>
-                  <p class="text-xs text-gray-500 dark:text-gray-400">{{t "error"}}: ${error.message}</p>
-                  <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">{{t "check-api-key"}}</p>
-               </div>
-            `;
-         }
-      }
-
-      // Run when DOM is ready
-      if (document.readyState === 'loading') {
-         document.addEventListener('DOMContentLoaded', loadCourseLessons);
-      } else {
-         loadCourseLessons();
-      }
-
       // Function to highlight active lesson
       function highlightActiveLesson() {
          const currentPath = window.location.pathname;
@@ -282,6 +258,13 @@
                }, 300); // Small delay to ensure DOM is fully rendered
             }
          });
+      }
+
+      // Run when DOM is ready
+      if (document.readyState === 'loading') {
+         document.addEventListener('DOMContentLoaded', highlightActiveLesson);
+      } else {
+         highlightActiveLesson();
       }
    </script>
 
