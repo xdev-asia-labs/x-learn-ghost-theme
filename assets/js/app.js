@@ -422,6 +422,39 @@ JS Table of Conttent
         return;
       }
 
+      // Function to generate a slug from text (supports Vietnamese)
+      function generateHeadingId(text) {
+        return text
+          .toLowerCase()
+          .normalize('NFD') // Normalize to decomposed form
+          .replace(/[\u0300-\u036f]/g, '') // Remove diacritics
+          .replace(/đ/g, 'd').replace(/Đ/g, 'd') // Handle Vietnamese đ
+          .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
+          .replace(/\s+/g, '-') // Replace spaces with hyphens
+          .replace(/-+/g, '-') // Replace multiple hyphens with single
+          .replace(/^-|-$/g, '') // Remove leading/trailing hyphens
+          .substring(0, 100); // Limit length
+      }
+
+      // Auto-generate IDs for headings that don't have them
+      const usedIds = new Set();
+      headings.forEach(heading => {
+        if (!heading.id) {
+          let baseId = generateHeadingId(heading.textContent) || 'heading';
+          let id = baseId;
+          let counter = 1;
+          // Ensure unique ID
+          while (usedIds.has(id)) {
+            id = baseId + '-' + counter;
+            counter++;
+          }
+          heading.id = id;
+          usedIds.add(id);
+        } else {
+          usedIds.add(heading.id);
+        }
+      });
+
       // Find the first paragraph in the content
       const firstParagraph = contentArea.querySelector('p');
 

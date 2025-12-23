@@ -152,6 +152,34 @@
          display: none !important;
       }
 
+      /* Gradient fade overlay before paywall */
+      .gh-post-upgrade-cta::before {
+         content: '' !important;
+         position: absolute !important;
+         top: -150px !important;
+         left: 0 !important;
+         right: 0 !important;
+         height: 150px !important;
+         background: linear-gradient(to bottom, 
+            transparent 0%,
+            rgba(255, 255, 255, 0.3) 20%,
+            rgba(255, 255, 255, 0.7) 50%,
+            rgba(255, 255, 255, 0.95) 80%,
+            rgba(255, 255, 255, 1) 100%) !important;
+         pointer-events: none !important;
+         z-index: 10 !important;
+      }
+
+      /* Dark mode gradient fade */
+      .dark .gh-post-upgrade-cta::before {
+         background: linear-gradient(to bottom, 
+            transparent 0%,
+            rgba(2, 6, 23, 0.3) 20%,
+            rgba(2, 6, 23, 0.7) 50%,
+            rgba(2, 6, 23, 0.95) 80%,
+            rgba(2, 6, 23, 1) 100%) !important;
+      }
+
       /* Customize Ghost Membership Paywall - Vietnamese Translation */
       .gh-post-upgrade-cta {
          background: linear-gradient(to right, rgba(37, 99, 235, 0.9), rgba(8, 145, 178, 0.9)),
@@ -160,7 +188,8 @@
          background-position: center !important;
          color: #ffffff !important;
          position: relative !important;
-         overflow: hidden !important;
+         overflow: visible !important;
+         margin-top: 0 !important;
       }
 
       .gh-post-upgrade-cta h2::after {

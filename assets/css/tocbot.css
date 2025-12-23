@@ -1,121 +1,114 @@
 /* Table of Contents Styles */
-.inline-toc-widget .gh-toc {
-  font-family: inherit;
-  line-height: 1.6;
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
 }
 
-.inline-toc-widget .gh-toc ol {
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(156, 163, 175, 0.3);
+  border-radius: 20px;
+}
+
+.custom-scrollbar:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(156, 163, 175, 0.5);
+}
+
+/* Floating TOC List */
+.gh-toc ol {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.inline-toc-widget .gh-toc li {
-  margin: 0.5rem 0;
+.gh-toc ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.gh-toc li {
+  margin: 0;
   padding: 0;
 }
 
-.inline-toc-widget .gh-toc a {
+/* TOC Link Styles */
+.gh-toc a {
   display: block;
-  color: #374151;
   text-decoration: none;
-  padding: 0px 0;
-  font-weight: 400;
-  transition: color 0.2s ease;
-  border-bottom: none;
+  color: #4b5563; /* text-gray-600 */
+  padding: 0.5rem 0.75rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  border-left: 2px solid transparent;
+  margin-bottom: 2px;
 }
 
-.inline-toc-widget .gh-toc a:hover {
-  color: #f97316;
-  text-decoration: none;
+/* Dark mode support handled via parent class usually, but explicit hex for fallback */
+.dark .gh-toc a {
+  color: #9ca3af; /* text-gray-400 */
 }
 
-/* Nested TOC items */
-.inline-toc-widget .gh-toc ol ol {
-  margin-left: 1rem;
-  margin-top: 0.25rem;
+.gh-toc a:hover {
+  color: #2563eb; /* text-blue-600 */
+  background-color: rgba(37, 99, 235, 0.05); /* bg-blue-600/5 */
 }
 
-.inline-toc-widget .gh-toc ol ol a {
-  font-size: 0.9em;
-  color: #6b7280;
+.dark .gh-toc a:hover {
+  color: #60a5fa; /* text-blue-400 */
+  background-color: rgba(96, 165, 250, 0.1);
 }
 
-.inline-toc-widget .gh-toc ol ol ol {
-  margin-left: 1rem;
+/* Active State */
+.is-active-link {
+  color: #2563eb !important; /* text-blue-600 */
+  font-weight: 600;
+  background-color: rgba(37, 99, 235, 0.08) !important;
+  border-left-color: #2563eb !important;
 }
 
-.inline-toc-widget .gh-toc ol ol ol a {
-  font-size: 0.85em;
-  color: #9ca3af;
+.dark .is-active-link {
+  color: #60a5fa !important; /* text-blue-400 */
+  background-color: rgba(96, 165, 250, 0.15) !important;
+  border-left-color: #60a5fa !important;
 }
 
-/* Mobile responsiveness */
+/* Nested Items Indentation */
+.gh-toc ol ol a {
+  padding-left: 1.5rem;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.gh-toc ol ol ol a {
+  padding-left: 2.25rem;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+/* Base Styles necessary for tocbot */
+.toc-list.is-collapsed {
+  display: none;
+}
+
+.is-collapsible {
+  max-height: 1000px;
+  overflow: hidden;
+  transition: all 300ms ease-in-out;
+}
+
+.is-collapsed {
+  max-height: 0;
+}
+
+/* Mobile responsive tweak */
 @media (max-width: 768px) {
-  .inline-toc-widget {
-    padding: 1rem;
-    margin: 1rem 0;
-  }
-  
-  .inline-toc-widget .gh-toc {
-    font-size: 0.9rem;
-  }
-}
-
-/* Collapsed state */
-.inline-toc-widget .toc-list.is-collapsed {
-  display: none;
-}
-
-.inline-toc-widget .toc-list-item .is-collapsed {
-  display: none;
-}
-
-/* Legacy sidebar TOC styles (kept for backward compatibility) */
-li.toc-list-item a {
-  display: block;
-  margin-bottom: 12px;
-}
-
-.toc-list-item::marker {
-  font-size: 22px;
-}
-
-.toc-list-item {
-  position: relative;
-}
-
-ol.toc-list {
-  list-style: none !important;
-  margin: 0;
-  padding: 0 !important;
-}
-
-li.toc-list-item .is-collapsed {
-  display: none;
-}
-
-ol.toc-list.is-collapsible {
-  padding-left: 0;
-}
-
- 
-
-/* Hide TOC sidebar on mobile devices */
-@media (max-width: 1023px) {
-  .post-sidebar {
-    display: none !important;
-  }
-}
-
-/* Responsive adjustments for inline TOC */
-@media (max-width: 768px) {
-  .inline-toc-widget {
-    margin: 1.5rem 0 !important;
-    padding: 1rem !important;
-  }
-  
-  .inline-toc-widget .toc-link {
-    font-size: 0.8125rem !important;
+  .gh-toc a {
+    padding: 0.75rem 1rem;
   }
 }

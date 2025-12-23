@@ -14,19 +14,46 @@
                <div
                   class="gh-content prose prose-lg pb-8 dark:prose-invert max-w-none prose-headings:font-serif prose-headings:font-bold prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-img:rounded-xl prose-img:shadow-lg">
                   {{content}}
+               </div>
 
-                  <!-- Inline Table of Contents - will be moved after first paragraph by JavaScript -->
-                  <div id="inline-toc-container"
-                     class="inline-toc-widget bg-gray-50/80 dark:bg-slate-800/80 backdrop-blur border border-gray-200 dark:border-white/10 rounded-xl p-6 my-8 hidden shadow-sm">
+               <!-- Floating TOC Button (Bottom Right) - Shifted up to avoid ScrollTop overlap -->
+               <button id="toc-floating-btn"
+                  class="fixed right-6 bottom-24 z-50 bg-gradient-to-tr from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white rounded-2xl shadow-lg hover:shadow-blue-500/30 ring-1 ring-white/20 transition-all duration-300 flex items-center justify-center group hidden hover:-translate-y-1"
+                  style="width: 56px; height: 56px; min-width: 56px; min-height: 56px;"
+                  aria-label="{{t 'table-of-content'}}">
+                  <svg class="w-7 h-7 toc-icon-open transition-transform duration-300 group-hover:scale-110" fill="none"
+                     stroke="currentColor" viewBox="0 0 24 24">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7">
+                     </path>
+                  </svg>
+                  <svg class="w-7 h-7 toc-icon-close hidden transition-transform duration-300 text-white" fill="none"
+                     stroke="currentColor" viewBox="0 0 24 24">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                     </path>
+                  </svg>
+               </button>
+
+               <!-- Floating TOC Panel (Bottom Right, Floating Card) - Shifted up -->
+               <div id="toc-floating-panel"
+                  class="fixed right-6 bottom-44 z-40 w-80 max-h-[60vh] bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-gray-200/50 dark:border-white/10 rounded-2xl shadow-2xl transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300 cubic-bezier(0.16, 1, 0.3, 1) flex flex-col overflow-hidden">
+                  <div
+                     class="px-5 py-4 border-b border-gray-100/50 dark:border-gray-800/50 bg-gray-50/50 dark:bg-slate-800/50">
                      <p
-                        class="font-serif text-xl text-gray-800 dark:text-gray-100 font-bold mb-4 mt-0 flex items-center gap-2">
-                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M4 6h16M4 12h16M4 18h7"></path>
-                        </svg>
+                        class="font-serif text-lg text-gray-800 dark:text-gray-100 font-bold m-0 flex items-center gap-2">
+                        <span
+                           class="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400">
+                           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                 d="M4 6h16M4 12h16M4 18h7"></path>
+                           </svg>
+                        </span>
                         {{t "table-of-content"}}
                      </p>
-                     <div class="gh-toc"></div>
+                  </div>
+                  <div class="gh-toc p-2 overflow-y-auto custom-scrollbar"></div>
+                  <!-- Gradient overlay at bottom to hint scroll -->
+                  <div
+                     class="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-white dark:from-slate-900 to-transparent pointer-events-none">
                   </div>
                </div>
 
@@ -82,23 +109,127 @@
    <script>
       // Wait for DOM to be ready and tocbot to load
       document.addEventListener('DOMContentLoaded', function () {
+         // Function to generate a slug from text (supports Vietnamese)
+         function generateHeadingId(text) {
+            return text
+               .toLowerCase()
+               .normalize('NFD') // Normalize to decomposed form
+               .replace(/[\u0300-\u036f]/g, '') // Remove diacritics
+               .replace(/đ/g, 'd').replace(/Đ/g, 'd') // Handle Vietnamese đ
+               .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
+               .replace(/\s+/g, '-') // Replace spaces with hyphens
+               .replace(/-+/g, '-') // Replace multiple hyphens with single
+               .replace(/^-|-$/g, '') // Remove leading/trailing hyphens
+               .substring(0, 100); // Limit length
+         }
+
+         // Always regenerate clean slugified IDs for all headings
+         const usedIds = new Set();
+         document.querySelectorAll('.gh-content h1, .gh-content h2, .gh-content h3, .gh-content h4, .gh-content h5, .gh-content h6').forEach(heading => {
+            let baseId = generateHeadingId(heading.textContent) || 'heading';
+            let id = baseId;
+            let counter = 1;
+            // Ensure unique ID
+            while (usedIds.has(id)) {
+               id = baseId + '-' + counter;
+               counter++;
+            }
+            heading.id = id;
+            usedIds.add(id);
+         });
+
          // Check if there are any headings in the content, excluding the upgrade CTA
          const contentHeadings = Array.from(document.querySelectorAll('.gh-content h2, .gh-content h3, .gh-content h4, .gh-content h5'))
             .filter(h => !h.closest('.gh-post-upgrade-cta'));
 
+         const floatingBtn = document.getElementById('toc-floating-btn');
+         const floatingPanel = document.getElementById('toc-floating-panel');
+         const iconOpen = floatingBtn?.querySelector('.toc-icon-open');
+         const iconClose = floatingBtn?.querySelector('.toc-icon-close');
+
          if (contentHeadings.length === 0) {
-            // No headings found, hide the entire sidebar
-            const sidebar = document.getElementById('toc-sidebar');
-            if (sidebar) {
-               sidebar.style.display = 'none';
-            }
-            // Also hide inline TOC if it exists
-            const inlineToc = document.getElementById('inline-toc-container');
-            if (inlineToc) {
-               inlineToc.style.display = 'none';
-            }
+            // No headings found, hide floating TOC button
+            if (floatingBtn) floatingBtn.style.display = 'none';
+            if (floatingPanel) floatingPanel.style.display = 'none';
             return;
          }
+
+         // Show the floating button
+         if (floatingBtn) {
+            floatingBtn.classList.remove('hidden');
+         }
+
+         let isPanelOpen = false;
+
+         function togglePanel() {
+            isPanelOpen = !isPanelOpen;
+            if (isPanelOpen) {
+               // Open: Fade in, scale up, slide up slightly
+               floatingPanel.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-20');
+               floatingPanel.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+
+               // Icon animation
+               iconOpen.classList.add('scale-0', 'opacity-0');
+               iconOpen.classList.remove('scale-100', 'opacity-100');
+               setTimeout(() => {
+                  iconOpen.classList.add('hidden');
+                  iconClose.classList.remove('hidden');
+                  // Small delay to allow transition
+                  requestAnimationFrame(() => {
+                     iconClose.classList.remove('rotate-[-90deg]', 'opacity-0');
+                     iconClose.classList.add('rotate-0', 'opacity-100');
+                  });
+               }, 150);
+            } else {
+               // Close: Fade out, slide down
+               floatingPanel.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+               floatingPanel.classList.add('opacity-0', 'pointer-events-none', 'translate-y-20');
+
+               // Icon animation
+               iconClose.classList.add('rotate-[-90deg]', 'opacity-0');
+               iconClose.classList.remove('rotate-0', 'opacity-100');
+               setTimeout(() => {
+                  iconClose.classList.add('hidden');
+                  iconOpen.classList.remove('hidden');
+                  requestAnimationFrame(() => {
+                     iconOpen.classList.remove('scale-0', 'opacity-0');
+                     iconOpen.classList.add('scale-100', 'opacity-100');
+                  });
+               }, 150);
+            }
+         }
+
+         function closePanel() {
+            if (isPanelOpen) {
+               isPanelOpen = false;
+               floatingPanel.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+               floatingPanel.classList.add('opacity-0', 'pointer-events-none', 'translate-y-20');
+
+               // Reset icons
+               iconClose.classList.add('rotate-[-90deg]', 'opacity-0');
+               iconClose.classList.remove('rotate-0', 'opacity-100');
+               setTimeout(() => {
+                  iconClose.classList.add('hidden');
+                  iconOpen.classList.remove('hidden');
+                  requestAnimationFrame(() => {
+                     iconOpen.classList.remove('scale-0', 'opacity-0');
+                     iconOpen.classList.add('scale-100', 'opacity-100');
+                  });
+               }, 150);
+            }
+         }
+
+         // Toggle panel on button click
+         if (floatingBtn) {
+            floatingBtn.addEventListener('click', togglePanel);
+         }
+
+         // Close panel when clicking outside
+         document.addEventListener('click', function (e) {
+            if (isPanelOpen && !floatingPanel.contains(e.target) && !floatingBtn.contains(e.target)) {
+               closePanel();
+            }
+         });
 
          // Check if tocbot is available
          if (typeof tocbot !== 'undefined') {
@@ -136,6 +267,9 @@
                      const targetElement = document.getElementById(targetId);
 
                      if (targetElement) {
+                        // Close the floating panel first
+                        closePanel();
+
                         // Use native scroll with offset for better performance
                         const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset - 100;
                         window.scrollTo({
@@ -161,10 +295,8 @@
             setTimeout(() => {
                const tocItems = document.querySelectorAll('li.toc-list-item');
                if (tocItems.length <= 0) {
-                  const sidebar = document.getElementById('toc-sidebar');
-                  if (sidebar) {
-                     sidebar.style.display = 'none';
-                  }
+                  if (floatingBtn) floatingBtn.style.display = 'none';
+                  if (floatingPanel) floatingPanel.style.display = 'none';
                }
             }, 100);
          }
