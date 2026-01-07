@@ -5,7 +5,8 @@ A modern, feature-rich Ghost theme designed for online learning platforms with b
 ## Features
 
 - 🎓 **Course Management** - Dynamic course and lesson system with AJAX loading
-- 📱 **Responsive Design** - Mobile-first approach with Tailwind CSS
+- � **Showcase** - Display projects and libraries portfolio
+- �📱 **Responsive Design** - Mobile-first approach with Tailwind CSS
 - 🎨 **Dark Mode** - Built-in dark mode support
 - 🔍 **SEO Optimized** - Structured data and meta tags
 - ⚡ **Fast Loading** - Optimized assets and lazy loading
@@ -113,6 +114,12 @@ The theme uses a tagging system for courses and lessons:
 - Tag with `hash-lesson` (required)
 - Tag with the same `hash-course-id-X` as the parent course
 
+**For Showcase (Projects/Libraries):**
+
+- Tag with `hash-showcase` (required)
+- Add project details in post content
+- Use custom fields for tech stack, external links
+
 **Example:**
 
 ```
@@ -124,9 +131,12 @@ Tags: hash-lesson, hash-course-id-1
 
 Lesson 2: Setup Patroni
 Tags: hash-lesson, hash-course-id-1
+
+Project: My Awesome Library
+Tags: hash-showcase
 ```
 
-The lessons will be automatically loaded via AJAX when viewing the course page.
+The lessons will be automatically loaded via AJAX when viewing the course page. Showcase items will be displayed on the `/showcase/` page with the first item featured.
 
 ## Development
 
@@ -154,6 +164,7 @@ x-learn-ghost-theme/
 ├── partials/          # Handlebars partials
 ├── locales/           # Translation files
 ├── custom-course-layout.hbs    # Course page template
+├── showcase.hbs       # Showcase page template
 ├── custom-lesson-layout.hbs    # Lesson page template
 ├── index.hbs          # Home page template
 ├── package.json       # Theme metadata
