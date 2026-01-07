@@ -110,5 +110,12 @@
   "subscribe-now": "Subscribe now",
   "already-have-an-account": "Already have an account?",
   "sign-in": "Sign in",
-  "this-content-is-for-subscribers-only": "This content is for subscribers only"
+  "this-content-is-for-subscribers-only": "This content is for subscribers only",
+  "showcase": "Showcase",
+  "our-projects": "Our Projects & Libraries",
+  "showcase-description": "Explore our open-source projects, libraries, and applications that we've built to help developers.",
+  "view-project": "View Project",
+  "all-projects": "All Projects",
+  "no-projects": "No projects yet",
+  "no-projects-description": "We're working on exciting projects. Check back soon!"
 }

@@ -1,0 +1,107 @@
+<div class="{{post_class}} card-showcase-item relative mb-8" data-aos="fade-up" data-aos-delay="0">
+    <div
+        class="showcase-card h-full rounded-3xl transition-all duration-500 overflow-hidden bg-white dark:bg-slate-900 border border-gray-100 dark:border-white/5 hover:border-purple-500 dark:hover:border-purple-400 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:hover:shadow-[0_0_30px_rgba(168,85,247,0.15)] relative flex flex-col group">
+
+        <!-- Featured Badge -->
+        {{#if featured}}
+        <div class="absolute top-4 left-4 z-50">
+            <span
+                class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-purple-600 dark:text-purple-400 border border-white/20 shadow-sm">
+                <span class="w-1.5 h-1.5 rounded-full bg-purple-500 mr-1.5 animate-pulse"></span>
+                {{t "featured"}}
+            </span>
+        </div>
+        {{/if}}
+
+        <!-- Type Badge -->
+        <div class="absolute top-4 right-4 z-50">
+            <span
+                class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-purple-600 to-purple-500 text-white shadow-lg shadow-purple-500/30 border border-purple-400/30 backdrop-blur-md">
+                <svg class="w-3 h-3 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                </svg>
+                {{t "showcase"}}
+            </span>
+        </div>
+
+        <!-- Image/Logo -->
+        <div class="relative overflow-hidden aspect-video">
+            <a href="{{url}}" target="_blank" rel="noopener noreferrer" class="block h-full">
+                {{#if feature_image}}
+                <img class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                    srcset="{{img_url feature_image size=" s"}} 300w, {{img_url feature_image size="m" }} 600w,
+                    {{img_url feature_image size="l" }} 1000w" sizes="(max-width: 1000px) 400px, 700px"
+                    src="{{img_url feature_image size=" m"}}" alt="{{title}}" loading="lazy" />
+                {{else}}
+                <div
+                    class="w-full h-full bg-gradient-to-br from-purple-100 via-pink-50 to-purple-50 dark:from-slate-800 dark:via-purple-950 dark:to-slate-900 relative overflow-hidden">
+                    <!-- Background Pattern -->
+                    <div class="absolute inset-0 opacity-5 dark:opacity-10">
+                        <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <pattern id="grid-showcase-{{id}}" width="10" height="10" patternUnits="userSpaceOnUse">
+                                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" stroke-width="0.5" />
+                            </pattern>
+                            <rect width="100" height="100" fill="url(#grid-showcase-{{id}})" />
+                        </svg>
+                    </div>
+                    <!-- Icon -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <svg class="w-20 h-20 text-purple-600/30 dark:text-purple-400/30" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                        </svg>
+                    </div>
+                </div>
+                {{/if}}
+            </a>
+        </div>
+
+        <!-- Content -->
+        <div class="p-6 flex flex-col flex-grow">
+            <!-- Title -->
+            <h3
+                class="font-bold text-xl mb-3 text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors line-clamp-2">
+                <a href="{{url}}" target="_blank" rel="noopener noreferrer">{{title}}</a>
+            </h3>
+
+            <!-- Excerpt -->
+            {{#if excerpt}}
+            <p class="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-3 flex-grow">
+                {{excerpt words="30"}}
+            </p>
+            {{/if}}
+
+            <!-- Tags/Tech Stack -->
+            {{#if tags}}
+            <div class="flex flex-wrap gap-2 mb-4">
+                {{#foreach tags limit="3"}}
+                {{#unless @first}}{{#unless name}}{{!-- Skip internal tags --}}{{/unless}}{{/unless}}
+                {{#if name}}
+                {{#unless (match name "^hash-")}}
+                <span
+                    class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 border border-purple-100 dark:border-purple-800/50">
+                    {{name}}
+                </span>
+                {{/unless}}
+                {{/if}}
+                {{/foreach}}
+            </div>
+            {{/if}}
+
+            <!-- Link Button -->
+            <div class="mt-auto pt-4 border-t border-gray-100 dark:border-white/5">
+                <a href="{{url}}" target="_blank" rel="noopener noreferrer"
+                    class="inline-flex items-center text-sm font-semibold text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors group/link">
+                    <span>{{t "view-project"}}</span>
+                    <svg class="w-4 h-4 ml-2 transition-transform group-hover/link:translate-x-1" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

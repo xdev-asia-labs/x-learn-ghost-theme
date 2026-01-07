@@ -21,6 +21,11 @@ collections:
     template: news
     filter: "tag:hash-news"
 
+  /showcase/:
+    permalink: /showcase/{slug}/
+    template: showcase
+    filter: "tag:hash-showcase"
+
   /:
     permalink: /{slug}/
     template: index

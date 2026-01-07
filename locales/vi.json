@@ -110,5 +110,12 @@
     "subscribe-now": "Đăng ký ngay",
     "already-have-an-account": "Đã có tài khoản?",
     "sign-in": "Đăng nhập",
-    "this-content-is-for-subscribers-only": "Nội dung này chỉ dành cho thành viên đã đăng ký"
+    "this-content-is-for-subscribers-only": "Nội dung này chỉ dành cho thành viên đã đăng ký",
+    "showcase": "Showcase",
+    "our-projects": "Dự án & Thư viện của chúng tôi",
+    "showcase-description": "Khám phá các dự án mã nguồn mở, thư viện và ứng dụng mà chúng tôi đã xây dựng để hỗ trợ các lập trình viên.",
+    "view-project": "Xem dự án",
+    "all-projects": "Tất cả dự án",
+    "no-projects": "Chưa có dự án nào",
+    "no-projects-description": "Chúng tôi đang làm việc trên các dự án thú vị. Hãy quay lại sau nhé!"
 }
