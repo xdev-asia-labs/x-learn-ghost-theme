@@ -10,6 +10,7 @@ Ghost uses **internal tags** (prefixed with `hash-`) to classify content types:
 - `hash-course` - Course posts (filtered in `/courses/` collection)
 - `hash-lesson` - Individual lesson posts (filtered in `/lesson/` collection)
 - `hash-blog` - Blog articles (filtered in `/blog/` collection)
+- `hash-showcase` - Projects/libraries showcase (filtered in `/showcase/` collection)
 - `hash-course-id-{N}` - Links lessons to specific courses (e.g., `hash-course-id-1`)
 
 **Key Pattern**: Always filter content using these tags in `{{#get}}` helpers:
@@ -19,12 +20,16 @@ Ghost uses **internal tags** (prefixed with `hash-`) to classify content types:
 
 {{!-- Get lessons for a course --}}
 {{#get "posts" filter="tag:hash-course-id-1+tag:hash-lesson"}}
+
+{{!-- Get showcase projects --}}
+{{#get "posts" filter="tag:hash-showcase"}}
 ```
 
 ### Custom Routes (`routes.yaml`)
 - `/courses/` → Shows posts tagged `hash-course`
 - `/lesson/` → Shows posts tagged `hash-lesson`
 - `/blog/` → Shows posts tagged `hash-blog`
+- `/showcase/` → Shows posts tagged `hash-showcase` (projects/libraries)
 - Root `/` → Index page
 
 ## Template Hierarchy
@@ -33,12 +38,14 @@ Ghost uses **internal tags** (prefixed with `hash-`) to classify content types:
 - `default.hbs` - Base layout with header/footer, dark mode script (runs before render)
 - `index.hbs` - Homepage: `{{> top-authors}}` → `{{> latest-courses}}` → `{{> latest-articles}}`
 - `custom-course-layout.hbs` - Course detail page with lesson list
-- `custom-lesson-layout.hbs` - Individual lesson with prev/next navigation, TOC
+- `custom-lesson-layout.hbs` - Individual lesson with prev/next navigatio
+- `showcase.hbs` - Projects/libraries showcase with featured item + grid layoutn, TOC
 - `post.hbs` - Blog post with social share, recent posts, related content
 
 ### Key Partials
 - `partials/cards/` - Reusable card components (no style parameters needed)
   - `card-post.hbs` - Glass-morphism post card with author overlay
+  - `card-showcase.hbs` - Purple-themed project card with tech stack tags and external link
   - `card-course.hbs` - Course card with lesson count badge
   - `card-author.hbs` - Author profile card
 - `partials/top-authors.hbs` - Featured author section (displays top 1 author)
@@ -77,6 +84,8 @@ npm run dev    # Build + watch
 - Source: `assets/css/tailwind.css`
 - Output: `assets/css/app.min.css`
 - Config: `tailwind.config.js` (uses Be Vietnam Pro font)
+
+**CRITICAL**: Theme uses **Tailwind CSS 3.4.18**. DO NOT upgrade to v4.x+ due to missing CLI binary bug (GitHub issues #16879, #17620). Version 4+ packages lack the `tailwindcss` executable, breaking all build systems. Always use `tailwindcss: ^3.4.18` in package.json.
 - Additional: `liquid-glass.css` (glass-morphism effects), `prism.css` (syntax highlighting)
 
 ### JavaScript
@@ -136,11 +145,17 @@ Critical CSS in `<head>` hides Ghost "Powered by" links:
 
 ### Filtering Content
 ```handlebars
-{{!-- Exclude courses/lessons from blog --}}
-filter="tag:-[hash-course, hash-lesson]"
+{{!-- Exclude all special content types --}}
+filter="tag:-[hash-course, hash-lesson, hash-showcase]"
 
 {{!-- Get specific course's lessons --}}
 filter="tag:hash-course-id-1+tag:hash-lesson"
+
+{{!-- Combined filters --}}
+filter="authors:{{slug}}+tag:hash-course"
+
+{{!-- Get showcase projects --}}
+filter="tag:hash-showcalesson"
 
 {{!-- Combined filters --}}
 filter="authors:{{slug}}+tag:hash-course"
@@ -185,6 +200,12 @@ npm run build
   - [ ] Blog post cards display (excludes courses/lessons)
   - [ ] Pagination works if >18 posts
   - [ ] Author avatars load correctly
+- [ ] **Showcase Index** - Navigate to `/showcase/`
+  - [ ] First project displays as featured (full-width layout)
+  - [ ] Remaining projects display in grid (3 columns)
+  - [ ] Purple theme consistent with design system
+  - [ ] Tech stack tags render correctly
+  - [ ] External links open in new tabs
 - [ ] **Post Detail** - Open any blog post
   - [ ] Social share buttons functional (Facebook, Twitter, LinkedIn)
   - [ ] Code copy buttons work on syntax blocks

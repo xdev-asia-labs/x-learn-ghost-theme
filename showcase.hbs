@@ -119,17 +119,19 @@
             </div>
 
             <!-- All Projects Grid -->
-            {{#if (> showcase_posts.length 1)}}
+            {{#foreach showcase_posts from="2"}}
+            {{#if @first}}
             <div class="mb-12">
                 <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-8">{{t "all-projects"}}</h2>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {{#foreach showcase_posts from="2"}}
+            {{/if}}
                 {{> "cards/card-showcase"}}
-                {{/foreach}}
+            {{#if @last}}
             </div>
             {{/if}}
+            {{/foreach}}
 
             {{else}}
             <!-- Empty State -->
