@@ -8,8 +8,8 @@ const { src, dest, series } = gulp;
 function buildCSS(done) {
     console.log('Building Tailwind CSS...');
     try {
-        // Use npm exec to run tailwindcss from node_modules (works on all platforms)
-        execSync('npm exec tailwindcss -- -i ./assets/css/tailwind.css -o ./assets/css/app.min.css --minify', {
+        // Use npm run script which uses package.json bin resolution
+        execSync('npm run tailwindcss:build', {
             stdio: 'inherit'
         });
         console.log('✅ Tailwind CSS built successfully');
@@ -22,8 +22,8 @@ function buildCSS(done) {
 // Watch for changes
 function watch() {
     console.log('Watching for changes...');
-    // Use npm exec to run tailwindcss from node_modules (works on all platforms)
-    execSync('npm exec tailwindcss -- -i ./assets/css/tailwind.css -o ./assets/css/app.min.css --minify --watch', {
+    // Use npm run script which uses package.json bin resolution
+    execSync('npm run tailwindcss:watch', {
         stdio: 'inherit'
     });
 }

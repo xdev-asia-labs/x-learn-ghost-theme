@@ -48,6 +48,8 @@
         "build": "gulp build",
         "watch": "gulp watch",
         "zip": "gulp zip",
+        "tailwindcss:build": "tailwindcss -i ./assets/css/tailwind.css -o ./assets/css/app.min.css --minify",
+        "tailwindcss:watch": "tailwindcss -i ./assets/css/tailwind.css -o ./assets/css/app.min.css --minify --watch",
         "test": "gscan .",
         "test:ci": "./test-ci-local.sh",
         "precommit": "./test-ci-local.sh"
