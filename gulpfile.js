@@ -8,8 +8,8 @@ const { src, dest, series } = gulp;
 function buildCSS(done) {
     console.log('Building Tailwind CSS...');
     try {
-        // Use npx for better cross-platform compatibility (works on CI and local)
-        execSync('npx tailwindcss -i ./assets/css/tailwind.css -o ./assets/css/app.min.css --minify', {
+        // Use local node_modules binary for better reliability in CI
+        execSync('./node_modules/.bin/tailwindcss -i ./assets/css/tailwind.css -o ./assets/css/app.min.css --minify', {
             stdio: 'inherit'
         });
         console.log('✅ Tailwind CSS built successfully');
@@ -22,8 +22,8 @@ function buildCSS(done) {
 // Watch for changes
 function watch() {
     console.log('Watching for changes...');
-    // Use npx for better cross-platform compatibility (works on CI and local)
-    execSync('npx tailwindcss -i ./assets/css/tailwind.css -o ./assets/css/app.min.css --minify --watch', {
+    // Use local node_modules binary for better reliability in CI
+    execSync('./node_modules/.bin/tailwindcss -i ./assets/css/tailwind.css -o ./assets/css/app.min.css --minify --watch', {
         stdio: 'inherit'
     });
 }
